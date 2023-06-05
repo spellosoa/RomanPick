@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+
+    <style>
+        .label_back {
+            position: relative;
+        }
+
+        .tab {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #f2f2f2;
+            padding: 10px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .tab a {
+            text-decoration: none;
+            color: #333;
+            padding: 8px 16px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-bottom: none;
+        }
+
+        .tab a:hover {
+            background-color: #ddd;
+        }
+
+        .canvas-container {
+            margin-top: 30px;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+
+<body>
+
+    <article id="home" class="panel intro">
+        <header>
+            <div style="text-align:center;">
+                <div class="label_back">
+                    <div style="">
+                        <img src="images/lable1.png" alt="">
+                        <div class="tab">
+                            <a href="#">탭 1</a>
+                            <a href="#">탭 2</a>
+                            <a href="#">탭 3</a>
+                        </div>
+                        <div class="canvas-container">
+                            <canvas id="textCanvas"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+    </article>
+
+</body>
+
+</html>
