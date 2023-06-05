@@ -17,12 +17,20 @@ db = OracleDB()
 
 app = FastAPI()
 templates = Jinja2Templates(directory="RomanPick")
-app.mount("/static", StaticFiles(directory="RomanPick/static"), name="static")
+app.mount("/RomanPick", StaticFiles(directory="RomanPick"), name="RomanPick")
 
 
 @app.get("/")
 def read_root(request:Request):
-    return templates.TemplateResponse('index.html',{"request" : request})
+    return templates.TemplateResponse('01_intro.html',{"request" : request})
+
+@app.get("/main")
+def read_main(request:Request):
+    return templates.TemplateResponse('02_main.html', {"request" : request})
+
+@app.get("/main/{item}")
+def pick_cluster(request:Request, item:str):
+    return templates.TemplateResponse('03_heart.html', {"request" : request})
 
 # @app.get("/items/{item_id}")
 # def read_item(item_id: int, q: Optional[str] = None):
