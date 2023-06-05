@@ -10,9 +10,9 @@
 	<title>Heart</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-	<link rel="stylesheet" href="assets/css/main.css" />
+	<link rel="stylesheet" href="{{ url_for('RomanPick', path='/assets/css/main.css') }}" />
 	<noscript>
-		<link rel="stylesheet" href="assets/css/noscript.css" />
+		<link rel="stylesheet" href="{{ url_for('RomanPick', path='assets/css/noscript.css') }}" />
 	</noscript>
 </head>
 
@@ -48,7 +48,7 @@
 
 						<div class="label_back">
 							<div style="position: relative;">
-								<img src="images/lable1.png" alt="">
+								<img src="{{ url_for('RomanPick', path='images/lable1.png') }}" alt="">
 
 								<button id="refreshButton" onclick="location.reload()">
 									<i class="fas fa-sync-alt"></i>
@@ -277,11 +277,11 @@
 	</script>
 
 
-	<script src="assets/js/jquery.min.js"></script>
-	<script src="assets/js/browser.min.js"></script>
-	<script src="assets/js/breakpoints.min.js"></script>
-	<script src="assets/js/util.js"></script>
-	<script src="assets/js/main.js"></script>
+	<script src="{{ url_for('RomanPick', path='assets/js/jquery.min.js') }}"></script>
+	<script src="{{ url_for('RomanPick', path='assets/js/browser.min.js') }}"></script>
+	<script src="{{ url_for('RomanPick', path='assets/js/breakpoints.min.js') }}"></script>
+	<script src="{{ url_for('RomanPick', path='assets/js/util.js') }}"></script>
+	<script src="{{ url_for('RomanPick', path='assets/js/main.js') }}"></script>
 
 </body>
 
