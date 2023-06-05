@@ -2445,7 +2445,16 @@ input, select, textarea {
 		object-fit: cover;
 	}
 
-
+   /* 새로고침 버튼 */
+   #refreshButton {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      padding: 5px;
+      font-size: 12px;
+      background-color: #D96A80;
+      border-radius: 30%;
+   }
    
 
    
