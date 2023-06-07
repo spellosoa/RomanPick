@@ -191,49 +191,51 @@
 					<h2 style="font-size: 25px; color:#D96A80">[ 오늘 당신의 기분은 어떠신가요? ]</h2>
 				</header>
 
-				<div style="text-align:center;">
-					<div class="label_back">
-						<img src="images/emot_back.jpg" alt="">
-						<div class="image-container">
-							<div class="image-item">
-								<img class="thumbnail" src="images/l_red.png" alt="">
-								<div class="overlay">
-									<span class="text">Red Image</span>
+				<header>
+					<div style="text-align:center;">
+						<div class="label_back">
+							<img src="{{ url_for('RomanPick', path='images/lable1.png') }}" alt="">
+							<div class="image-container" id="emotion-container">
+								<div class="image-item">
+									<img class="thumbnail" src="{{ url_for('RomanPick', path='images/l_red.png') }}" alt="">
+									<div class="overlay">
+										<span class="text">Red Image</span>
+									</div>
 								</div>
-							</div>
-							<div class="image-item">
-								<img class="thumbnail" src="images/l_purple.png" alt="">
-								<div class="overlay">
-									<span class="text">Purple Image</span>
+								<div class="image-item">
+									<img class="thumbnail" src="{{ url_for('RomanPick', path='images/l_purple.png') }}" alt="">
+									<div class="overlay">
+										<span class="text">Purple Image</span>
+									</div>
 								</div>
-							</div>
-							<div class="image-item">
-								<img class="thumbnail" src="images/l_orange.png" alt="">
-								<div class="overlay">
-									<span class="text">Orange Image</span>
+								<div class="image-item">
+									<img class="thumbnail" src="{{ url_for('RomanPick', path='images/l_orange.png') }}" alt="">
+									<div class="overlay">
+										<span class="text">Orange Image</span>
+									</div>
 								</div>
-							</div>
-							<div class="image-item">
-								<img class="thumbnail" src="images/l_yellow.png" alt="">
-								<div class="overlay">
-									<span class="text">Yellow Image</span>
+								<div class="image-item">
+									<img class="thumbnail" src="{{ url_for('RomanPick', path='images/l_yellow.png') }}" alt="">
+									<div class="overlay">
+										<span class="text">Yellow Image</span>
+									</div>
 								</div>
-							</div>
-							<div class="image-item">
-								<img class="thumbnail" src="images/l_green.png" alt="">
-								<div class="overlay">
-									<span class="text">Green Image</span>
+								<div class="image-item">
+									<img class="thumbnail" src="{{ url_for('RomanPick', path='images/l_green.png') }}" alt="">
+									<div class="overlay">
+										<span class="text">Green Image</span>
+									</div>
 								</div>
-							</div>
-							<div class="image-item">
-								<img class="thumbnail" src="images/l_blue.png" alt="">
-								<div class="overlay">
-									<span class="text">Blue Image</span>
+								<div class="image-item">
+									<img class="thumbnail" src="{{ url_for('RomanPick', path='images/l_blue.png') }}" alt="">
+									<div class="overlay">
+										<span class="text">Blue Image</span>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
+				</header>
 
 				<!-- <form action="#" method="post">
 					<div>
@@ -287,7 +289,11 @@
 	</div>
 
 	<!-- Scripts -->
-
+	<script src="{{ url_for('RomanPick', path='assets/js/jquery.min.js') }}"></script>
+	<script src="{{ url_for('RomanPick', path='assets/js/browser.min.js') }}"></script>
+	<script src="{{ url_for('RomanPick', path='assets/js/breakpoints.min.js') }}"></script>
+	<script src="{{ url_for('RomanPick', path='assets/js/util.js') }}"></script>
+	<script src="{{ url_for('RomanPick', path='assets/js/main.js') }}"></script>
 	<script>
 		const Searching = Search.prototype;
 
@@ -300,6 +306,15 @@
 
 		new Search();
 	</script>
+
+	<!-- 하트 이미지 클릭하면 동적테스트 페이지로 이동 -->
+	<script>
+		$('.thumbnail').click(function(){
+			var label = $(this).next('.overlay').find('.text').text();
+			console.log(label)
+			window.location.href = "/" + label;
+		});
+	</script>	
 
 	<!-- 바코드 사진업로드 -->
 	<script>
@@ -335,11 +350,7 @@
 	<!-- drag & drop -->
 
 
-	<script src="{{ url_for('RomanPick', path='assets/js/jquery.min.js') }}"></script>
-	<script src="{{ url_for('RomanPick', path='assets/js/browser.min.js') }}"></script>
-	<script src="{{ url_for('RomanPick', path='assets/js/breakpoints.min.js') }}"></script>
-	<script src="{{ url_for('RomanPick', path='assets/js/util.js') }}"></script>
-	<script src="{{ url_for('RomanPick', path='assets/js/main.js') }}"></script>
+
 
 </body>
 

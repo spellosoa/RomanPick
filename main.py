@@ -1,11 +1,10 @@
 from typing import Optional
-from fastapi import FastAPI, Request, WebSocket, WebSocketDisconnect
+from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
-from oracleDB import OracleDB
+
 from pydantic import BaseModel
-from camera import *
 
 class novel(BaseModel):
     novel_no : int
@@ -14,7 +13,7 @@ class novel(BaseModel):
     novel_synopsis : str
     novel_cover : str
 
-db = OracleDB()
+
 
 app = FastAPI()
 templates = Jinja2Templates(directory="RomanPick")
@@ -55,12 +54,12 @@ async def start_camera():
 #     print(book)
 #     return  {"message": "Book inserted successfully"}
 
-    # @app.get("/book")
-    # def insert_item(num:int, title:str):
-    #     values = {"num": num, "title": title}
-    #     db.execute_insert1(values)
-    #     return  {"message": "Book inserted successfully"}
-    
+# @app.get("/book")
+# def insert_item(num:int, title:str):
+#     values = {"num": num, "title": title}
+#     db.execute_insert1(values)
+#     return  {"message": "Book inserted successfully"}
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="localhost", port=8000)
