@@ -3,7 +3,7 @@ from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
-from oracleDB import OracleDB
+
 from pydantic import BaseModel
 
 class novel(BaseModel):
@@ -13,7 +13,7 @@ class novel(BaseModel):
     novel_synopsis : str
     novel_cover : str
 
-db = OracleDB()
+
 
 app = FastAPI()
 templates = Jinja2Templates(directory="RomanPick")
@@ -46,11 +46,11 @@ def pick_cluster(request:Request, item:str):
 #     print(book)
 #     return  {"message": "Book inserted successfully"}
 
-@app.get("/book")
-def insert_item(num:int, title:str):
-    values = {"num": num, "title": title}
-    db.execute_insert1(values)
-    return  {"message": "Book inserted successfully"}
+# @app.get("/book")
+# def insert_item(num:int, title:str):
+#     values = {"num": num, "title": title}
+#     db.execute_insert1(values)
+#     return  {"message": "Book inserted successfully"}
 
 if __name__ == "__main__":
     import uvicorn
