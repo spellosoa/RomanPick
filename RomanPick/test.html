@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>동영상 표시</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var socket = new WebSocket('ws://localhost:8000/ws');
+
+            socket.onopen = function(event) {
+                console.log('WebSocket connection established.');
+
+                $("#startButton").click(function() {
+                    socket.send('start');
+                });
+            };
+
+            socket.onmessage = function(event) {
+                var imageData = event.data;
+                // 동영상 데이터를 이용하여 업데이트
+                // 예를 들어 <video> 요소를 사용하여 동영상을 표시할 수 있습니다.
+                // $("#videoElement").attr("src", "data:image/jpeg;base64," + imageData);
+            };
+
+            socket.onclose = function(event) {
+                console.log('WebSocket connection closed.');
+            };
+        });
+    </script>
+</head>
+<body>
+    <button id="startButton">시작</button>
+    <!-- 동영상을 표시할 요소 추가 -->
+    <!-- 예를 들어 <video> 요소를 사용하여 동영상을 표시할 수 있습니다. -->
+    <!-- <video id="videoElement" autoplay controls></video> -->
+</body>
+</html>
