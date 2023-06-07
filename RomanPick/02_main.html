@@ -173,9 +173,8 @@
 										onfocus="this.placeholder = ''" onblur="this.placeholder = '바코드 식별번호 13자리'">
 								</div>
 
-								<div id="drop"> 바코드 사진 Drag & Drop
-									<div id="thumbnails">
-									</div>
+								<div id="drop"> 카메라 아이콘
+									
 								</div>
 
 								<input type="button" id="btnSubmit" value="OK" />
@@ -309,7 +308,7 @@
 
 	<!-- 하트 이미지 클릭하면 동적테스트 페이지로 이동 -->
 	<script>
-		$('.image-item').click(function(){
+		$('.image-item').click(function(e){
 			var label = $(this).find('.text').text();
 			window.location.href="main/"+label;
 			
@@ -348,7 +347,18 @@
 	</script>
 
 	<!-- drag & drop -->
-
+	<script>
+		$('#drop').click(function(){
+			$.ajax({
+				url : "/camera_start",
+				type:"get",
+				async:false,
+				success:function(data){
+					console.log(JSON.stringify(data))
+				}
+			})
+		})
+	</script>
 
 
 

@@ -22,8 +22,8 @@
 
     .heart {
       position: absolute;
-      top: 50%;
-      left: 33%;
+      top: 48%;
+      right: 30%;
       background-color: pink;
       height: 50px;
       width: 50px;
@@ -38,8 +38,8 @@
       content: "";
       border-radius: 50%;
       position: absolute;
-      width: 50px;
-      height: 50px;
+      width: 100%;
+      height: 100%;
       top: 0px;
       left: 25px;
     }
@@ -49,19 +49,19 @@
       content: "";
       border-radius: 50%;
       position: absolute;
-      width: 50px;
-      height: 50px;
+      width: 100%;
+      height: 100%;
       top: -25px;
       left: 0px;
     }
 
     .heart2 {
       position: absolute;
-      top: 50%;
-      left: 66%;
+      top: 48%;
+      left: 30%;
       background-color: pink;
-      height: 50px;
       width: 50px;
+      height: 50px;
       transform: rotate(-45deg);
       animation-name: beat;
       animation-duration: 1s;
@@ -73,8 +73,8 @@
       content: "";
       border-radius: 50%;
       position: absolute;
-      width: 50px;
-      height: 50px;
+      width: 100%;
+      height: 100%;
       top: 0px;
       left: 25px;
     }
@@ -84,19 +84,24 @@
       content: "";
       border-radius: 50%;
       position: absolute;
-      width: 50px;
-      height: 50px;
+      width: 100%;
+      height: 100%;
       top: -25px;
       left: 0px;
     }
 
     .RP {
       position: absolute;
-      top: 48%;
-      left: 43%;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
       font-size: 60px;
       color: indianred;
       text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     .RP:hover{
         cursor: pointer;
@@ -121,33 +126,98 @@
       }
     }
 
-    @media only screen and (max-width: 600px) {
+    @media only screen and (max-width: 1280px) {
+      .RP {
+       position: absolute;
+       top: 0;
+       left: 0;
+       right: 0;
+       bottom: 0;
+       font-size: 50px;
+       text-align: center;
+      }
+      .RP:hover{
+        cursor: pointer;
+        font-size: 55px;
+      }
+      .RP:active{
+      font-size: 55px;
+      }
       .heart {
-        position: absolute;
-        top: 50%;
-        right: 0;
-        text-align: center;
+        top: 48%;
+        right: 25%;
+        width: 40px;
+        height: 40px;
       }
       .heart2 {
-        position: absolute;
-        top: 50%;
-        left:0;
-        text-align: center;
+        top: 48%;
+        left:25%;
+        width: 40px;
+        height: 40px;
+      }
+      .heart::after{
+        left: 20px;
+      }
+      .heart:before{
+        top: -20px;
+      }
+      .heart2:after{
+        left: 20px;
+      }
+      .heart2:before{
+        top:-20px;
+      }
+    }
+
+    @media only screen and (max-width: 780px) {
+      .heart {
+        top: 48.5%;
+        right: 15%;
+        width: 35px;
+        height: 35px;
+      }
+      .heart2 {
+        top: 48.5%;
+        left:15%;
+        width: 35px;
+        height: 35px;
       }
       .RP {
        position: absolute;
-       top: 50%;
-       left: auto;
-       font-size: 30px;
+       top: 0;
+       left: 0;
+       right: 0;
+       bottom: 0;
+       font-size: 40px;
        text-align: center;
+      }
+      .heart::after{
+        left: 17.5px;
+      }
+      .heart:before{
+        top: -17.5px;
+      }
+      .heart2:after{
+        left: 17.5px;
+      }
+      .heart2:before{
+        top:-17.5px;
+      }
+      .RP:hover{
+        cursor: pointer;
+        font-size: 45px;
+      }
+      .RP:active{
+      font-size: 45px;
       }
     }
   </style>
 </head>
 <body>
-  <div class="back"></div>
-  <div class="heart"></div>
-  <a href="/main" class="RP">RomanPick</a>
+  <div class="back">
   <div class="heart2"></div>
+  <a href="/main" class="RP">RomanPick</a>
+  <div class="heart"></div>
+  </div>
 </body>
 </html>

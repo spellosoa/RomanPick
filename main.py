@@ -4,7 +4,7 @@ from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 import urllib.parse
-
+from camera import *
 from pydantic import BaseModel
 
 class novel(BaseModel):
@@ -44,15 +44,10 @@ def item_title(request:Request, item:str):
     decoded_item = urllib.parse.unquote(item)
     return templates.TemplateResponse('List_keyWord.html', {"request" : request})
 
-
-
-@app.get("/camera")
-def camera(request:Request):
-    return templates.TemplateResponse('test.html', {"request" : request})
-
-@app.get("/start")
-async def start_camera():
-    pass
+@app.get("/camera_start")
+def start_camera():
+    data = run_camera()
+    return data
 # @app.get("/items/{item_id}")
 # def read_item(item_id: int, q: Optional[str] = None):
 #     return {"item_id": item_id, "q": q}

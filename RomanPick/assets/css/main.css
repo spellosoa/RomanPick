@@ -2272,6 +2272,7 @@ input, select, textarea {
          height: 100px;
          color: #D96A80;
          line-height: 100px;
+         cursor: pointer;
        }
        
        #btnSubmit{
@@ -4728,7 +4729,6 @@ input, select, textarea {
          margin: auto;
          display: block;
        }
-       
        #drop{
          margin-top: 10%;
          margin-bottom: 10%;
@@ -4738,7 +4738,9 @@ input, select, textarea {
          height: 100px;
          color: #D96A80;
          line-height: 100px;
+         cursor: pointer;
        }
+       
        
        #btnSubmit{
          background-color: #D96A80;
