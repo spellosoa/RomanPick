@@ -10,9 +10,9 @@
 	<title>Heart</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-	<link rel="stylesheet" href="assets/css/main.css" />
+	<link rel="stylesheet" href="{{ url_for('RomanPick', path='/assets/css/main.css') }}" />
 	<noscript>
-		<link rel="stylesheet" href="assets/css/noscript.css" />
+		<link rel="stylesheet" href="{{ url_for('RomanPick', path='assets/css/noscript.css') }}" />
 	</noscript>
 </head>
 
@@ -38,17 +38,21 @@
 				<header>
 					<nav id="nav">
 						<a href="#"><i class="fas fa-heart" style="color: #F85B6C;"></i><span>Label1</span></a>
-						<a href="#barcode"><i class="fas fa-heart" style="color: #C664F9;"></i><span>Label2</span></a>
-						<a href="#emotion"><i class="fas fa-heart" style="color: #FBC774;"></i><span>Label3</span></a>
-						<a href="#game"><i class="fas fa-heart" style="color: #FAED6D;"></i><span>Label4</span></a>
-						<a href="#emotion"><i class="fas fa-heart" style="color: #3BE0D9;"></i><span>Label5</span></a>
-						<a href="#game"><i class="fas fa-heart" style="color: #5CC6F6;"></i><span>Label6</span></a>
+						<a href="#"><i class="fas fa-heart" style="color: #C664F9;"></i><span>Label2</span></a>
+						<a href="#"><i class="fas fa-heart" style="color: #FBC774;"></i><span>Label3</span></a>
+						<a href="#"><i class="fas fa-heart" style="color: #FAED6D;"></i><span>Label4</span></a>
+						<a href="#"><i class="fas fa-heart" style="color: #3BE0D9;"></i><span>Label5</span></a>
+						<a href="#"><i class="fas fa-heart" style="color: #5CC6F6;"></i><span>Label6</span></a>
 					</nav>
 					<div style="text-align:center;">
 
 						<div class="label_back">
-							<div style="">
-								<img src="images/lable1.png" alt="">
+							<div style="position: relative;">
+								<img src="{{ url_for('RomanPick', path='images/lable1.png') }}" alt="">
+
+								<button id="refreshButton" onclick="location.reload()">
+									<i class="fas fa-sync-alt"></i>
+								</button>
 
 								<div class="canvas-container">
 
@@ -56,6 +60,8 @@
 
 								</div>
 							</div>
+
+							
 
 						</div>
 					</div>
@@ -211,12 +217,12 @@
 			};
 		};
 	</script>
-
+	<script src="{{ url_for('RomanPick', path='canvas.js') }}"></script>
 	<!-- drag & drop -->
 
 
 	<!-- canvas -->
-	<script>
+	<!-- <script>
 
 		// 캔버스 요소와 컨텍스트 설정
 		var canvas = document.getElementById('textCanvas');
@@ -268,14 +274,14 @@
 		animate();
 
 
-	</script>
+	</script> -->
 
 
-	<script src="assets/js/jquery.min.js"></script>
-	<script src="assets/js/browser.min.js"></script>
-	<script src="assets/js/breakpoints.min.js"></script>
-	<script src="assets/js/util.js"></script>
-	<script src="assets/js/main.js"></script>
+	<script src="{{ url_for('RomanPick', path='assets/js/jquery.min.js') }}"></script>
+	<script src="{{ url_for('RomanPick', path='assets/js/browser.min.js') }}"></script>
+	<script src="{{ url_for('RomanPick', path='assets/js/breakpoints.min.js') }}"></script>
+	<script src="{{ url_for('RomanPick', path='assets/js/util.js') }}"></script>
+	<script src="{{ url_for('RomanPick', path='assets/js/main.js') }}"></script>
 
 </body>
 
