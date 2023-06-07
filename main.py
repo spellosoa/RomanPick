@@ -33,6 +33,14 @@ def read_main(request:Request):
 def pick_cluster(request:Request, item:str):
     return templates.TemplateResponse('03_heart.html', {"request" : request})
 
+@app.get("/camera")
+def camera(request:Request):
+    return templates.TemplateResponse('test.html', {"request" : request})
+
+@app.get("/start")
+async def start_camera():
+    run_camera()
+    pass
 # @app.get("/items/{item_id}")
 # def read_item(item_id: int, q: Optional[str] = None):
 #     return {"item_id": item_id, "q": q}
