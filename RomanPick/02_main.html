@@ -14,6 +14,8 @@
 	<noscript>
 		<link rel="stylesheet" href="{{ url_for('RomanPick', path='assets/css/noscript.css') }}" />
 	</noscript>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 </head>
 
 <body class="is-preload">
@@ -289,13 +291,13 @@
 	</div>
 
 	<!-- Scripts -->
-	<script src="{{ url_for('RomanPick', path='assets/js/jquery.min.js') }}"></script>
+	<!-- <script src="{{ url_for('RomanPick', path='assets/js/jquery.min.js') }}"></script> -->
 	<script src="{{ url_for('RomanPick', path='assets/js/browser.min.js') }}"></script>
 	<script src="{{ url_for('RomanPick', path='assets/js/breakpoints.min.js') }}"></script>
 	<script src="{{ url_for('RomanPick', path='assets/js/util.js') }}"></script>
 	<script src="{{ url_for('RomanPick', path='assets/js/main.js') }}"></script>
 	<script>
-		const Searching = Search.prototype;
+		
 
 		function Searching() {
 			this.keyword = document.querySelector('input[name = "search"]');
@@ -303,16 +305,14 @@
 			this.button = document.querySelector('.img-button');
 			this.form = document.querySelector('.search');
 		}
-
-		new Search();
 	</script>
 
 	<!-- 하트 이미지 클릭하면 동적테스트 페이지로 이동 -->
 	<script>
-		$('.thumbnail').click(function(){
-			var label = $(this).next('.overlay').find('.text').text();
-			console.log(label)
-			window.location.href = "/" + label;
+		$('.image-item').click(function(){
+			var label = $(this).find('.text').text();
+			window.location.href="main/"+label;
+			
 		});
 	</script>	
 
