@@ -289,7 +289,11 @@
 	</div>
 
 	<!-- Scripts -->
-
+	<script src="{{ url_for('RomanPick', path='assets/js/jquery.min.js') }}"></script>
+	<script src="{{ url_for('RomanPick', path='assets/js/browser.min.js') }}"></script>
+	<script src="{{ url_for('RomanPick', path='assets/js/breakpoints.min.js') }}"></script>
+	<script src="{{ url_for('RomanPick', path='assets/js/util.js') }}"></script>
+	<script src="{{ url_for('RomanPick', path='assets/js/main.js') }}"></script>
 	<script>
 		const Searching = Search.prototype;
 
@@ -302,6 +306,15 @@
 
 		new Search();
 	</script>
+
+	<!-- 하트 이미지 클릭하면 동적테스트 페이지로 이동 -->
+	<script>
+		$('.thumbnail').click(function(){
+			var label = $(this).next('.overlay').find('.text').text();
+			console.log(label)
+			window.location.href = "/" + label;
+		});
+	</script>	
 
 	<!-- 바코드 사진업로드 -->
 	<script>
@@ -337,11 +350,7 @@
 	<!-- drag & drop -->
 
 
-	<script src="{{ url_for('RomanPick', path='assets/js/jquery.min.js') }}"></script>
-	<script src="{{ url_for('RomanPick', path='assets/js/browser.min.js') }}"></script>
-	<script src="{{ url_for('RomanPick', path='assets/js/breakpoints.min.js') }}"></script>
-	<script src="{{ url_for('RomanPick', path='assets/js/util.js') }}"></script>
-	<script src="{{ url_for('RomanPick', path='assets/js/main.js') }}"></script>
+
 
 </body>
 
