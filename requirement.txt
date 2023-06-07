@@ -8,5 +8,3 @@ transformers
 torch
 konlpy
 opencv-python
-websockets
-pillow
