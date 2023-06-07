@@ -2344,7 +2344,7 @@ input, select, textarea {
          align-items: center;
       } */
 
-	  .label_back {
+	.label_back {
 		position: relative;
 		text-align: center;
 		display: flex;
@@ -2457,4 +2457,16 @@ input, select, textarea {
    }
    
 
-   
+   /* 감정분석 */
+   .emotion-container{
+      position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		display: grid;
+		grid-template-columns: repeat(4, minmax(150px, 1fr));
+		grid-template-rows: repeat(2, minmax(150px, 1fr));
+		column-gap: 30px;
+		row-gap: 30px;
+   }
+
