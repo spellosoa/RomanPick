@@ -2349,6 +2349,7 @@ select {
    color: #D96A80;
    font-weight: 600;
    box-shadow: 0 0 10px #D96A80;
+   background: none;
 }
 
 select option {
@@ -4976,16 +4977,70 @@ button.img-btn {
 
 /* 바코드 */
 
-#barcode {
+.b-container {
+   width: 100%;
+   max-width: 600px; /* 필요에 따라 조정 가능 */
+   margin: auto;
+ }
+ 
+ .b-row {
+   display: flex;
+   justify-content: center;
+ }
+ 
+ .b_select-container {
+   display: flex;
+   align-items: center;
+   gap: 10px; /* select와 input 사이의 간격을 조정 */
+ }
+
+ .b_select-container select {
+   text-align: center;
+   border-color: #D96A80;
+   outline: none;
+   width: 100px;
+   height: auto;
+   font-size: 1.125rem;
+   font-weight: 200;
+   color: #D96A80;
+   font-weight: 600;
+   box-shadow: 0 0 10px #D96A80;
+   background-color: transparent;
+}
+
+.b_select-container select option {
+   text-align: center;
+   color: white;
+   background-color: #D96A80;
+}
+ 
+ #input_barcode {
+   flex: 1;
    text-align: center;
    outline: 1px solid #D96A80;
    background-color: transparent;
    color: #D96A80;
-}
+   width: max-content;
+   height: auto;
+ }
 
-input::placeholder {
+ #input_barcode::placeholder {
+   color: #D96A80; /* 원하는 색상으로 변경 */
+ }
+ 
+ 
+ 
+
+/* #barcode {
+   text-align: center;
+   outline: 1px solid #D96A80;
+   background-color: transparent;
+   color: #D96A80;
+} */
+
+/* input::placeholder {
    color: #D96A80
-}
+} */
 
 #photo {
    margin: auto;
@@ -4996,7 +5051,8 @@ input::placeholder {
    margin-top: 10%;
    margin-bottom: 10%;
    display: block;
-   border: 1px solid #D96A80;
+   /* border: 1px solid #D96A80; */
+   border: none;
    text-align: center;
    height: 100px;
    color: #D96A80;

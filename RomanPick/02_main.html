@@ -26,7 +26,7 @@
 		<!-- Nav -->
 		<nav id="nav">
 			<a href="#" class="icon solid fa-home" style="color: #D96A80;"><span>RomanPick</span></a>
-			<a href="#barcode" class="icon solid fa-barcode" style="color: #D96A80;"><span>Barcode</span></a>
+			<a href="#barcode" class="icon solid fas fa-camera" style="color: #D96A80;"><span>Barcode</span></a>
 			<a href="#emotion" class="icon solid fa-smile" style="color: #D96A80;"><span>Emotion</span></a>
 			<a href="#game" class="icon solid fa-gamepad" style="color: #D96A80;"><span>Game</span></a>
 		</nav>
@@ -193,20 +193,31 @@
 
 							<form method="post" enctype="multipart/form-data" style="text-align: center;">
 								<div class="button" style="background: none;">
-									<label for="chooseFile" style="color:#D96A80">
+									<label for="chooseFile" style="color:#D96A80;">
 										👉 DROP & CLICK HERE! 👈
 									</label>
 								</div>
 								<input type="file" id="chooseFile" name="chooseFile" accept="image/*"
 									onchange="loadFile(this)">
+								
+								
+									<div class="b-container">
+										<div class="b-row">
+										  <div class="b_select-container">
+											<select>
+											  <option id="cate1" value="cate1">공 간 1</option>
+											  <option id="cate2" value="cate2">공 간 2</option>
+											</select>
+											<input id="input_barcode" type="text" placeholder="바코드 식별번호 13자리" onfocus="this.placeholder = ''" onblur="this.placeholder = '바코드 식별번호 13자리'"
+											style="font-size: 19px;"/>
+										  </div>
+										</div>
+									  </div>
+									  
+								
 
-								<div class="num">
-									<input id="barcode" type="text" placeholder="바코드 식별번호 13자리"
-										onfocus="this.placeholder = ''" onblur="this.placeholder = '바코드 식별번호 13자리'">
-								</div>
-
-								<div id="drop"> 카메라 아이콘
-									
+								<div id="drop"> 
+									<i class="fas fa-camera" style="font-size: 100px;"></i>
 								</div>
 
 								<input type="button" id="btnSubmit" value="OK" />
