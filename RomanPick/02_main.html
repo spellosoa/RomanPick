@@ -390,15 +390,30 @@
 		$(document).ready(function () {
 			var dropArea = $('#barcode');
 			var dropEvent = $('.button')
-
+			$('body').on({
+				'drop': function(e){
+					e.preventDefault();
+					dropEvent.removeClass('dragging');
+					dropEvent.children('label').text('👉 DROP & CLICK HERE! 👈')
+				},
+				'dragover':function(e){
+					e.preventDefault();
+				}
+			})
 			dropArea.on({
 				'dragover': function (e) {
 			  		e.preventDefault();
+					dropEvent.children('label').text('👉 DROP & CLICK HERE! 👈')
 			  		dropEvent.addClass('dragging')
 				},
 				'dragleave': function(e){
 					e.preventDefault();
-					dropEvent.removeClass('dragging');
+					dropEvent.children('label').text('👉 취소 👈');
+					setTimeout(function() {
+						dropEvent.removeClass('dragging');
+						dropEvent.children('label').text('👉 DROP & CLICK HERE! 👈')
+					}, 3000);
+					
 				},
 				'drop': function (e) {
 					e.preventDefault();
@@ -445,6 +460,7 @@
 				$('#image-show').children('.img').remove();
 			}
 		  });
+		  
 	</script>
 	<script src="{{ url_for('RomanPick', path='canvas.js') }}"></script>
 	<!-- drag & drop -->
