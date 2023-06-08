@@ -1690,7 +1690,7 @@ header>p {
 
 .image.fit {
    display: block;
-   width: 50%;
+   width: 100%;
    margin: auto;
 }
 
@@ -4109,10 +4109,6 @@ h6 {
       font-size: 1em;
    }
 
-   h6 {
-      font-size: 0.75em;
-   }
-
 }
 
 blockquote {
@@ -4283,7 +4279,6 @@ header>p {
 
 .image.fit {
    display: block;
-   width: 50%;
    margin: auto;
 }
 
@@ -5190,7 +5185,7 @@ label {
 
 .col-md-6 {
    flex: 0 0 50%;
-   max-width: 50%;
+   width: 200px;
    padding: 10px;
 }
 
@@ -5220,4 +5215,23 @@ label {
       border-color: red; /* 드래그 중일 때 테두리 색상 변경 */
       transform: scale(1.2); /* 드래그 중일 때 이미지 스케일링 */
       opacity: 0.7;
+   }
+   .list-grid{
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      column-gap: 20px;
+      row-gap: 30px;
+   }
+   @media screen and (max-width: 768px) {
+
+      .list-grid{
+         display: grid;
+         grid-template-columns: repeat(2, 1fr);
+      }
+   }
+   @media screen and (max-width: 600px) {
+      .container .row{
+         flex-direction: column;
+      }
    }
