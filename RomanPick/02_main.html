@@ -194,7 +194,7 @@
 							<form method="post" enctype="multipart/form-data" style="text-align: center;">
 								<div class="button" style="background: none;">
 									<label for="chooseFile" style="color:#D96A80">
-										👉 CLICK HERE! 👈
+										👉 DROP & CLICK HERE! 👈
 									</label>
 								</div>
 								<input type="file" id="chooseFile" name="chooseFile" accept="image/*"
@@ -343,11 +343,11 @@
 			var label = $(this).find('.text').text();
 			// window.location.href="main/"+label; 
 			$.ajax({
-				url : "",
+				url : "/main/"+label,
 				data : {
 					"label" : label
 				},
-				type:get,
+				type:"get",
 				success:function(data){
 					// 라벨에서 랜덤한 데이터(작가, 제목, 줄거리 키워드) 
 					// canvas에 텍스트 데이터 저장
@@ -387,6 +387,64 @@
 				newImage.style.visibility = "visible"; // 이미지 로딩 완료 후 보이도록 설정
 			};
 		};
+		$(document).ready(function () {
+			var dropArea = $('#barcode');
+			var dropEvent = $('.button')
+
+			dropArea.on({
+				'dragover': function (e) {
+			  		e.preventDefault();
+			  		dropEvent.addClass('dragging')
+				},
+				'dragleave': function(e){
+					e.preventDefault();
+					dropEvent.removeClass('dragging');
+				},
+				'drop': function (e) {
+					e.preventDefault();
+					dropEvent.removeClass('dragging')
+					
+					var file = e.originalEvent.dataTransfer.files[0]; // 드롭된 파일 가져오기
+					var allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+  					var fileExtension = file.name.split('.').pop().toLowerCase();
+
+					if (allowedExtensions.includes(fileExtension)) {
+						// 미리 만들어 놓은 div에 text(파일 이름) 추가
+						$('#fileName').text(file.name);
+					
+						// 새로운 이미지 생성
+						var newImage = $('<img>').addClass('img');
+					
+						// 이미지 source 가져오기
+						newImage.attr('src', URL.createObjectURL(file));
+					
+						newImage.css({
+						width: '70%',
+						height: '70%',
+						objectFit: 'contain',
+						visibility: 'hidden' // 초기에는 숨겨진 상태로 설정
+						});
+					
+						// 이미지를 image-show div에 추가
+						$('#image-show').empty().append(newImage);
+					
+						newImage.on('load', function () {
+						newImage.css('visibility', 'visible'); // 이미지 로딩 완료 후 보이도록 설정
+						});
+					}else{
+						alert('이미지 파일만 업로드 가능합니다.');
+					}
+				}
+			});
+			dropArea.on();
+		  });
+		  
+		  $('#image-show').on({
+			'click': function(){
+				$('#fileName').text("");
+				$('#image-show').children('.img').remove();
+			}
+		  });
 	</script>
 	<script src="{{ url_for('RomanPick', path='canvas.js') }}"></script>
 	<!-- drag & drop -->
@@ -396,9 +454,8 @@
 			$.ajax({
 				url : "/camera_start",
 				type:"get",
-				async:false,
-				success:function(data){
-					console.log(JSON.stringify(data))
+				success:function(result){
+					console.log(result)
 				}
 			})
 		})
