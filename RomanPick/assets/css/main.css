@@ -1680,7 +1680,9 @@ input, select, textarea {
          .button {
             width: 100%;
          }
-
+         #refreshButton{
+            width: auto;
+         }
       }
 
 /* List */
