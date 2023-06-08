@@ -36,26 +36,37 @@
          <!-- Me -->
          <article id="home" class="panel intro">
             <header>
-                <h2 style="font-size: 30px; color:#D96A80; padding:0.3em;">[ 유사한 웹소설 List ]</h2>
+               <h2 style="font-size: 30px; color:#D96A80; padding:0.3em;">
+                  [ 유사한 웹소설 List ]
+               </h2>
             </header>
             <header>
                <div style="text-align:center; position:relative;">
-                  <section> 
-                        <div class="col-4 col-6-medium col-12-small">
-                           <a href="#" class="image fit"><img src="{{ url_for('RomanPick', path='images/pic01.jpg') }}" alt="" style="position: relative; top: 50%;
-                            right: 50%; width: 200px; height: 240px;"></a>
+                  <section>
+                     <div class="container">
+                        <div class="row">
+                           <div class="col-md-6">
+                              <div class="list_title-container">
+                                 <a href="#" class="image fit">
+                                    <img src="{{ url_for('RomanPick', path='images/pic01.jpg') }}" alt="">
+                                 </a>
+                              </div>
+                           </div>
+                           <div class="col-md-6">
+                              <div class="title-container">
+                                 <a class="title">제목: 로맨스픽1</a>
+                                 <hr>
+                                 <a class="content">내용: 로맨스를 위한, 로맨스에 의한, 로맨스</a>
+                              </div>
+                           </div>
                         </div>
-                        <div class="title_1">
-                           <a>제목 : 로맨스픽1</a>
-                           <hr>
-                           <a>내용 : 로맨스를 위한, 로맨스에 의한, 로맨스</a> 
-                        </div> 
+                     </div>
                   </section>
                   <hr id="title_hr">
                   <br>
-                  <div class="title-containal">
-                     <div class="row">
-                        <div class="col-4 col-6-medium col-12-small">
+                  <div class="list-grid">
+                  
+                        <div class="">
                            <a href="#" class="image fit"><img src="{{ url_for('RomanPick', path='images/pic04.jpg') }}" alt=""></a>
                            <h6>제목 : 로맨스픽2</h6>
                         </div>
@@ -67,9 +78,18 @@
                            <a href="#" class="image fit"><img src="{{ url_for('RomanPick', path='images/pic06.jpg') }}" alt=""></a>
                            <h6>제목 : 로맨스픽4</h6>
                         </div>
-                     </div>
-                     <br>
-                     <div class="row">
+                        <div class="">
+                           <a href="#" class="image fit"><img src="{{ url_for('RomanPick', path='images/pic04.jpg') }}" alt=""></a>
+                           <h6>제목 : 로맨스픽1</h6>
+                        </div>
+                        <div class="col-4 col-6-medium col-12-small">
+                           <a href="#" class="image fit"><img src="{{ url_for('RomanPick', path='images/pic05.jpg') }}" alt=""></a>
+                           <h6>제목 : 로맨스픽2</h6>
+                        </div>
+                        <div class="col-4 col-6-medium col-12-small">
+                           <a href="#" class="image fit"><img src="{{ url_for('RomanPick', path='images/pic06.jpg') }}" alt=""></a>
+                           <h6>제목 : 로맨스픽3</h6>
+                        </div>
                         <div class="col-4 col-6-medium col-12-small">
                            <a href="#" class="image fit"><img src="{{ url_for('RomanPick', path='images/pic04.jpg') }}" alt=""></a>
                            <h6>제목 : 로맨스픽1</h6>
@@ -82,22 +102,6 @@
                            <a href="#" class="image fit"><img src="{{ url_for('RomanPick', path='images/pic06.jpg') }}" alt=""></a>
                            <h6>제목 : 로맨스픽3</h6>
                         </div>
-                     </div>
-                     <br>
-                     <div class="row">
-                        <div class="col-4 col-6-medium col-12-small">
-                           <a href="#" class="image fit"><img src="{{ url_for('RomanPick', path='images/pic04.jpg') }}" alt=""></a>
-                           <h6>제목 : 로맨스픽1</h6>
-                        </div>
-                        <div class="col-4 col-6-medium col-12-small">
-                           <a href="#" class="image fit"><img src="{{ url_for('RomanPick', path='images/pic05.jpg') }}" alt=""></a>
-                           <h6>제목 : 로맨스픽2</h6>
-                        </div>
-                        <div class="col-4 col-6-medium col-12-small">
-                           <a href="#" class="image fit"><img src="{{ url_for('RomanPick', path='images/pic06.jpg') }}" alt=""></a>
-                           <h6>제목 : 로맨스픽3</h6>
-                        </div>
-                     </div>
                   </div>
                </div>
             </header>

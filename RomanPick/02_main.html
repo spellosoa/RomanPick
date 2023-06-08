@@ -24,7 +24,7 @@
 		<!-- Nav -->
 		<nav id="nav">
 			<a href="#" class="icon solid fa-home" style="color: #D96A80;"><span>RomanPick</span></a>
-			<a href="#barcode" class="icon solid fa-barcode" style="color: #D96A80;"><span>Barcode</span></a>
+			<a href="#barcode" class="icon solid fas fa-camera" style="color: #D96A80;"><span>Barcode</span></a>
 			<a href="#emotion" class="icon solid fa-smile" style="color: #D96A80;"><span>Emotion</span></a>
 			<a href="#game" class="icon solid fa-gamepad" style="color: #D96A80;"><span>Game</span></a>
 		</nav>
@@ -159,12 +159,28 @@
 
 							<form method="post" enctype="multipart/form-data" style="text-align: center;">
 								<div class="button" style="background: none;">
-									<label for="chooseFile" style="color:#D96A80">
-										👉 CLICK HERE! 👈
+									<label for="chooseFile" style="color:#D96A80;">
+										👉 DROP & CLICK HERE! 👈
 									</label>
 								</div>
 								<input type="file" id="chooseFile" name="chooseFile" accept="image/*"
 									onchange="loadFile(this)">
+								
+								
+									<div class="b-container">
+										<div class="b-row">
+										  <div class="b_select-container">
+											<select>
+											  <option id="cate1" value="cate1">공 간 1</option>
+											  <option id="cate2" value="cate2">공 간 2</option>
+											</select>
+											<input id="input_barcode" type="text" placeholder="바코드 식별번호 13자리" onfocus="this.placeholder = ''" onblur="this.placeholder = '바코드 식별번호 13자리'"
+											style="font-size: 19px;"/>
+										  </div>
+										</div>
+									  </div>
+									  
+								
 
 								<div class="num">
 									<input id="barcode" type="text" placeholder="바코드 식별번호 13자리"
@@ -174,6 +190,8 @@
 								<div id="drop"> 바코드 사진 Drag & Drop
 									<div id="thumbnails">
 									</div>
+								<div id="drop"> 
+									<i class="fas fa-camera" style="font-size: 100px;"></i>
 								</div>
 
 								<input type="button" id="btnSubmit" value="OK" />
@@ -300,8 +318,26 @@
 			this.form = document.querySelector('.search');
 		}
 
-		new Search();
-	</script>
+	<!-- 하트 이미지 클릭하면 동적테스트 페이지로 이동 -->
+	<script>
+		$('.image-item').click(function(e){
+			var label = $(this).find('.text').text();
+			// window.location.href="main/"+label; 
+			$.ajax({
+				url : "/main/"+label,
+				data : {
+					"label" : label
+				},
+				type:"get",
+				success:function(data){
+					// 라벨에서 랜덤한 데이터(작가, 제목, 줄거리 키워드) 
+					// canvas에 텍스트 데이터 저장
+				}
+			})
+			$('#bb').css('display', 'none')
+			$('#aa').toggle()
+		});
+	</script>	
 
 	<!-- 바코드 사진업로드 -->
 	<script>
@@ -332,6 +368,80 @@
 				newImage.style.visibility = "visible"; // 이미지 로딩 완료 후 보이도록 설정
 			};
 		};
+		$(document).ready(function () {
+			var dropArea = $('#barcode');
+			var dropEvent = $('.button')
+			$('body').on({
+				'drop': function(e){
+					e.preventDefault();
+					dropEvent.removeClass('dragging');
+					dropEvent.children('label').text('👉 DROP & CLICK HERE! 👈')
+				},
+				'dragover':function(e){
+					e.preventDefault();
+				}
+			})
+			dropArea.on({
+				'dragover': function (e) {
+			  		e.preventDefault();
+					dropEvent.children('label').text('👉 DROP & CLICK HERE! 👈')
+			  		dropEvent.addClass('dragging')
+				},
+				'dragleave': function(e){
+					e.preventDefault();
+					dropEvent.children('label').text('👉 취소 👈');
+					setTimeout(function() {
+						dropEvent.removeClass('dragging');
+						dropEvent.children('label').text('👉 DROP & CLICK HERE! 👈')
+					}, 3000);
+					
+				},
+				'drop': function (e) {
+					e.preventDefault();
+					dropEvent.removeClass('dragging')
+					
+					var file = e.originalEvent.dataTransfer.files[0]; // 드롭된 파일 가져오기
+					var allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+  					var fileExtension = file.name.split('.').pop().toLowerCase();
+
+					if (allowedExtensions.includes(fileExtension)) {
+						// 미리 만들어 놓은 div에 text(파일 이름) 추가
+						$('#fileName').text(file.name);
+					
+						// 새로운 이미지 생성
+						var newImage = $('<img>').addClass('img');
+					
+						// 이미지 source 가져오기
+						newImage.attr('src', URL.createObjectURL(file));
+					
+						newImage.css({
+						width: '70%',
+						height: '70%',
+						objectFit: 'contain',
+						visibility: 'hidden' // 초기에는 숨겨진 상태로 설정
+						});
+					
+						// 이미지를 image-show div에 추가
+						$('#image-show').empty().append(newImage);
+					
+						newImage.on('load', function () {
+						newImage.css('visibility', 'visible'); // 이미지 로딩 완료 후 보이도록 설정
+						});
+					}else{
+						alert('이미지 파일만 업로드 가능합니다.');
+					}
+				}
+			});
+			dropArea.on();
+		  });
+		  
+		  $('#image-show').on({
+			'click': function(){
+				$('#fileName').text("");
+				$('#image-show').children('.img').remove();
+			}
+		  });
+		  
 	</script>
 
 	<script>
@@ -526,6 +636,16 @@ return {
 }());
 
 Modal.init();
+		// 카메라 실행 이벤트
+		$('#drop').click(function(){
+			$.ajax({
+				url : "/camera_start",
+				type:"get",
+				success:function(result){
+					console.log(result)
+				}
+			})
+		})
 	</script>
 
 	<!-- drag & drop -->
