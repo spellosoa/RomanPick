@@ -36,18 +36,12 @@ def pick_cluster(request:Request, item:str):
 
 @app.get("/main/{item}/title")
 def item_title(request:Request, item:str):
-    decoded_item = urllib.parse.unquote(item)
-    return templates.TemplateResponse('List_title.html', {"request" : request})
+    return templates.TemplateResponse('04_List_title.html', {"request" : request})
 
 @app.get("/main/{item}/keyword")
 def item_title(request:Request, item:str):
-    decoded_item = urllib.parse.unquote(item)
-    return templates.TemplateResponse('List_keyWord.html', {"request" : request})
+    return templates.TemplateResponse('05_List_keyWord.html', {"request" : request})
 
-@app.get("/camera_start")
-def start_camera():
-    data = run_camera()
-    return data
 # @app.get("/items/{item_id}")
 # def read_item(item_id: int, q: Optional[str] = None):
 #     return {"item_id": item_id, "q": q}
