@@ -2,7 +2,7 @@ import cx_Oracle
 
 class OracleDB:
     def __init__(self):
-        self.dsn = cx_Oracle.makedsn(host='project-db-stu.smhrd.com', port=1524, sid='xe')
+        self.dsn = cx_Oracle.makedsn(host='project-db-cgi.smhrd.com', port=1524, sid='xe')
         self.username = 'campus_c_230531_2'
         self.password = 'smhrd2'
         self.connection = None
