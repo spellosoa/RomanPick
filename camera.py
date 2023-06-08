@@ -1,5 +1,5 @@
 import cv2
-from pyzbar.pyzbar import decode
+from pyzbar import pyzbar
 import time
 from barcode_crawling import *
 
@@ -19,7 +19,7 @@ def run_camera():
 
         # 바코드 인식
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-        barcodes = decode(gray)
+        barcodes = pyzbar.decode(gray)
         if barcodes is not None:
             for barcode in barcodes:    
                 (x, y, w, h) = barcode.rect
