@@ -42,6 +42,10 @@ def item_title(request:Request, item:str):
 def item_title(request:Request, item:str):
     return templates.TemplateResponse('05_List_keyWord.html', {"request" : request})
 
+@app.get("/camera_start")
+def camera_start():
+    data = run_camera()
+    return data
 # @app.get("/items/{item_id}")
 # def read_item(item_id: int, q: Optional[str] = None):
 #     return {"item_id": item_id, "q": q}
