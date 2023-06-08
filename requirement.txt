@@ -2,10 +2,9 @@ requests
 beautifulsoup4
 pandas
 tensorflow
-numpy = 1.19.3
+numpy==1.19.3
 scikit-learn
 transformers
 torch
 konlpy
 opencv-python
-websockets

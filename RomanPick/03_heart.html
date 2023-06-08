@@ -34,7 +34,7 @@
 
 			<!-- Me -->
 			<article id="home" class="panel intro">
-
+				<!-- 클러스터 안 데이터 -->
 				<header>
 					<nav id="nav">
 						<a href="#"><i class="fas fa-heart" style="color: #F85B6C;"></i><span>Label1</span></a>
@@ -102,13 +102,11 @@
 										onfocus="this.placeholder = ''" onblur="this.placeholder = '바코드 식별번호 13자리'">
 								</div>
 
-								<div id="drop"> 바코드 사진 Drag & Drop
-									<div id="thumbnails">
-									</div>
+								<div id="drop"> 카메라 아이콘
+							
 								</div>
 
 								<input type="button" id="btnSubmit" value="OK" />
-
 							</form>
 						</div>
 					</div>
@@ -175,8 +173,6 @@
 	<!-- Scripts -->
 
 	<script>
-		const Searching = Search.prototype;
-
 		function Searching() {
 			this.keyword = document.querySelector('input[name = "search"]');
 			this.engine = document.querySelector('.SelectSearch');
@@ -184,7 +180,6 @@
 			this.form = document.querySelector('.search');
 		}
 
-		new Search();
 	</script>
 
 	<!-- 바코드 사진업로드 -->

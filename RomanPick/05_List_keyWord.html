@@ -10,10 +10,11 @@
    <title>RomanPick</title>
    <meta charset="utf-8" />
    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-   <link rel="stylesheet" href="assets/css/main.css" />
-   <noscript>
-      <link rel="stylesheet" href="assets/css/noscript.css" />
-   </noscript>
+   <link rel="stylesheet" href="{{ url_for('RomanPick', path='/assets/css/main.css') }}" />
+	<noscript>
+		<link rel="stylesheet" href="{{ url_for('RomanPick', path='assets/css/noscript.css') }}" />
+	</noscript>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body class="is-preload">
@@ -35,61 +36,54 @@
          <!-- Me -->
          <article id="home" class="panel intro">
             <header>
-                <h2 style="font-size: 30px; color:#D96A80; padding:0.3em;">[ 유사한 웹소설 List ]</h2>
-         
+               <h2 style="font-size: 35px; color:#D96A80; padding:0.3em;">[ KeyWord ]</h2>
+               <div class="col-4 col-6-medium col-12-small" style="position: relative;">
+                  <h4 style="text-align: center">남사친</h4>
+                  <hr id="keyword_hr">  
+               </div>       
                <div style="text-align:center; position:relative;">
-                  <section> 
-                        <div class="col-4 col-6-medium col-12-small">
-                           <a href="#" class="image fit"><img src="images/pic01.jpg" alt="" style="position: relative; top: 50%;
-                            right: 50%; width: 200px; height: 240px;"></a>
-                        </div>
-                        <div class="title_1" style="position: relative; top: 50%; left: 50%;text-align: left;">
-                         <h4>제목 : 로맨스픽1</h4>
-                         <h4>내용 : 로맨스를 위한, 로맨스에 의한, 로맨스</h4> 
-                        </div> 
-                        <hr id="title_hr">
-                        <br>
-                    <div class="row">
-                        <div class="col-4 col-6-medium col-12-small">
-                           <a href="#" class="image fit"><img src="images/pic04.jpg" alt=""></a>
-                           <h6>제목 : 로맨스픽2</h6>
-                        </div>
-                        <div class="col-4 col-6-medium col-12-small">
-                           <a href="#" class="image fit"><img src="images/pic05.jpg" alt=""></a>
-                           <h6>제목 : 로맨스픽3</h6>
-                        </div>
-                        <div class="col-4 col-6-medium col-12-small">
-                           <a href="#" class="image fit"><img src="images/pic06.jpg" alt=""></a>
-                           <h6>제목 : 로맨스픽4</h6>
-                        </div>
-                     </div>
-                     <br>
+                  <section>
                      <div class="row">
                         <div class="col-4 col-6-medium col-12-small">
-                           <a href="#" class="image fit"><img src="images/pic04.jpg" alt=""></a>
+                           <a href="#" class="image fit"><img src="{{ url_for('RomanPick', path='images/pic04.jpg') }}" alt=""></a>
                            <h6>제목 : 로맨스픽1</h6>
                         </div>
                         <div class="col-4 col-6-medium col-12-small">
-                           <a href="#" class="image fit"><img src="images/pic05.jpg" alt=""></a>
+                           <a href="#" class="image fit"><img src="{{ url_for('RomanPick', path='images/pic05.jpg') }}" alt=""></a>
                            <h6>제목 : 로맨스픽2</h6>
                         </div>
                         <div class="col-4 col-6-medium col-12-small">
-                           <a href="#" class="image fit"><img src="images/pic06.jpg" alt=""></a>
+                           <a href="#" class="image fit"><img src="{{ url_for('RomanPick', path='images/pic04.jpg') }}" alt=""></a>
                            <h6>제목 : 로맨스픽3</h6>
                         </div>
                      </div>
                      <br>
                      <div class="row">
                         <div class="col-4 col-6-medium col-12-small">
-                           <a href="#" class="image fit"><img src="images/pic04.jpg" alt=""></a>
+                           <a href="#" class="image fit"><img src="{{ url_for('RomanPick', path='images/pic04.jpg') }}" alt=""></a>
                            <h6>제목 : 로맨스픽1</h6>
                         </div>
                         <div class="col-4 col-6-medium col-12-small">
-                           <a href="#" class="image fit"><img src="images/pic05.jpg" alt=""></a>
+                           <a href="#" class="image fit"><img src="{{ url_for('RomanPick', path='images/pic04.jpg') }}" alt=""></a>
                            <h6>제목 : 로맨스픽2</h6>
                         </div>
                         <div class="col-4 col-6-medium col-12-small">
-                           <a href="#" class="image fit"><img src="images/pic06.jpg" alt=""></a>
+                           <a href="#" class="image fit"><img src="{{ url_for('RomanPick', path='images/pic04.jpg') }}" alt=""></a>
+                           <h6>제목 : 로맨스픽3</h6>
+                        </div>
+                     </div>
+                     <br>
+                     <div class="row">
+                        <div class="col-4 col-6-medium col-12-small">
+                           <a href="#" class="image fit"><img src="{{ url_for('RomanPick', path='images/pic04.jpg') }}" alt=""></a>
+                           <h6>제목 : 로맨스픽1</h6>
+                        </div>
+                        <div class="col-4 col-6-medium col-12-small">
+                           <a href="#" class="image fit"><img src="{{ url_for('RomanPick', path='images/pic04.jpg') }}" alt=""></a>
+                           <h6>제목 : 로맨스픽2</h6>
+                        </div>
+                        <div class="col-4 col-6-medium col-12-small">
+                           <a href="#" class="image fit"><img src="{{ url_for('RomanPick', path='images/pic04.jpg') }}" alt=""></a>
                            <h6>제목 : 로맨스픽3</h6>
                         </div>
                      </div>
@@ -100,7 +94,7 @@
             <article id="contact" class="panel" style="text-align: center; margin-bottom: 20px;">
                <form style="background:none;">
                   <div style="float: right; width: auto; padding:auto; text-align: center;">
-                     <a class="btn" href="index.html" style="text-align: center;">
+                     <a class="btn" href="/main" style="text-align: center;">
                         뒤로
                      </a>
                   </div>
@@ -214,16 +208,12 @@
    <!-- Scripts -->
 
    <script>
-      const Searching = Search.prototype;
-
       function Searching() {
          this.keyword = document.querySelector('input[name = "search"]');
          this.engine = document.querySelector('.SelectSearch');
          this.button = document.querySelector('.img-button');
          this.form = document.querySelector('.search');
       }
-
-      new Search();
    </script>
 
    <!-- 바코드 사진업로드 -->
@@ -260,11 +250,10 @@
    <!-- drag & drop -->
    
 
-   <script src="assets/js/jquery.min.js"></script>
-   <script src="assets/js/browser.min.js"></script>
-   <script src="assets/js/breakpoints.min.js"></script>
-   <script src="assets/js/util.js"></script>
-   <script src="assets/js/main.js"></script>
+   <script src="{{ url_for('RomanPick', path='assets/js/browser.min.js') }}"></script>
+	<script src="{{ url_for('RomanPick', path='assets/js/breakpoints.min.js') }}"></script>
+	<script src="{{ url_for('RomanPick', path='assets/js/util.js') }}"></script>
+	<script src="{{ url_for('RomanPick', path='assets/js/main.js') }}"></script>
 
 </body>
 

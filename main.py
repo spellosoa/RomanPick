@@ -3,7 +3,8 @@ from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
-
+import urllib.parse
+from camera import *
 from pydantic import BaseModel
 
 class novel(BaseModel):
@@ -30,7 +31,16 @@ def read_main(request:Request):
 
 @app.get("/main/{item}")
 def pick_cluster(request:Request, item:str):
+    decoded_item = urllib.parse.unquote(item)
     return templates.TemplateResponse('03_heart.html', {"request" : request})
+
+@app.get("/main/{item}/title")
+def item_title(request:Request, item:str):
+    return templates.TemplateResponse('04_List_title.html', {"request" : request})
+
+@app.get("/main/{item}/keyword")
+def item_title(request:Request, item:str):
+    return templates.TemplateResponse('05_List_keyWord.html', {"request" : request})
 
 # @app.get("/items/{item_id}")
 # def read_item(item_id: int, q: Optional[str] = None):

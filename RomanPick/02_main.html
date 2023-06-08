@@ -14,6 +14,8 @@
 	<noscript>
 		<link rel="stylesheet" href="{{ url_for('RomanPick', path='assets/css/noscript.css') }}" />
 	</noscript>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 </head>
 
 <body class="is-preload">
@@ -65,7 +67,7 @@
 				</header> -->
 
 				<header>
-					<div style="text-align:center;">
+					<div style="text-align:center;" id="bb">
 						<div class="label_back">
 							<img src="{{ url_for('RomanPick', path='images/lable1.png') }}" alt="">
 							<div class="image-container">
@@ -108,12 +110,44 @@
 							</div>
 						</div>
 					</div>
+					<div id="aa" style="display:none">
+						<nav id="nav">
+							<a href="#"><i class="fas fa-heart" style="color: #F85B6C;"></i><span>Label1</span></a>
+							<a href="#"><i class="fas fa-heart" style="color: #C664F9;"></i><span>Label2</span></a>
+							<a href="#"><i class="fas fa-heart" style="color: #FBC774;"></i><span>Label3</span></a>
+							<a href="#"><i class="fas fa-heart" style="color: #FAED6D;"></i><span>Label4</span></a>
+							<a href="#"><i class="fas fa-heart" style="color: #3BE0D9;"></i><span>Label5</span></a>
+							<a href="#"><i class="fas fa-heart" style="color: #5CC6F6;"></i><span>Label6</span></a>
+						</nav>
+						<div style="text-align:center;">
+	
+							<div class="label_back">
+								<div style="position: relative;">
+									<img src="{{ url_for('RomanPick', path='images/lable1.png') }}" alt="">
+	
+									<button id="refreshButton" onclick="location.reload()">
+										<i class="fas fa-sync-alt"></i>
+									</button>
+	
+									<div class="canvas-container">
+	
+										<canvas id="textCanvas"></canvas>
+	
+									</div>
+								</div>
+	
+								
+	
+							</div>
+						</div>
+					</div>
 				</header>
+				
 
 
 
 				<article id="contact" class="panel" style="text-align: center; margin-bottom: 20px;">
-					<form class="search" style="background:none;">
+					<form class="search" style="background:none;" action="" method="post">
 						<div style="float: left; width: 30%; padding:10px;">
 							<select style="background: none; text-align: center;">
 								<option id="all" value="all">▼ 전 체</option>
@@ -171,9 +205,8 @@
 										onfocus="this.placeholder = ''" onblur="this.placeholder = '바코드 식별번호 13자리'">
 								</div>
 
-								<div id="drop"> 바코드 사진 Drag & Drop
-									<div id="thumbnails">
-									</div>
+								<div id="drop"> 카메라 아이콘
+									
 								</div>
 
 								<input type="button" id="btnSubmit" value="OK" />
@@ -182,7 +215,6 @@
 						</div>
 					</div>
 				</section>
-
 			</article>
 
 			<!-- emotion -->
@@ -289,9 +321,13 @@
 	</div>
 
 	<!-- Scripts -->
-
+	<!-- <script src="{{ url_for('RomanPick', path='assets/js/jquery.min.js') }}"></script> -->
+	<script src="{{ url_for('RomanPick', path='assets/js/browser.min.js') }}"></script>
+	<script src="{{ url_for('RomanPick', path='assets/js/breakpoints.min.js') }}"></script>
+	<script src="{{ url_for('RomanPick', path='assets/js/util.js') }}"></script>
+	<script src="{{ url_for('RomanPick', path='assets/js/main.js') }}"></script>
 	<script>
-		const Searching = Search.prototype;
+		
 
 		function Searching() {
 			this.keyword = document.querySelector('input[name = "search"]');
@@ -299,9 +335,28 @@
 			this.button = document.querySelector('.img-button');
 			this.form = document.querySelector('.search');
 		}
-
-		new Search();
 	</script>
+
+	<!-- 하트 이미지 클릭하면 동적테스트 페이지로 이동 -->
+	<script>
+		$('.image-item').click(function(e){
+			var label = $(this).find('.text').text();
+			// window.location.href="main/"+label; 
+			$.ajax({
+				url : "",
+				data : {
+					"label" : label
+				},
+				type:get,
+				success:function(data){
+					// 라벨에서 랜덤한 데이터(작가, 제목, 줄거리 키워드) 
+					// canvas에 텍스트 데이터 저장
+				}
+			})
+			$('#bb').css('display', 'none')
+			$('#aa').toggle()
+		});
+	</script>	
 
 	<!-- 바코드 사진업로드 -->
 	<script>
@@ -333,16 +388,21 @@
 			};
 		};
 	</script>
-
+	<script src="{{ url_for('RomanPick', path='canvas.js') }}"></script>
 	<!-- drag & drop -->
-
-
-	<script src="{{ url_for('RomanPick', path='assets/js/jquery.min.js') }}"></script>
-	<script src="{{ url_for('RomanPick', path='assets/js/browser.min.js') }}"></script>
-	<script src="{{ url_for('RomanPick', path='assets/js/breakpoints.min.js') }}"></script>
-	<script src="{{ url_for('RomanPick', path='assets/js/util.js') }}"></script>
-	<script src="{{ url_for('RomanPick', path='assets/js/main.js') }}"></script>
+	<script>
+		// 카메라 실행 이벤트
+		$('#drop').click(function(){
+			$.ajax({
+				url : "/camera_start",
+				type:"get",
+				async:false,
+				success:function(data){
+					console.log(JSON.stringify(data))
+				}
+			})
+		})
+	</script>
 
 </body>
-
 </html>
