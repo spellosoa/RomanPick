@@ -2,7 +2,7 @@ import requests as req
 from bs4 import BeautifulSoup as bs
 import re
 
-def crawling_isbn(isbn:str):
+async def crawling_isbn(isbn:str):
     print(f"크롤링 시작 {isbn}")
     isbn = isbn # 수집한 isbn
     url = 'https://dl.nanet.go.kr/search/searchInnerList.do'
