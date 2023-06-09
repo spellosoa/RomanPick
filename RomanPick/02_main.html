@@ -304,11 +304,20 @@
 				success:function(data){
 					// 라벨에서 랜덤한 데이터(작가, 제목, 줄거리 키워드) 
 					// canvas에 텍스트 데이터 저장
+					$.ajax({
+						url:"{{ url_for('RomanPick', path='assets/js/canvas.js') }}",
+						dataType:'script',
+						success:function(result){
+							eval(result)
+						}
+					})
 				}
 			})
 			$('#cluster').css('display', 'none');
 			$('#contact').css('display', 'none');
 			$('#cluster-data').toggle();
+
+			
 		});
 	</script>	
 
@@ -434,7 +443,6 @@
 			})
 		})
 	</script>
-	<script src="{{ url_for('RomanPick', path='canvas.js') }}"></script>
 	<!-- drag & drop -->
 	<script>
 		// 카메라 실행 이벤트
@@ -448,59 +456,5 @@
 			})
 		})
 	</script>
-<!-- canvas -->
-	<!-- <script>
-
-		// 캔버스 요소와 컨텍스트 설정
-		var canvas = document.getElementById('textCanvas');
-		var ctx = canvas.getContext('2d');
-
-		// 텍스트 배열
-		var texts = ['텍스트 1', '텍스트 2', '텍스트 3', '텍스트 4', '텍스트 5'];
-
-		// 텍스트 객체 생성
-		var textObjects = [];
-		for (var i = 0; i < texts.length; i++) {
-			var textObj = {
-				text: texts[i],
-				x: Math.random() * (canvas.width - 100), // x 좌표 랜덤 설정
-				y: Math.random() * (canvas.height - 30), // y 좌표 랜덤 설정
-				dx: (Math.random() - 0.5) * 0.5, // x 방향 속도
-				dy: (Math.random() - 0.5) * 0.5, // y 방향 속도
-			};
-			textObjects.push(textObj);
-		}
-
-		// 애니메이션 프레임 실행
-		function animate() {
-			requestAnimationFrame(animate);
-			ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-			for (var i = 0; i < textObjects.length; i++) {
-				var textObj = textObjects[i];
-
-				// 텍스트 위치 업데이트
-				textObj.x += textObj.dx;
-				textObj.y += textObj.dy;
-
-				// 벽 충돌 체크
-				if (textObj.x < 0 || textObj.x > canvas.width - 100) {
-					textObj.dx *= -1;
-				}
-				if (textObj.y < 0 || textObj.y > canvas.height - 30) {
-					textObj.dy *= -1;
-				}
-
-				// 텍스트 그리기
-				ctx.fillStyle = '#000';
-				ctx.font = '11px sans-serif';
-				ctx.fillText(textObj.text, textObj.x, textObj.y);
-			}
-		}
-
-		animate();
-
-
-	</script> -->
 </body>
 </html>
