@@ -54,15 +54,16 @@ async def crawling_isbn(isbn:str):
     
     try:        
         imgUrl = "https://dl.nanet.go.kr" + soupDetail.select_one('.imgBox .img img')['src']
+        
         # isbn 이미지 데이터 다운
-        response = req.get(imgUrl)
-        if response.status_code == 200:
-            with open(f'RomanPick/isbn_img/{isbn}.jpg', 'wb') as f:
-                f.write(response.content)
-                print(f"{isbn}.jpg 이미지 다운로드 완료")
-        else:
-            print(f"{isbn}.jpg 이미지 다운로드 실패")
+        # response = req.get(imgUrl)
+        # if response.status_code == 200:
+        #     with open(f'RomanPick/isbn_img/{isbn}.jpg', 'wb') as f:
+        #         f.write(response.content)
+        #         print(f"{isbn}.jpg 이미지 다운로드 완료")
+        # else:
+        #     print(f"{isbn}.jpg 이미지 다운로드 실패")
     except:
-        pass
+        imgUrl = ""
 
-    return {"isData": True, "title" : title, "text":textData}
+    return {"isData": True, "title" : title, "text":textData, "img":imgUrl}

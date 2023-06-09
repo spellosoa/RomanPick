@@ -36,38 +36,8 @@
 
 			<!-- Me -->
 			<article id="home" class="panel intro">
-				<!-- <header>
-					<div style="text-align:center;">
-						<div class="label_back">
-							<img src="images/lable1.png" alt="">
-
-							<div class="image-container">
-								<div>
-									<img src="images/l_red.png" alt="">
-								</div>
-								<div>
-									<img src="images/l_purple.png" alt="">
-								</div>
-								<div>
-									<img src="images/l_orange.png" alt="">
-								</div>
-								<div>
-									<img src="images/l_yellow.png" alt="">
-								</div>
-								<div>
-									<img src="images/l_green.png" alt="">
-								</div>
-								<div>
-									<img src="images/l_blue.png" alt="">
-								</div>
-							</div>
-							
-						</div>
-					</div>
-				</header> -->
-
 				<header>
-					<div style="text-align:center;" id="bb">
+					<div style="text-align:center;" id="cluster">
 						<div class="label_back">
 							<img src="{{ url_for('RomanPick', path='images/lable1.png') }}" alt="">
 							<div class="image-container">
@@ -110,7 +80,7 @@
 							</div>
 						</div>
 					</div>
-					<div id="aa" style="display:none">
+					<div id="cluster-data" style="display:none">
 						<nav id="nav">
 							<a href="#"><i class="fas fa-heart" style="color: #F85B6C;"></i><span>Label1</span></a>
 							<a href="#"><i class="fas fa-heart" style="color: #C664F9;"></i><span>Label2</span></a>
@@ -191,7 +161,7 @@
 							<div id="fileName" style="text-align: center;"></div> <!-- 파일 이름을 보여줄 div -->
 							<div id="image-show" style="text-align: center;"></div> <!-- 이미지를 보여줄 div -->
 
-							<form method="post" enctype="multipart/form-data" style="text-align: center;">
+							
 								<div class="button" style="background: none;">
 									<label for="chooseFile" style="color:#D96A80;">
 										👉 DROP & CLICK HERE! 👈
@@ -200,15 +170,15 @@
 								<input type="file" id="chooseFile" name="chooseFile" accept="image/*"
 									onchange="loadFile(this)">
 								
-								
+									<form method="get" enctype="multipart/form-data" style="text-align: center;" action="/input_barcode">
 									<div class="b-container">
 										<div class="b-row">
 										  <div class="b_select-container">
-											<select>
-											  <option id="cate1" value="cate1">공 간 1</option>
-											  <option id="cate2" value="cate2">공 간 2</option>
+											<select id="selectOption" name="category">
+											  <option id="cate1" value="바코드">바코드</option>
+											  <option id="cate2" value="ISBN">ISBN</option>
 											</select>
-											<input id="input_barcode" type="text" placeholder="바코드 식별번호 13자리" onfocus="this.placeholder = ''" onblur="this.placeholder = '바코드 식별번호 13자리'"
+											<input id="input_barcode" name="input_text" type="text" placeholder="바코드 식별번호 13자리" onfocus="this.placeholder = ''" onblur="this.placeholder='바코드 식별번호 13자리'"
 											style="font-size: 19px;"/>
 										  </div>
 										</div>
@@ -279,28 +249,6 @@
 						</div>
 					</div>
 				</header>
-
-				<!-- <form action="#" method="post">
-					<div>
-						<div class="row">
-							<div class="col-6 col-12-medium">
-								<input type="text" name="name" placeholder="Name" />
-							</div>
-							<div class="col-6 col-12-medium">
-								<input type="text" name="email" placeholder="Email" />
-							</div>
-							<div class="col-12">
-								<input type="text" name="subject" placeholder="Subject" />
-							</div>
-							<div class="col-12">
-								<textarea name="message" placeholder="Message" rows="6"></textarea>
-							</div>
-							<div class="col-12">
-								<input type="submit" value="Send Message" />
-							</div>
-						</div>
-					</div>
-				</form> -->
 			</article>
 
 			<!-- Me -->
@@ -351,8 +299,8 @@
 	<!-- 하트 이미지 클릭하면 동적테스트 페이지로 이동 -->
 	<script>
 		$('.image-item').click(function(e){
+			e.preventDefault();
 			var label = $(this).find('.text').text();
-			// window.location.href="main/"+label; 
 			$.ajax({
 				url : "/main/"+label,
 				data : {
@@ -364,39 +312,79 @@
 					// canvas에 텍스트 데이터 저장
 				}
 			})
-			$('#bb').css('display', 'none')
-			$('#aa').toggle()
+			$('#cluster').css('display', 'none');
+			$('#contact').css('display', 'none');
+			$('#cluster-data').toggle();
 		});
 	</script>	
 
 	<!-- 바코드 사진업로드 -->
 	<script>
+		
+
+
 		function loadFile(input) {
 			var file = input.files[0];   //선택된 파일 가져오기
+			var allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+			var fileExtension = file.name.split('.').pop().toLowerCase();
 
-			//미리 만들어 놓은 div에 text(파일 이름) 추가
-			var name = document.getElementById('fileName');
-			name.textContent = file.name;
+		  if (allowedExtensions.includes(fileExtension)) {
+			  var formData = new FormData();
+			  formData.append('imageFile', file);
 
-			//새로운 이미지 div 추가
-			var newImage = document.createElement("img");
-			newImage.setAttribute("class", 'img');
+			  // 미리 만들어 놓은 div에 text(파일 이름) 추가
+			  $('#fileName').text(file.name);
+		  
+			  // 새로운 이미지 생성
+			  var newImage = $('<img>').addClass('img');
+		  
+			  // 이미지 source 가져오기
+			  newImage.attr('src', URL.createObjectURL(file));
+		  
+			  newImage.css({
+			  width: '70%',
+			  height: '70%',
+			  objectFit: 'contain',
+			  visibility: 'hidden' // 초기에는 숨겨진 상태로 설정
+			  });
+		  
+			  // 이미지를 image-show div에 추가
+			  $('#image-show').empty().append(newImage);
+		  
+			  newImage.on('load', function () {
+			  newImage.css('visibility', 'visible'); // 이미지 로딩 완료 후 보이도록 설정
+			  });
 
-			//이미지 source 가져오기
-			newImage.src = URL.createObjectURL(file);
+			  $.ajax({
+				url:"/img_barcode",
+				type:"post",
+				processData: false,
+    			contentType: false,
+				data:formData,
+				success:function(result){
+					//if(result.result){
+						// 크롤링한 책 코사인 유사도 분석
+					//	$.ajax({
+					//		url : "/",
+					//		type:"post",
+					//		data: result,
+					//		success:function(data){// 유사한 소설 n가지 리스트
+					//			// 화면에 뿌리기
+					//		}
+					//	})
+					//}else{
+					//	alert("바코드를 인식할 수 없습니다.");
+					//	$('#fileName').text("");
+					//	$('#image-show').children('.img').remove();
+				//	}
+						console.log(result)
+				}
+			  })
+		  }else{
+			  alert('이미지 파일만 업로드 가능합니다.');
+		  }
 
-			newImage.style.width = "70%";
-			newImage.style.height = "70%";
-			newImage.style.objectFit = "contain";
 
-			//이미지를 image-show div에 추가
-			var container = document.getElementById('image-show');
-			container.innerHTML = ''; // 기존 이미지 삭제
-			container.appendChild(newImage);
-
-			newImage.onload = function () {
-				newImage.style.visibility = "visible"; // 이미지 로딩 완료 후 보이도록 설정
-			};
 		};
 		$(document).ready(function () {
 			var dropArea = $('#barcode');
@@ -430,36 +418,8 @@
 					e.preventDefault();
 					dropEvent.removeClass('dragging')
 					
-					var file = e.originalEvent.dataTransfer.files[0]; // 드롭된 파일 가져오기
-					var allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
-  					var fileExtension = file.name.split('.').pop().toLowerCase();
-
-					if (allowedExtensions.includes(fileExtension)) {
-						// 미리 만들어 놓은 div에 text(파일 이름) 추가
-						$('#fileName').text(file.name);
-					
-						// 새로운 이미지 생성
-						var newImage = $('<img>').addClass('img');
-					
-						// 이미지 source 가져오기
-						newImage.attr('src', URL.createObjectURL(file));
-					
-						newImage.css({
-						width: '70%',
-						height: '70%',
-						objectFit: 'contain',
-						visibility: 'hidden' // 초기에는 숨겨진 상태로 설정
-						});
-					
-						// 이미지를 image-show div에 추가
-						$('#image-show').empty().append(newImage);
-					
-						newImage.on('load', function () {
-						newImage.css('visibility', 'visible'); // 이미지 로딩 완료 후 보이도록 설정
-						});
-					}else{
-						alert('이미지 파일만 업로드 가능합니다.');
-					}
+					// 이미지 소스를 이용해 바코드 판별
+					loadFile(e.originalEvent.dataTransfer)
 				}
 			});
 			dropArea.on();
@@ -472,6 +432,13 @@
 			}
 		  });
 		  
+		$('#selectOption').change(function(){
+			var option = $(this).val();
+			$('#input_barcode').prop('placeholder', option + ' 식별번호 13자리');
+			$('#input_barcode').on('blur', function(){
+				$(this).prop('placeholder', option + " 식별번호 13자리");
+			})
+		})
 	</script>
 	<script src="{{ url_for('RomanPick', path='canvas.js') }}"></script>
 	<!-- drag & drop -->
@@ -487,6 +454,59 @@
 			})
 		})
 	</script>
+<!-- canvas -->
+	<!-- <script>
 
+		// 캔버스 요소와 컨텍스트 설정
+		var canvas = document.getElementById('textCanvas');
+		var ctx = canvas.getContext('2d');
+
+		// 텍스트 배열
+		var texts = ['텍스트 1', '텍스트 2', '텍스트 3', '텍스트 4', '텍스트 5'];
+
+		// 텍스트 객체 생성
+		var textObjects = [];
+		for (var i = 0; i < texts.length; i++) {
+			var textObj = {
+				text: texts[i],
+				x: Math.random() * (canvas.width - 100), // x 좌표 랜덤 설정
+				y: Math.random() * (canvas.height - 30), // y 좌표 랜덤 설정
+				dx: (Math.random() - 0.5) * 0.5, // x 방향 속도
+				dy: (Math.random() - 0.5) * 0.5, // y 방향 속도
+			};
+			textObjects.push(textObj);
+		}
+
+		// 애니메이션 프레임 실행
+		function animate() {
+			requestAnimationFrame(animate);
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+			for (var i = 0; i < textObjects.length; i++) {
+				var textObj = textObjects[i];
+
+				// 텍스트 위치 업데이트
+				textObj.x += textObj.dx;
+				textObj.y += textObj.dy;
+
+				// 벽 충돌 체크
+				if (textObj.x < 0 || textObj.x > canvas.width - 100) {
+					textObj.dx *= -1;
+				}
+				if (textObj.y < 0 || textObj.y > canvas.height - 30) {
+					textObj.dy *= -1;
+				}
+
+				// 텍스트 그리기
+				ctx.fillStyle = '#000';
+				ctx.font = '11px sans-serif';
+				ctx.fillText(textObj.text, textObj.x, textObj.y);
+			}
+		}
+
+		animate();
+
+
+	</script> -->
 </body>
 </html>

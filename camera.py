@@ -1,6 +1,8 @@
 import cv2
 from pyzbar import pyzbar
 import time
+import io
+from PIL import Image
 from barcode_crawling import *
 
 async def run_camera():
@@ -38,7 +40,8 @@ async def run_camera():
                     data = {
                         "isbn":previous_barcode_data,
                         "title" :crawl_data['title'],
-                        "textData" : crawl_data['text']
+                        "textData" : crawl_data['text'],
+                        "img":crawl_data['img']
                     }
                     time.sleep(5)
                     break
@@ -59,4 +62,30 @@ async def run_camera():
     cv2.destroyAllWindows() 
     return data
 
+async def image_barcode(image):
+    image = Image.open(io.BytesIO(image))
+    barcodes = pyzbar.decode(image)
+    
+    if len(barcodes) > 0:
+        print("a")
+        for barcode in barcodes:
+            barcode_data = barcode.data.decode('utf-8')
+            barcode_type = barcode.type
+            
+            if barcode_type in ['EAN13', 'UPCA']:
+                isbn = barcode_data
+                crawl_data = await crawling_isbn(isbn)
+                if crawl_data['isData']:
+                    data = {
+                                "result" : True,
+                                "isbn": isbn,
+                                "title" :crawl_data['title'],
+                                "textData" : crawl_data['text'],
+                                "img":crawl_data['img']
+                            }
+                    return data
+                else :
+                    return {"result":False}
+    else:
+        return {"result" : False}
 

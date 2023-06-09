@@ -8,3 +8,5 @@ transformers
 torch
 konlpy
 opencv-python
+Pillow
+python-multipart
