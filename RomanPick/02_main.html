@@ -169,20 +169,23 @@
 								</div>
 								<input type="file" id="chooseFile" name="chooseFile" accept="image/*"
 									onchange="loadFile(this)">
-								
-									<form method="get" enctype="multipart/form-data" style="text-align: center;" action="/input_barcode">
-									<div class="b-container">
-										<div class="b-row">
-										  <div class="b_select-container">
-											<select id="selectOption" name="category">
-											  <option id="cate1" value="바코드">바코드</option>
-											  <option id="cate2" value="ISBN">ISBN</option>
-											</select>
-											<input id="input_barcode" name="input_text" type="text" placeholder="바코드 식별번호 13자리" onfocus="this.placeholder = ''" onblur="this.placeholder='바코드 식별번호 13자리'"
-											style="font-size: 19px;"/>
-										  </div>
+								<form method="get" enctype="multipart/form-data" style="text-align: center;" action="/input_barcode">
+								<div class="num">
+									<input id="barcode" type="text" placeholder="바코드 식별번호 13자리"
+										onfocus="this.placeholder = ''" onblur="this.placeholder = '바코드 식별번호 13자리'">
+								</div>
+								<!-- <div class="b-container">
+									<div class="b-row">
+										<div class="b_select-container">
+										<select>
+											<option id="cate1" value="cate1">공 간 1</option>
+											<option id="cate2" value="cate2">공 간 2</option>
+										</select>
+										<input id="input_barcode" type="text" placeholder="바코드 식별번호 13자리" onfocus="this.placeholder = ''" onblur="this.placeholder = '바코드 식별번호 13자리'"
+										style="font-size: 19px;"/>
 										</div>
-									  </div>
+									</div>
+									</div> -->
 									  
 								
 
