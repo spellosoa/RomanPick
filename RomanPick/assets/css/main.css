@@ -2580,7 +2580,7 @@ label {
  .b_select-container {
    display: flex;
    align-items: center;
-   gap: 10px; /* select와 input 사이의 간격을 조정 
+   gap: 10px;
  }
 
  .b_select-container select {
