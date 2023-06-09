@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .modal {
+            will-change: visibility, opacity;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            overflow-y: auto;
+            overflow-x: hidden;
+            z-index: 1000;
+            visibility: visible;
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+          }
+          
+          .modal--active {
+            visibility: visible;
+            opacity: 1;
+          }
+          
+          .modal--align-top {
+            align-items: flex-start;
+          }
+          
+          .modal__bg {
+            background: transparent;
+          }
+          
+          .modal__dialog {
+            max-width: 600px;
+            padding: 2.4rem;
+          }
+          
+          .modal__content {
+            will-change: transform, opacity;
+            position: relative;
+            padding: 2.4rem;
+            background: #FFEBEE;
+            background-clip: padding-box;
+            box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.25);
+            opacity: 0;
+            transition: opacity 0.25s cubic-bezier(0.23, 1, 0.32, 1);
+          }
+          
+          .modal__content--active {
+            opacity: 1;
+          }
+          
+          .modal__close {
+            z-index: 1001;
+            cursor: pointer;
+          }
+          
+          .modal__trigger {
+            position: relative;
+            display: inline-block;
+            padding: 0.6rem 2.4rem;
+            color: rgba(0, 0, 0, 0.7);
+            line-height: 1;
+            cursor: pointer;
+            background: #FFEBEE;
+            box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            user-select: none;
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+          }
+          
+          .modal__trigger--active {
+            z-index: 10;
+          }
+          
+          .modal__trigger:hover {
+            background: mix(#000, #FFEBEE, 10);
+          }
+          
+          #modal__temp {
+            will-change: transform, opacity;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #FFEBEE;
+            transform: none;
+            opacity: 1;
+            transition: opacity 0.1s ease-out, transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+          }
+          
+          
+          h1, h2, h3, p {
+            font-weight: 300;
+            margin: 0 0 2.4rem 0;
+          }
+          
+          h1, h2, h3 {
+            line-height: 1.3;
+          }
+          
+          a {
+            text-decoration: none;
+            color: inherit;
+            font-weight: 400;
+          }
+          
+          body {
+            height: 100vh;
+            background: #F44336;
+          }
+          
+          img {
+            max-width: 100%;
+          }
+          
+          .demo-btns header {
+            padding: 7vh 10vw;
+            background: #FFEBEE;
+            display: flex;
+            align-items: center;
+          }
+          
+          .demo-btns h1 {
+            margin: 0;
+            color: rgba(0, 0, 0, 0.54);
+            font-weight: 300;
+          }
+          
+          .demo-btns .info {
+            background: #F44336;
+            padding: 3vh 10vw;
+            height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-flow: column wrap;
+          }
+          
+          .demo-btns p {
+            text-align: center;
+            color: white;
+          }
+          
+          .demo-btns .link {
+            font-size: 20px;
+          }
+          
+          .demo-btns .modal__trigger {
+            margin-right: 3px;
+          }
+          
+          .demo-close {
+            position: absolute;
+            top: 0;
+            right: 0;
+            margin: 0.6rem;
+            padding: 0.6rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 50%;
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+          }
+          
+          .demo-close svg {
+            width: 24px;
+            fill: white;
+            pointer-events: none;
+            vertical-align: top;
+          }
+          
+          .demo-close:hover {
+            background: rgba(0, 0, 0, 0.6);
+          }
+          
+          .logo {
+            position: fixed;
+            bottom: 3vh;
+            right: 3vw;
+            z-index: 2;
+          }
+          
+          .logo img {
+            width: 45px;
+            transform: rotate(0);
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+          }
+          
+          .logo img:hover {
+            transform: rotate(180deg) scale(1.1);
+          }
+          
+          
+    </style>
+</head>
+<body>
+    <button id="aaa"></button>
+    <div id="modal2" class="modal modal--align-top modal__bg" role="dialog">
+        <div class="modal__dialog">
+            <div class="modal__content">
+                <h1>Big Modal</h1>
+                <h3>This modal is pretty tall.</h3>
+                <p>Selfies normcore four dollar toast four loko listicle artisan. Hoodie Marfa authentic, wayfarers church-key tofu Banksy pop-up Kickstarter Brooklyn heirloom swag synth. Echo Park cray synth mixtape. Tofu gastropub squid readymade, trust fund Wes Anderson DIY PBR 8-bit try-hard +1 Shoreditch lo-fi tote bag.</p>
+                <p><img src="http://unsplash.it/600/300" alt="" /></p>
+                <p>Mumblecore cred selfies fingerstache. Tousled skateboard plaid lo-fi shabby chic salvia, swag Odd Future Etsy art party Austin cronut. Crucifix whatever Pinterest food truck, pickled viral cray 90's DIY chambray keffiyeh biodiesel Vice blog. Cred meh yr tofu.</p>
+                <p>Mumblecore cred selfies fingerstache. Tousled skateboard plaid lo-fi shabby chic salvia, swag Odd Future Etsy art party Austin cronut. Crucifix whatever Pinterest food truck, pickled viral cray 90's DIY chambray keffiyeh biodiesel Vice blog. Cred meh yr tofu.</p>
+                <!-- modal close button -->
+                <a href="" class="modal__close demo-close">
+                    <svg class="" viewBox="0 0 24 24"><path d="M19 6.41l-1.41-1.41-5.59 5.59-5.59-5.59-1.41 1.41 5.59 5.59-5.59 5.59 1.41 1.41 5.59-5.59 5.59 5.59 1.41-1.41-5.59-5.59z"/><path d="M0 0h24v24h-24z" fill="none"/></svg>
+                </a>
+            </div>
+        </div>
+    </div>
+    <script>
+        $('#aaa').click(function(){
+            $('#modal2').modal("show");
+        })
+    </script>
+</body>
+</html>

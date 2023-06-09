@@ -1,5 +1,5 @@
 from typing import Optional
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, UploadFile, Form
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
@@ -32,7 +32,7 @@ def read_main(request:Request):
 @app.get("/main/{item}")
 def pick_cluster(request:Request, item:str):
     decoded_item = urllib.parse.unquote(item)
-    return templates.TemplateResponse('03_heart.html', {"request" : request})
+    return 
 
 @app.get("/main/{item}/title")
 def item_title(request:Request, item:str):
@@ -46,6 +46,17 @@ def item_title(request:Request, item:str):
 async def camera_start():
     data = await run_camera()
     return data
+
+@app.post("/img_barcode")
+async def img_barcode(imageFile: UploadFile):
+    image = await imageFile.read()
+    result = await image_barcode(image)
+    return result
+
+@app.get("/input_barcode")
+async def input_barcode(category: str = Form(...), input_text: str = Form(...)):
+    pass
+        
 # @app.get("/items/{item_id}")
 # def read_item(item_id: int, q: Optional[str] = None):
 #     return {"item_id": item_id, "q": q}
