@@ -32,7 +32,7 @@ def read_main(request:Request):
 @app.get("/main/{item}")
 def pick_cluster(request:Request, item:str):
     decoded_item = urllib.parse.unquote(item)
-    return 
+    return decoded_item
 
 @app.get("/main/{item}/title")
 def item_title(request:Request, item:str):

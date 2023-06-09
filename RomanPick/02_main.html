@@ -300,13 +300,12 @@
 			var label = $(this).find('.text').text();
 			$.ajax({
 				url : "/main/"+label,
-				data : {
-					"label" : label
-				},
+				
 				type:"get",
 				success:function(data){
 					// 라벨에서 랜덤한 데이터(작가, 제목, 줄거리 키워드) 
 					// canvas에 텍스트 데이터 저장
+					console.log(data);
 					$.ajax({
 						url:"{{ url_for('RomanPick', path='assets/js/canvas.js') }}",
 						dataType:'script',
