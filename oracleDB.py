@@ -6,7 +6,8 @@ class OracleDB:
         self.username = 'campus_c_230531_2'
         self.password = 'smhrd2'
         self.connection = None
-
+    def __del__(self):
+        self.disconnect()
     def connect(self):
         self.connection = cx_Oracle.connect(self.username, self.password, self.dsn)
 
@@ -33,6 +34,7 @@ class OracleDB:
         
     def select_novel(self, novel_no):
         query = "select novel_no, title, writer, synopsis from t_novel where novel_no=:novel_no"
+        
     def execute_insert(self,novel):
         query = f"INSERT INTO t_cosine VALUES (:novel_no, :rank1, :rank2, :rank3, :rank4, :rank5, :rank6)"
         self.connect()
@@ -41,6 +43,23 @@ class OracleDB:
             cursor.execute(query, novel_no=i['novel_no'], rank1=i['rank1'], rank2=i['rank2'],rank3= i['rank3'], rank4=i['rank4'],rank5= i['rank5'], rank6=i['rank6'])
         self.connection.commit()
         self.disconnect()
+        
+    def random_list(self):
+        # 랜덤한 novel_nm 10개 select
+        query = """SELECT novel_nm
+                FROM (
+                SELECT novel_nm
+                FROM t_novel
+                ORDER BY DBMS_RANDOM.RANDOM
+                )
+                WHERE ROWNUM <= 10"""
+        self.connect()
+        cursor = self.connection.cursor()
+        cursor.execute(query)
+        result = cursor.fetchall()
+        self.disconnect()
+        text_list = [row[0] for row in result]
+        return text_list
 
     def execute_insert1(self, values):
             query = f"INSERT INTO book(num, title) VALUES (:num, :title)"

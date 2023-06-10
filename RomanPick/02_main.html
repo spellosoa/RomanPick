@@ -174,20 +174,6 @@
 									<input id="isbn" name="isbn" type="text" placeholder="ISBN 식별번호 13자리"
 										onfocus="this.placeholder = ''" onblur="this.placeholder = 'ISBN 식별번호 13자리'">
 								</div>
-								<!-- <div class="b-container">
-									<div class="b-row">
-										<div class="b_select-container">
-										<select>
-											<option id="cate1" value="cate1">공 간 1</option>
-											<option id="cate2" value="cate2">공 간 2</option>
-										</select>
-										<input id="input_barcode" type="text" placeholder="바코드 식별번호 13자리" onfocus="this.placeholder = ''" onblur="this.placeholder = '바코드 식별번호 13자리'"
-										style="font-size: 19px;"/>
-										</div>
-									</div>
-									</div> -->
-									  
-								
 
 								<div id="drop"> 
 									<i class="fas fa-camera" style="font-size: 100px;"></i>
@@ -306,9 +292,9 @@
 					url:"{{ url_for('RomanPick', path='assets/js/canvas.js') }}",
 					dataType:'script',
 					success:function(result){
-						create_canvas(data,label)
+						create_canvas(data.textList,label)
 						$(window).on('resize', function() {
-							create_canvas(data,label);
+							create_canvas(data.textList,label);
 						});
 					}
 				})

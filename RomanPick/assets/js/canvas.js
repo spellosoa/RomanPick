@@ -58,7 +58,6 @@ function create_canvas(textList, label){
     }
 
     // 요소의 크기를 가져와서 캔버스 크기로 설정
-    console.log(Array.isArray(textList))
     var texts = textList;
     var canvas = document.getElementById('textCanvas');
     var ctx = canvas.getContext('2d');
