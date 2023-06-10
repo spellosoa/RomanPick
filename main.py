@@ -7,7 +7,7 @@ import urllib.parse
 from camera import *
 from barcode_crawling import *
 from pydantic import BaseModel
-from oracleDB import OracleDB
+# from oracleDB import OracleDB
 
 class novel(BaseModel):
     novel_no : int
@@ -53,16 +53,16 @@ def item_title(request:Request, item:str):
 def item_title(request:Request, item:str):
     return templates.TemplateResponse('05_List_keyWord.html', {"request" : request})
 
-@app.get("/camera_start")
-async def camera_start():
-    data = await run_camera()
-    return data
+# @app.get("/camera_start")
+# async def camera_start():
+#     data = await run_camera()
+#     return data
 
-@app.post("/img_barcode")
-async def img_barcode(imageFile: UploadFile):
-    image = await imageFile.read()
-    result = await image_barcode(image)
-    return result
+# @app.post("/img_barcode")
+# async def img_barcode(imageFile: UploadFile):
+#     image = await imageFile.read()
+#     result = await image_barcode(image)
+#     return result
 
 @app.get("/input_isbn")
 async def input_isbn(input_isbn: str = Form(...)):
