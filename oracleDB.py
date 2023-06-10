@@ -22,6 +22,17 @@ class OracleDB:
         self.disconnect()
         return result
 
+    # 유사도 6개 가져오기
+    def select_cosine(self, novel_no):
+        query = "select novel_no, rank1, rank2, rank3, rank4, rank5, rank6 from t_cosine where novel_no=:novel_no"
+        self.connect()
+        cursor = self.connection.cursor()
+        cursor.execute(query, novel_no=novel_no)
+        self.connection.commit()
+        self.disconnect()
+        
+    def select_novel(self, novel_no):
+        query = "select novel_no, title, writer, synopsis from t_novel where novel_no=:novel_no"
     def execute_insert(self,novel):
         query = f"INSERT INTO t_cosine VALUES (:novel_no, :rank1, :rank2, :rank3, :rank4, :rank5, :rank6)"
         self.connect()

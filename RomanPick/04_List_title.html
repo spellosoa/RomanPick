@@ -293,7 +293,7 @@
 
             <article id="contact" class="panel" style="text-align: center; margin-bottom: 20px;">
                <form style="background:none;">
-                  <div style="float: right; width: auto; padding:auto; text-align: center;">
+                  <div id="backBtn" style="float: right; width: auto; padding:auto; text-align: center;">
                      <a class="btn" href="/main" style="text-align: center;">
                         <i class="fas fa-backspace" style="color: #D96A80; font-size: xx-large;"></i>
                      </a>
@@ -668,6 +668,11 @@
        $('.image.fit').click(function(e){
          e.preventDefault();
         
+       })
+
+       $('#backBtn').click(function(e){
+         e.preventDefault();
+         window.history.back();
        })
    </script>
    
