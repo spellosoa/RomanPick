@@ -95,7 +95,7 @@
 								<div style="position: relative;">
 									<img src="{{ url_for('RomanPick', path='images/lable1.png') }}" alt="">
 	
-									<button id="refreshButton" onclick="location.reload()">
+									<button id="refreshButton" style="z-index: 1;">
 										<i class="fas fa-sync-alt"></i>
 									</button>
 	
@@ -295,33 +295,39 @@
 
 	<!-- 하트 이미지 클릭하면 동적테스트 페이지로 이동 -->
 	<script>
+		// 라벨에 따른 랜덤 데이터 생성, 캔버스 출력 ajax 함수
+		function label_random_data(label) {$.ajax({
+			url : "/main/"+label,
+			type:"get",
+			success:function(data){
+				// 라벨에서 랜덤한 데이터(제목, 줄거리 키워드) 
+				// canvas에 텍스트 데이터 저장
+				$.ajax({
+					url:"{{ url_for('RomanPick', path='assets/js/canvas.js') }}",
+					dataType:'script',
+					success:function(result){
+						create_canvas(data,label)
+						$(window).on('resize', function() {
+							create_canvas(data,label);
+						});
+					}
+				})
+			}
+		})
+	}
 		$('.image-item').click(function(e){
 			e.preventDefault();
 			var label = $(this).find('.text').text();
-			$.ajax({
-				url : "/main/"+label,
-				
-				type:"get",
-				success:function(data){
-					// 라벨에서 랜덤한 데이터(작가, 제목, 줄거리 키워드) 
-					// canvas에 텍스트 데이터 저장
-					console.log(data);
-					$.ajax({
-						url:"{{ url_for('RomanPick', path='assets/js/canvas.js') }}",
-						dataType:'script',
-						success:function(result){
-							eval(result)
-						}
-					})
-				}
-			})
+			label_random_data(label)
 			$('#cluster').css('display', 'none');
 			$('#contact').css('display', 'none');
 			$('#cluster-data').toggle();
-
-			
+			$('#refreshButton').click(function(e){
+				label_random_data(label)
+			})
 		});
-	</script>	
+		
+	</script>
 
 	<!-- 바코드 사진업로드 -->
 	<script>

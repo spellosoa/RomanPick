@@ -1816,6 +1816,7 @@ button.xlarge,
 
    #refreshButton {
       width: auto;
+      z-index: 1;
    }
 }
 
@@ -2561,6 +2562,7 @@ label {
    align-items: center;
    transition: transform 0.3s;
    object-fit: cover;
+   z-index: 0;
 }
 
 
@@ -2696,6 +2698,7 @@ label {
    font-size: 12px;
    background-color: #D96A80;
    border-radius: 30%;
+   z-index: 100;
 }
 
 

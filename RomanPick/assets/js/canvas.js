@@ -1,11 +1,5 @@
-function create_canvas(){
-    var texts = [
-        '텍스트',
-        '텍스',
-        '텍',
-        '텍ㅁㅁㅁㅁㅁㅁ',
-        '텍ㄴㄴㄴㄴㄴ'
-        ];
+function create_canvas(textList, label){
+    
     class TextElement {
         constructor(text, x, y, width, height) {
             this.text = text;
@@ -16,7 +10,7 @@ function create_canvas(){
             this.speedX = Math.random() * 2 - 1; // X축 이동 속도 (-1 ~ 1)
             this.speedY = Math.random() * 2 - 1; // Y축 이동 속도 (-1 ~ 1)
         }
-
+        
         update() {
             if(!this.isStopped){
                 this.x += this.speedX;
@@ -64,6 +58,8 @@ function create_canvas(){
     }
 
     // 요소의 크기를 가져와서 캔버스 크기로 설정
+    console.log(Array.isArray(textList))
+    var texts = textList;
     var canvas = document.getElementById('textCanvas');
     var ctx = canvas.getContext('2d');
     var canvasContainer = $('.canvas-container');
@@ -78,7 +74,7 @@ function create_canvas(){
     var textElements = [];
 
     // 텍스트 스타일 설정
-    var fontSize = Math.min(containerWidth, containerHeight) / 10;
+    var fontSize = Math.min(containerWidth, containerHeight) / 15;
     ctx.font = fontSize + 'px Arial';
     ctx.fillStyle = '#000';
 
@@ -86,13 +82,14 @@ function create_canvas(){
     var centerX = canvas.width / 2;
     var centerY = canvas.height / 2;
     var textSpacing = fontSize * 1.5; // 텍스트 간격 조정
-    var startY = centerY - (texts.length - 1) * textSpacing / 2;
+    
     for (var i = 0; i < texts.length; i++) {
         var text = texts[i];
+        var startY = centerY - (text.length - 1) * textSpacing / 2;
         var textWidth = ctx.measureText(text).width;
         var textHeight = parseInt(ctx.font)
-        var textX = centerX - textWidth / 2;
-        var textY = startY + i * textSpacing;
+        var textX = Math.random() * (containerWidth - textWidth);
+        var textY = Math.random() * (containerHeight - textHeight);
         var textElement = new TextElement(text, textX, textY, textWidth, textHeight);
         textElements.push(textElement);
         ctx.fillText(text, textX, textY);
@@ -143,7 +140,28 @@ function animate() {
             mouseY <= textBottom
         ) {
 			canvas.style.cursor = 'pointer'
+
             textElement.stop();
+            const initialFontSize = parseFloat(textElement.fontSize);
+            const targetFontSize = initialFontSize * 1.5; // 크기가 커질 최종 폰트 크기
+            const duration = 200; // 애니메이션 지속 시간 (밀리초)
+
+            let startTime = null;
+            function animateFontSize(timestamp) {
+                if (!startTime) startTime = timestamp;
+
+                const progress = timestamp - startTime;
+                const ratio = Math.min(progress / duration, 1); // 애니메이션 진행률 (0 ~ 1)
+                const currentFontSize = initialFontSize + (targetFontSize - initialFontSize) * ratio;
+
+                textElement.fontSize = `${currentFontSize}px`;
+
+                if (progress < duration) {
+                    requestAnimationFrame(animateFontSize);
+                }
+            }
+
+            requestAnimationFrame(animateFontSize);
         } else {
             textElement.resume();
         }
@@ -173,15 +191,12 @@ canvas.addEventListener('click', function(event) {
             mouseY <= textBottom
         ) {
             // 새로운 페이지로 이동
-            window.location.href = '새로운페이지주소.html';
+            window.location.href = `/main/${label}/${textElements[i].text}`;
             break;
         }
     }
 });
 }
-create_canvas();
   // 윈도우 크기 변경 시 캔버스 크기 재설정 및 다시 그리기
-$(window).on('resize', function() {
-    create_canvas();
-});
+
   

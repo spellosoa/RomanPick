@@ -32,13 +32,22 @@ def read_main(request:Request):
 @app.get("/main/{item}")
 def pick_cluster(request:Request, item:str):
     decoded_item = urllib.parse.unquote(item)
-    return decoded_item
+    # 이 라벨로 DB와 연결 후 랜덤 5개 제목, 랜덤 5개 키워드 추출 후 리턴
+    textList = ['aaaa', 'bbbbb', 'ccccc', 'ddddd', 'eeeee', 'key1','key2','key3','key4','key5']
+    return textList
 
-@app.get("/main/{item}/title")
+@app.get("/main/{item}/{word}")
+def item_title(request:Request, item:str, word:str):
+    item = urllib.parse.unquote(item)
+    word = urllib.parse.unquote(word)
+    # DB에서 라벨에 맞는 제목이 word와 같은게 있으면 title로, 없으면 keyword로
+    return templates.TemplateResponse('04_List_title.html', {"request" : request})
+
+@app.get("/main/{item}/{word}/title")
 def item_title(request:Request, item:str):
     return templates.TemplateResponse('04_List_title.html', {"request" : request})
 
-@app.get("/main/{item}/keyword")
+@app.get("/main/{item}/{word}/keyword")
 def item_title(request:Request, item:str):
     return templates.TemplateResponse('05_List_keyWord.html', {"request" : request})
 
