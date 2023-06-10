@@ -22,11 +22,12 @@ class OracleDB:
         self.disconnect()
         return result
 
-    def execute_insert(self, book):
-        query = f"INSERT INTO book VALUES (:num, :title, :author, :company, :isbn, :count)"
+    def execute_insert(self,novel):
+        query = f"INSERT INTO t_cosine VALUES (:novel_no, :rank1, :rank2, :rank3, :rank4, :rank5, :rank6)"
         self.connect()
         cursor = self.connection.cursor()
-        cursor.execute(query, num=book.num, title=book.title, author=book.author,company= book.company, isbn=book.company,count= book.count)
+        for key,i in novel.items():
+            cursor.execute(query, novel_no=i['novel_no'], rank1=i['rank1'], rank2=i['rank2'],rank3= i['rank3'], rank4=i['rank4'],rank5= i['rank5'], rank6=i['rank6'])
         self.connection.commit()
         self.disconnect()
 

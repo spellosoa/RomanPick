@@ -23,7 +23,7 @@
 
 		<!-- Nav -->
 		<nav id="nav">
-			<a href="#" class="icon solid fa-home" style="color: #D96A80;"><span>RomanPick</span></a>
+			<a href="" class="icon solid fa-home" style="color: #D96A80;"><span>RomanPick</span></a>
 			<a href="#barcode" class="icon solid fas fa-camera" style="color: #D96A80;"><span>Barcode</span></a>
 			<a href="#emotion" class="icon solid fa-smile" style="color: #D96A80;"><span>Emotion</span></a>
 			<a href="#game" class="icon solid fa-gamepad" style="color: #D96A80;"><span>Game</span></a>
@@ -93,7 +93,7 @@
 								<div style="position: relative;">
 									<img src="{{ url_for('RomanPick', path='images/lable1.png') }}" alt="">
 	
-									<button id="refreshButton" onclick="location.reload()">
+									<button id="refreshButton" style="z-index: 1;">
 										<i class="fas fa-sync-alt"></i>
 									</button>
 	
@@ -166,10 +166,10 @@
 								</div>
 								<input type="file" id="chooseFile" name="chooseFile" accept="image/*"
 									onchange="loadFile(this)">
-								<form method="get" enctype="multipart/form-data" style="text-align: center;" action="/input_barcode">
+								<form method="get" enctype="multipart/form-data" style="text-align: center;" action="/input_isbn">
 								<div class="num">
-									<input id="barcode" type="text" placeholder="바코드 식별번호 13자리"
-										onfocus="this.placeholder = ''" onblur="this.placeholder = '바코드 식별번호 13자리'">
+									<input id="isbn" name="isbn" type="text" placeholder="ISBN 식별번호 13자리"
+										onfocus="this.placeholder = ''" onblur="this.placeholder = 'ISBN 식별번호 13자리'">
 								</div>
 								<!-- <div class="b-container">
 									<div class="b-row">
@@ -218,37 +218,37 @@
 						<div class="label_back">
 							<img src="{{ url_for('RomanPick', path='images/lable1.png') }}" alt="">
 							<div class="image-container" id="emotion-container">
-								<div class="image-item">
+								<div class="emotion-item">
 									<img class="thumbnail" src="{{ url_for('RomanPick', path='images/l_red.png') }}" alt="">
 									<div class="overlay">
 										<span class="text">Red Image</span>
 									</div>
 								</div>
-								<div class="image-item">
+								<div class="emotion-item">
 									<img class="thumbnail" src="{{ url_for('RomanPick', path='images/l_purple.png') }}" alt="">
 									<div class="overlay">
 										<span class="text">Purple Image</span>
 									</div>
 								</div>
-								<div class="image-item">
+								<div class="emotion-item">
 									<img class="thumbnail" src="{{ url_for('RomanPick', path='images/l_orange.png') }}" alt="">
 									<div class="overlay">
 										<span class="text">Orange Image</span>
 									</div>
 								</div>
-								<div class="image-item">
+								<div class="emotion-item">
 									<img class="thumbnail" src="{{ url_for('RomanPick', path='images/l_yellow.png') }}" alt="">
 									<div class="overlay">
 										<span class="text">Yellow Image</span>
 									</div>
 								</div>
-								<div class="image-item">
+								<div class="emotion-item">
 									<img class="thumbnail" src="{{ url_for('RomanPick', path='images/l_green.png') }}" alt="">
 									<div class="overlay">
 										<span class="text">Green Image</span>
 									</div>
 								</div>
-								<div class="image-item">
+								<div class="emotion-item">
 									<img class="thumbnail" src="{{ url_for('RomanPick', path='images/l_blue.png') }}" alt="">
 									<div class="overlay">
 										<span class="text">Blue Image</span>
@@ -296,25 +296,39 @@
 		</script>
 	<!-- 하트 이미지 클릭하면 동적테스트 페이지로 이동 -->
 	<script>
+		// 라벨에 따른 랜덤 데이터 생성, 캔버스 출력 ajax 함수
+		function label_random_data(label) {$.ajax({
+			url : "/main/"+label,
+			type:"get",
+			success:function(data){
+				// 라벨에서 랜덤한 데이터(제목, 줄거리 키워드) 
+				// canvas에 텍스트 데이터 저장
+				$.ajax({
+					url:"{{ url_for('RomanPick', path='assets/js/canvas.js') }}",
+					dataType:'script',
+					success:function(result){
+						create_canvas(data,label)
+						$(window).on('resize', function() {
+							create_canvas(data,label);
+						});
+					}
+				})
+			}
+		})
+	}
 		$('.image-item').click(function(e){
 			e.preventDefault();
 			var label = $(this).find('.text').text();
-			$.ajax({
-				url : "/main/"+label,
-				data : {
-					"label" : label
-				},
-				type:"get",
-				success:function(data){
-					// 라벨에서 랜덤한 데이터(작가, 제목, 줄거리 키워드) 
-					// canvas에 텍스트 데이터 저장
-				}
-			})
+			label_random_data(label)
 			$('#cluster').css('display', 'none');
 			$('#contact').css('display', 'none');
 			$('#cluster-data').toggle();
+			$('#refreshButton').click(function(e){
+				label_random_data(label)
+			})
 		});
-	</script>	
+		
+	</script>
 
 	<!-- 바코드 사진업로드 -->
 	<script>
@@ -438,7 +452,7 @@
 			})
 		})
 	</script>
-
+	<!-- drag & drop -->
 	<script>
 		var Modal = (function() {
 
@@ -642,69 +656,6 @@ Modal.init();
 			})
 		})
 	</script>
-<!-- canvas -->
-	<!-- <script>
-
-	<!-- drag & drop -->
-
-
-	<script src="{{ url_for('RomanPick', path='assets/js/jquery.min.js') }}"></script>
-	<script src="{{ url_for('RomanPick', path='assets/js/browser.min.js') }}"></script>
-	<script src="{{ url_for('RomanPick', path='assets/js/breakpoints.min.js') }}"></script>
-	<script src="{{ url_for('RomanPick', path='assets/js/util.js') }}"></script>
-	<script src="{{ url_for('RomanPick', path='assets/js/main.js') }}"></script>
-
-		// 캔버스 요소와 컨텍스트 설정
-		var canvas = document.getElementById('textCanvas');
-		var ctx = canvas.getContext('2d');
-
-		// 텍스트 배열
-		var texts = ['텍스트 1', '텍스트 2', '텍스트 3', '텍스트 4', '텍스트 5'];
-
-		// 텍스트 객체 생성
-		var textObjects = [];
-		for (var i = 0; i < texts.length; i++) {
-			var textObj = {
-				text: texts[i],
-				x: Math.random() * (canvas.width - 100), // x 좌표 랜덤 설정
-				y: Math.random() * (canvas.height - 30), // y 좌표 랜덤 설정
-				dx: (Math.random() - 0.5) * 0.5, // x 방향 속도
-				dy: (Math.random() - 0.5) * 0.5, // y 방향 속도
-			};
-			textObjects.push(textObj);
-		}
-
-		// 애니메이션 프레임 실행
-		function animate() {
-			requestAnimationFrame(animate);
-			ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-			for (var i = 0; i < textObjects.length; i++) {
-				var textObj = textObjects[i];
-
-				// 텍스트 위치 업데이트
-				textObj.x += textObj.dx;
-				textObj.y += textObj.dy;
-
-				// 벽 충돌 체크
-				if (textObj.x < 0 || textObj.x > canvas.width - 100) {
-					textObj.dx *= -1;
-				}
-				if (textObj.y < 0 || textObj.y > canvas.height - 30) {
-					textObj.dy *= -1;
-				}
-
-				// 텍스트 그리기
-				ctx.fillStyle = '#000';
-				ctx.font = '11px sans-serif';
-				ctx.fillText(textObj.text, textObj.x, textObj.y);
-			}
-		}
-
-		animate();
-
-
-	</script> -->
 </body>
 
 </html>

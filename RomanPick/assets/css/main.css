@@ -1816,6 +1816,7 @@ button.xlarge,
 
    #refreshButton {
       width: auto;
+      z-index: 1;
    }
 }
 
@@ -2497,15 +2498,18 @@ label {
    object-fit: cover;
 }
 
-.image-container .image-item {
+.image-container .image-item,
+.image-container .emotion-item {
    position: relative;
 }
 
-.image-container .image-item:hover img {
+.image-container .image-item:hover img,
+.image-container .emotion-item:hover img {
    transform: scale(1.1);
 }
 
-.image-container .image-item .overlay {
+.image-container .image-item .overlay,
+.image-container .emotion-item .overlay {
    position: absolute;
    top: 0;
    left: 0;
@@ -2518,11 +2522,13 @@ label {
    transition: opacity 0.3s;
 }
 
-.image-container .image-item:hover .overlay {
+.image-container .image-item:hover .overlay,
+.image-container .emotion-item:hover .overlay {
    opacity: 1;
 }
 
-.image-container .image-item .overlay .text {
+.image-container .image-item .overlay .text,
+.image-container .emotion-item .overlay .text {
    color: #fff;
    font-size: 18px;
    position: absolute;
@@ -2533,7 +2539,6 @@ label {
    font-weight: bold;
    /* 텍스트 굵기 설정 */
 }
-
 
 /* canvas 페이지 */
 
@@ -2555,12 +2560,13 @@ label {
    position: relative;
    display: block;
    width: 100%;
-   height: auto;
+   height: 100%;
    text-align: center;
    justify-content: center;
    align-items: center;
    transition: transform 0.3s;
    object-fit: cover;
+   z-index: 0;
 }
 
 
@@ -2580,7 +2586,7 @@ label {
  .b_select-container {
    display: flex;
    align-items: center;
-   gap: 10px; 
+   gap: 10px;
  }
 
  .b_select-container select {
@@ -2696,6 +2702,7 @@ label {
    font-size: 12px;
    background-color: #D96A80;
    border-radius: 30%;
+   z-index: 100;
 }
 
 
