@@ -2498,15 +2498,18 @@ label {
    object-fit: cover;
 }
 
-.image-container .image-item {
+.image-container .image-item,
+.image-container .emotion-item {
    position: relative;
 }
 
-.image-container .image-item:hover img {
+.image-container .image-item:hover img,
+.image-container .emotion-item:hover img {
    transform: scale(1.1);
 }
 
-.image-container .image-item .overlay {
+.image-container .image-item .overlay,
+.image-container .emotion-item .overlay {
    position: absolute;
    top: 0;
    left: 0;
@@ -2519,11 +2522,13 @@ label {
    transition: opacity 0.3s;
 }
 
-.image-container .image-item:hover .overlay {
+.image-container .image-item:hover .overlay,
+.image-container .emotion-item:hover .overlay {
    opacity: 1;
 }
 
-.image-container .image-item .overlay .text {
+.image-container .image-item .overlay .text,
+.image-container .emotion-item .overlay .text {
    color: #fff;
    font-size: 18px;
    position: absolute;
@@ -2534,7 +2539,6 @@ label {
    font-weight: bold;
    /* 텍스트 굵기 설정 */
 }
-
 
 /* canvas 페이지 */
 

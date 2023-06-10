@@ -5,7 +5,9 @@ from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
 import urllib.parse
 from camera import *
+from barcode_crawling import *
 from pydantic import BaseModel
+from oracleDB import OracleDB
 
 class novel(BaseModel):
     novel_no : int
@@ -62,10 +64,17 @@ async def img_barcode(imageFile: UploadFile):
     result = await image_barcode(image)
     return result
 
-@app.get("/input_barcode")
-async def input_barcode(category: str = Form(...), input_text: str = Form(...)):
-    pass
-        
+@app.get("/input_isbn")
+async def input_isbn(input_isbn: str = Form(...)):
+    data = await crawling_isbn(input_isbn)
+    return data
+
+@app.get("/{novel_no}")
+async def select_novel(novel_no:int):
+    novel_no = urllib.parse.unquote(novel_no)
+    # novel_no로 소설 정보를 다 가져오는 쿼리
+    return 
+    
 # @app.get("/items/{item_id}")
 # def read_item(item_id: int, q: Optional[str] = None):
 #     return {"item_id": item_id, "q": q}
