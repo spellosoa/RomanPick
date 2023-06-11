@@ -44,37 +44,37 @@
 								<div class="image-item">
 									<img class="thumbnail" src="{{ url_for('RomanPick', path='images/l_red.png') }}" alt="">
 									<div class="overlay">
-										<span class="text">Red Image</span>
+										<span class="text">label1</span>
 									</div>
 								</div>
 								<div class="image-item">
 									<img class="thumbnail" src="{{ url_for('RomanPick', path='images/l_purple.png') }}" alt="">
 									<div class="overlay">
-										<span class="text">Purple Image</span>
+										<span class="text">label2</span>
 									</div>
 								</div>
 								<div class="image-item">
 									<img class="thumbnail" src="{{ url_for('RomanPick', path='images/l_orange.png') }}" alt="">
 									<div class="overlay">
-										<span class="text">Orange Image</span>
+										<span class="text">label3</span>
 									</div>
 								</div>
 								<div class="image-item">
 									<img class="thumbnail" src="{{ url_for('RomanPick', path='images/l_yellow.png') }}" alt="">
 									<div class="overlay">
-										<span class="text">Yellow Image</span>
+										<span class="text">label4</span>
 									</div>
 								</div>
 								<div class="image-item">
 									<img class="thumbnail" src="{{ url_for('RomanPick', path='images/l_green.png') }}" alt="">
 									<div class="overlay">
-										<span class="text">Green Image</span>
+										<span class="text">label5</span>
 									</div>
 								</div>
 								<div class="image-item">
 									<img class="thumbnail" src="{{ url_for('RomanPick', path='images/l_blue.png') }}" alt="">
 									<div class="overlay">
-										<span class="text">Blue Image</span>
+										<span class="text">label6</span>
 									</div>
 								</div>
 							</div>
@@ -282,7 +282,13 @@
 	<!-- 하트 이미지 클릭하면 동적테스트 페이지로 이동 -->
 	<script>
 		// 라벨에 따른 랜덤 데이터 생성, 캔버스 출력 ajax 함수
-		function label_random_data(label) {$.ajax({
+		function label_random_data(label) {
+			// 캔버스 초기화
+			$('.canvas-container').empty();
+			var canvas = $('<canvas></canvas>').attr('id', 'textCanvas');
+			$('.canvas-container').append(canvas);
+			// 라벨의 데이터 불러오기
+			$.ajax({
 			url : "/main/"+label,
 			type:"get",
 			success:function(data){
@@ -293,7 +299,11 @@
 					dataType:'script',
 					success:function(result){
 						create_canvas(data.textList,label)
+						// 브라우저 사이즈 조정 시 캔버스 크기도 조정
 						$(window).on('resize', function() {
+							$('.canvas-container').empty();
+							var canvas = $('<canvas></canvas>').attr('id', 'textCanvas');
+							$('.canvas-container').append(canvas);
 							create_canvas(data.textList,label);
 						});
 					}
