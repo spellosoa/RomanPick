@@ -10,3 +10,4 @@ konlpy
 opencv-python
 Pillow
 python-multipart
+nltk

@@ -23,17 +23,52 @@ class OracleDB:
         self.disconnect()
         return result
 
+    # 소설 제목으로 정보 가져오기
+    def novel_nm_select(self, novel_nm):
+        query = "select novel_no, novel_nm, novel_writer, novel_synopsis, novel_cover from t_novel where novel_nm=:novel_nm"
+        self.connect()
+        cursor = self.connection.cursor()
+        cursor.execute(query, novel_nm=novel_nm)
+        result = cursor.fetchone()
+        self.disconnect()
+        return result
+    
     # 유사도 6개 가져오기
     def select_cosine(self, novel_no):
         query = "select novel_no, rank1, rank2, rank3, rank4, rank5, rank6 from t_cosine where novel_no=:novel_no"
         self.connect()
         cursor = self.connection.cursor()
         cursor.execute(query, novel_no=novel_no)
-        self.connection.commit()
+        result = cursor.fetchone()
         self.disconnect()
+        data=[]
+        if result is not None:
+            data = {
+                'rank1':result[1],
+                'rank2':result[2],
+                'rank3':result[3],
+                'rank4':result[4],
+                'rank5':result[5],
+                'rank6':result[6]
+            }
+        return data
         
     def select_novel(self, novel_no):
-        query = "select novel_no, title, writer, synopsis from t_novel where novel_no=:novel_no"
+        query = "select novel_no, novel_nm, novel_writer, novel_synopsis, novel_cover from t_novel where novel_no=:novel_no"
+        self.connect()
+        cursor = self.connection.cursor()
+        cursor.execute(query, novel_no=novel_no)
+        result = cursor.fetchone()
+        self.disconnect()
+        if result is not None:
+            data = {
+                'novel_no':result[0],
+                'novel_nm':result[1],
+                'novel_writer':result[2],
+                'novel_synopsis':result[3],
+                'novel_cover':result[4]
+            }
+        return data
         
     def execute_insert(self,novel):
         query = f"INSERT INTO t_cosine VALUES (:novel_no, :rank1, :rank2, :rank3, :rank4, :rank5, :rank6)"

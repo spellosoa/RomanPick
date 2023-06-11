@@ -8,6 +8,8 @@ from camera import *
 from barcode_crawling import *
 from pydantic import BaseModel
 from oracleDB import OracleDB
+from nltk_token import *
+import json
 
 class novel(BaseModel):
     novel_no : int
@@ -46,8 +48,21 @@ def pick_cluster(request:Request, item:str):
 def item_title(request:Request, item:str, word:str):
     item = urllib.parse.unquote(item)
     word = urllib.parse.unquote(word)
-    # DB에서 라벨에 맞는 제목이 word와 같은게 있으면 title로, 없으면 keyword로
-    return templates.TemplateResponse('04_List_title.html', {"request" : request, "title": word})
+    result = db.novel_nm_select(word)
+    
+    if result is None:
+        return templates.TemplateResponse('05_List_keyWord.html', {"request" : request})
+    else:
+        sinopsis = good_text(result[3])
+        data = {
+            "novel_no":result[0],
+            "novel_nm":result[1],
+            "novel_writer":result[2],
+            "novel_synopsis":sinopsis,
+            "novel_cover":result[4]
+        }
+        # DB에서 라벨에 맞는 제목이 word와 같은게 있으면 title로, 없으면 keyword로
+        return templates.TemplateResponse('04_List_title.html', {"request" : request, "data":data})
 
 # 임시 title 화면
 @app.get("/main/{item}/{word}/title")
@@ -78,14 +93,28 @@ async def input_isbn(input_isbn: str = Form(...)):
     data = await crawling_isbn(input_isbn)
     return data
 
-# 임시 DB 연결 
-@app.get("/aaa/{novel_no}")
+# 선택된 소설과 유사한 소설 6개 추출 ajax
+@app.get("/cosine/{novel_no}")
 async def select_novel(novel_no:str):
     novel_no = urllib.parse.unquote(novel_no)
     novel_no = int(novel_no)
+    data = db.select_cosine(novel_no)
     # novel_no로 소설 정보를 다 가져오는 쿼리
-    return 
+    return data
 
+@app.post("/select/novel_no_6")
+async def select_novel_6(request:Request):
+    data = await request.json()
+    novel_list = []
+    for val in data.values():
+        novel_list.append(db.select_novel(val))
+    return novel_list
+
+@app.get("/select/novel_no")
+def select_novel(pic_numver:int):
+    return db.select_novel(pic_numver)
+    
+    
 # 임시 DB 연결
 @app.get("/book")
 def insert_item(num:str, title:str):
