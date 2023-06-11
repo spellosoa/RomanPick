@@ -41,6 +41,7 @@ def pick_cluster(request:Request, item:str):
     decoded_item = urllib.parse.unquote(item)
     textList = OracleDB().random_list()
     # 이 라벨로 DB와 연결 후 랜덤 5개 제목, 랜덤 5개 키워드 추출 후 리턴
+    # 비동기로 5번 키워드 추출 - 랜덤 소설의 키워드 랜덤 하나씩 총 5개
     return {"textList" :textList}
 
 # DB에서 라벨에 맞는 제목이 word와 같은게 있으면 title로, 없으면 keyword로
@@ -51,6 +52,10 @@ def item_title(request:Request, item:str, word:str):
     result = db.novel_nm_select(word)
     
     if result is None:
+        # 키워드를 html과 같이 return
+        # $(document).ready()를 통해 키워드로 ajax
+        # 키워드가 포함된 소설번호의 리스트 추출
+        # 리스트 중 랜덤 6개 선택 후 정보 추출
         return templates.TemplateResponse('05_List_keyWord.html', {"request" : request})
     else:
         sinopsis = good_text(result[3])
@@ -113,7 +118,7 @@ async def select_novel_6(request:Request):
 @app.get("/select/novel_no")
 def select_novel(pic_numver:int):
     return db.select_novel(pic_numver)
-    
+
     
 # 임시 DB 연결
 @app.get("/book")

@@ -424,7 +424,6 @@
                      contentType: "application/json",
                      data:JSON.stringify(cosine_novel_no),
                      success:function(data){
-                        console.log(data)
                         for(var i=0; i<6; i++){
                            var novel = $(`#novel${i+1}`)
                           novel.children('img').attr('src', `{{ url_for('RomanPick', path='${data[i].novel_cover}') }}`);
@@ -456,7 +455,6 @@
                              var img_url = $(this).children('.image.fit').children('img').attr('src');
                              var title = $(this).children('#title-a').text();
                              $('#modal2 img').attr('src', `${img_url}`);
-                             console.log(title)
                              for(var index in data){
                               if(data.hasOwnProperty(index)){
                                  var value = data[index];
