@@ -74,14 +74,14 @@ class OracleDB:
         self.disconnect()
         search_list = []
         for row in result:
-            search_list = {
+            novel = {
                 'novel_no': row[0],
                 'novel_nm': row[1],
                 'novel_writer': row[2],
                 'summary': row[3],
                 'image_path': row[4]
             }
-    books_list.append(book_dict)
+            search_list.append(novel)
         
     def select_novel(self, novel_no):
         query = "select novel_no, novel_nm, novel_writer, novel_synopsis, novel_cover from t_novel where novel_no=:novel_no"
