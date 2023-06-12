@@ -1,14 +1,24 @@
 function create_canvas(textList, label){
+    var canvas = document.getElementById('textCanvas');
+    var ctx = canvas.getContext('2d');
+    var canvasContainer = $('.canvas-container');
     
+    var containerWidth = canvasContainer.width();
+    var containerHeight = canvasContainer.height();
+    canvas.width = containerWidth;
+    canvas.height = containerHeight;
+
+    // 캔버스 그리기
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     class TextElement {
-        constructor(text, x, y, width, height) {
+        constructor(text, x, y, width, height) { // 생성자
             this.text = text;
             this.x = x;
-            this.y = y;
+            this.y = y+parseInt(ctx.font); // y와 height는 반대
             this.width = width;
             this.height = height;
-            this.speedX = Math.random() * 2 - 1; // X축 이동 속도 (-1 ~ 1)
-            this.speedY = Math.random() * 2 - 1; // Y축 이동 속도 (-1 ~ 1)
+            this.speedX = Math.random() * 2 - 1; // X축 이동 속도
+            this.speedY = Math.random() * 2 - 1; // Y축 이동 속도
         }
         
         update() {
@@ -18,17 +28,22 @@ function create_canvas(textList, label){
             }
             // 캔버스 경계 체크
             if (this.x < 0 || this.x+this.width > canvas.width) {
-                this.speedX *= -1; // 이동 방향 변경
+                this.speedX *= -1;
             }
-            if (this.y-this.height < 0 || this.y > canvas.height) {
-                this.speedY *= -1; // 이동 방향 변경
+            if (this.y-this.height < 0 || this.y+this.height > canvas.height) {
+                this.speedY *= -1;
             }
             for (let i = 0; i < textElements.length; i++) {
                 const otherElement = textElements[i];
                 if (otherElement !== this) {
-                    if (this.checkCollision(otherElement)) {
-                        this.reverseDirection();
-                        otherElement.reverseDirection();
+                    if (this.x < otherElement.x + otherElement.width &&
+                        this.x + this.width > otherElement.x && 
+                        this.y > otherElement.y - otherElement.height &&
+                        this.y - this.height < otherElement.y) {
+                        this.speedX *= -1;
+                        otherElement.speedX *= -1;
+                        this.speedY *= -1;
+                        otherElement.speedY *= -1;
                     }
                 }
             }
@@ -43,49 +58,22 @@ function create_canvas(textList, label){
         resume() {
             this.isStopped = false;
         }
-        checkCollision(otherElement) {
-            return (
-                this.x < otherElement.x + otherElement.width &&
-                this.x + this.width > otherElement.x &&
-                this.y < otherElement.y + otherElement.height &&
-                this.y + this.height > otherElement.y
-            );
-        }
-        reverseDirection() {
-            this.speedX *= -1;
-            this.speedY *= -1;
-        }
     }
 
     // 요소의 크기를 가져와서 캔버스 크기로 설정
-    console.log(Array.isArray(textList))
     var texts = textList;
-    var canvas = document.getElementById('textCanvas');
-    var ctx = canvas.getContext('2d');
-    var canvasContainer = $('.canvas-container');
-    var canvas = document.getElementById('textCanvas');
-    var containerWidth = canvasContainer.width();
-    var containerHeight = canvasContainer.height();
-    canvas.width = containerWidth;
-    canvas.height = containerHeight;
-
-    // 캔버스 그리기
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    
     var textElements = [];
 
     // 텍스트 스타일 설정
-    var fontSize = Math.min(containerWidth, containerHeight) / 15;
+    var fontSize = Math.min(containerWidth, containerHeight) / 20;
     ctx.font = fontSize + 'px Arial';
     ctx.fillStyle = '#000';
 
     // 텍스트 그리기
-    var centerX = canvas.width / 2;
-    var centerY = canvas.height / 2;
-    var textSpacing = fontSize * 1.5; // 텍스트 간격 조정
-    
     for (var i = 0; i < texts.length; i++) {
         var text = texts[i];
-        var startY = centerY - (text.length - 1) * textSpacing / 2;
         var textWidth = ctx.measureText(text).width;
         var textHeight = parseInt(ctx.font)
         var textX = Math.random() * (containerWidth - textWidth);
@@ -96,11 +84,6 @@ function create_canvas(textList, label){
     }
 
     animate();
-
-
-function getRandomValue(maxValue) {
-    return Math.random() * maxValue;
-}
 
 // 애니메이션 루프 함수
 function animate() {
@@ -115,7 +98,21 @@ function animate() {
     requestAnimationFrame(animate);
 
 }
-
+function drawTextElements() {
+    for (let i = 0; i < textElements.length; i++) {
+        const textElement = textElements[i];
+        ctx.font = `${textElement.scale * textElement.height}px Arial`; // 크기 조정된 텍스트 크기 설정
+        ctx.fillText(textElement.text, textElement.x, textElement.y);
+    }
+}
+function animate_select_text(){
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawTextElements();
+    requestAnimationFrame(animate_select_text);
+}
+function clearCanvas() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
   canvas.addEventListener('mousemove', function(event) {
 	canvas.style.cursor = 'default'
     const mouseX = event.offsetX;
@@ -125,11 +122,9 @@ function animate() {
         const textElement = textElements[i];
 
         // 텍스트의 경계 영역 계산
-        const textWidth = ctx.measureText(textElement.text).width;
-        const textHeight = parseInt(ctx.font); // 폰트 높이 추출 (추후 수정 필요)
         const textLeft = textElement.x;
-        const textRight = textElement.x + textWidth;
-        const textTop = textElement.y - textHeight;
+        const textRight = textElement.x + textElement.width;
+        const textTop = textElement.y - textElement.height;
         const textBottom = textElement.y;
 
         // 마우스 좌표와 텍스트 경계 영역 비교
@@ -140,30 +135,13 @@ function animate() {
             mouseY <= textBottom
         ) {
 			canvas.style.cursor = 'pointer'
-
             textElement.stop();
-            const initialFontSize = parseFloat(textElement.fontSize);
-            const targetFontSize = initialFontSize * 1.5; // 크기가 커질 최종 폰트 크기
-            const duration = 200; // 애니메이션 지속 시간 (밀리초)
-
-            let startTime = null;
-            function animateFontSize(timestamp) {
-                if (!startTime) startTime = timestamp;
-
-                const progress = timestamp - startTime;
-                const ratio = Math.min(progress / duration, 1); // 애니메이션 진행률 (0 ~ 1)
-                const currentFontSize = initialFontSize + (targetFontSize - initialFontSize) * ratio;
-
-                textElement.fontSize = `${currentFontSize}px`;
-
-                if (progress < duration) {
-                    requestAnimationFrame(animateFontSize);
-                }
-            }
-
-            requestAnimationFrame(animateFontSize);
+            textElement.scale = 1.2;
+            animate_select_text();
         } else {
             textElement.resume();
+            textElement.scale = 1.0;
+
         }
     }
 });
@@ -176,11 +154,9 @@ canvas.addEventListener('click', function(event) {
         const textElement = textElements[i];
 
         // 텍스트의 경계 영역 계산
-        const textWidth = ctx.measureText(textElement.text).width;
-        const textHeight = parseInt(ctx.font); // 폰트 높이 추출 (추후 수정 필요)
         const textLeft = textElement.x;
-        const textRight = textElement.x + textWidth;
-        const textTop = textElement.y - textHeight;
+        const textRight = textElement.x + textElement.width;
+        const textTop = textElement.y - textElement.height;
         const textBottom = textElement.y;
 
         // 마우스 좌표와 텍스트 경계 영역 비교
@@ -197,6 +173,5 @@ canvas.addEventListener('click', function(event) {
     }
 });
 }
-  // 윈도우 크기 변경 시 캔버스 크기 재설정 및 다시 그리기
 
   
