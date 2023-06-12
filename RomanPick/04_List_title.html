@@ -190,7 +190,8 @@
 
       <!-- Nav -->
       <nav id="nav">
-         <a href="#" class="icon solid fa-home" style="color: #D96A80;"><span>RomanPick</span></a>
+      
+         <a href="#home" class="icon solid fa-home" style="color: #D96A80;"><span>RomanPick</span></a>
          <a href="#work" class="icon solid fa-barcode" style="color: #D96A80;"><span>Barcode</span></a>
          <a href="#contact" class="icon solid fa-smile" style="color: #D96A80;"><span>Emotion</span></a>
          <a href="#game" class="icon solid fa-gamepad" style="color: #D96A80;"><span>Game</span></a>
@@ -645,6 +646,7 @@
       )
    </script>
    <script>
+
       function Searching() {
          this.keyword = document.querySelector('input[name = "search"]');
          this.engine = document.querySelector('.SelectSearch');
@@ -715,8 +717,8 @@
 
        $('#backBtn').click(function(e){
          e.preventDefault();
-         window.history.back();
-       })
+         history.go(-1);
+         })
    </script>
    
 
