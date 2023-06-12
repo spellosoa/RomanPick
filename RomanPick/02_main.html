@@ -82,12 +82,12 @@
 					</div>
 					<div id="cluster-data" style="display:none">
 						<nav id="nav">
-							<a href="#"><i class="fas fa-heart" style="color: #F85B6C;"></i><span>Label1</span></a>
-							<a href="#"><i class="fas fa-heart" style="color: #C664F9;"></i><span>Label2</span></a>
-							<a href="#"><i class="fas fa-heart" style="color: #FBC774;"></i><span>Label3</span></a>
-							<a href="#"><i class="fas fa-heart" style="color: #FAED6D;"></i><span>Label4</span></a>
-							<a href="#"><i class="fas fa-heart" style="color: #3BE0D9;"></i><span>Label5</span></a>
-							<a href="#"><i class="fas fa-heart" style="color: #5CC6F6;"></i><span>Label6</span></a>
+							<a href="#"><i class="fas fa-heart" style="color: #F85B6C;"></i><span>label1</span></a>
+							<a href="#"><i class="fas fa-heart" style="color: #C664F9;"></i><span>label2</span></a>
+							<a href="#"><i class="fas fa-heart" style="color: #FBC774;"></i><span>label3</span></a>
+							<a href="#"><i class="fas fa-heart" style="color: #FAED6D;"></i><span>label4</span></a>
+							<a href="#"><i class="fas fa-heart" style="color: #3BE0D9;"></i><span>label5</span></a>
+							<a href="#"><i class="fas fa-heart" style="color: #5CC6F6;"></i><span>label6</span></a>
 						</nav>
 						<div style="text-align:center;">
 	
@@ -193,7 +193,7 @@
 					<h2 style="font-size: 25px; color:#D96A80">[ 오늘 당신의 기분은 어떠신가요? ]</h2>
 				</header>
 
-				<header>
+				<header  style="height: 500px;">
 					<div style="text-align:center;">
 				
 						<!-- Nav -->
@@ -201,62 +201,68 @@
 							<div class="icon-container">
 								<a href="#" class="icon solid fas fa-laugh-beam" style="color: #D96A80;">
 									<span>기쁨</span>
+								</a>
 									<div class="dropdown-content">
 										<a href="#">서브 메뉴</a>
 										<a href="#">서브 메뉴2</a>
 										<a href="#">서브 메뉴3</a>
 									</div>
-								</a>
+								
 							</div>
 							<div class="icon-container">
 								<a href="#" class="icon solid fas fa-flushed" style="color: #D96A80;">
 									<span>당황</span>
+								</a>
 									<div class="dropdown-content">
 										<a href="#">서브 메뉴</a>
 										<a href="#">서브 메뉴2</a>
 										<a href="#">서브 메뉴3</a>
 									</div>
-								</a>
+								
 							</div>
 							<div class="icon-container">
 								<a href="#" class="icon solid fas fa-frown-open" style="color: #D96A80;">
 									<span>상처</span>
+								</a>
 									<div class="dropdown-content">
 										<a href="#">서브 메뉴</a>
 										<a href="#">서브 메뉴2</a>
 										<a href="#">서브 메뉴3</a>
 									</div>
-								</a>
+								
 							</div>
 							<div class="icon-container">
 								<a href="#" class="icon solid fas fa-grimace" style="color: #D96A80;">
 									<span>불안</span>
+								</a>
 									<div class="dropdown-content">
 										<a href="#">서브 메뉴</a>
 										<a href="#">서브 메뉴2</a>
 										<a href="#">서브 메뉴3</a>
 									</div>
-								</a>
+								
 							</div>
 							<div class="icon-container">
 								<a href="#" class="icon solid fas fa-sad-cry" style="color: #D96A80;">
 									<span>슬픔</span>
+								</a>
 									<div class="dropdown-content">
 										<a href="#">서브 메뉴</a>
 										<a href="#">서브 메뉴2</a>
 										<a href="#">서브 메뉴3</a>
 									</div>
-								</a>
+								
 							</div>
 							<div class="icon-container">
 								<a href="#" class="icon solid fas fa-angry" style="color: #D96A80;">
 									<span>분노</span>
+								</a>
 									<div class="dropdown-content">
 										<a href="#">서브 메뉴</a>
 										<a href="#">서브 메뉴2</a>
 										<a href="#">서브 메뉴3</a>
 									</div>
-								</a>
+								
 							</div>
 						</nav>
 						  
@@ -405,6 +411,11 @@
 			$('#cluster').css('display', 'none');
 			$('#contact').css('display', 'none');
 			$('#cluster-data').toggle();
+			$('#cluster-data #nav a span').each(function() {
+				if ($(this).text() == label) {
+				  $(this).parent('a').addClass('active');
+				}
+			  });
 			$('#refreshButton').click(function(e){
 				label_random_data(label)
 			})
