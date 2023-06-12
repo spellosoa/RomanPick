@@ -117,9 +117,9 @@
 
 
 				<article id="contact" class="panel" style="text-align: center; margin-bottom: 20px;">
-					<form class="search" style="background:none;" action="" method="post">
+					<form class="search" style="background:none;" action="/search" method="post">
 						<div style="float: left; width: 30%; padding:10px;">
-							<select style="background: none; text-align: center;">
+							<select style="background: none; text-align: center;" name="category">
 								<option id="all" value="all">▼ 전 체</option>
 								<option id="title" value="title"> 제 목</option>
 								<option id="writer" value="writer"> 작 가</option>
@@ -128,7 +128,7 @@
 						</div>
 
 						<div style="float: left; width: 40%; padding:10px;">
-							<input class="enter" type="text" name="search" maxlength="255" placeholder="검색어 입력"
+							<input class="enter" type="text" name="input_text" maxlength="255" placeholder="검색어 입력"
 								onfocus="this.placeholder = ''" onblur="this.placeholder = '검색어 입력'"
 								style="background: none; display:inline-block">
 						</div>
@@ -311,6 +311,17 @@
 			}
 		})
 	}
+	$('#cluster-data #nav a').click(function(){
+		if($(this).hasClass('active')){
+			return;
+		}else{
+			// 다른 라벨 선택 시 해당 라벨에 대한 canvas 출력
+			$('#cluster-data #nav a').removeClass('active');
+			$(this).addClass('active');
+			var changeLabel = $(this).children('span').text();
+			label_random_data(changeLabel);
+		}
+	})
 		$('.image-item').click(function(e){
 			e.preventDefault();
 			var label = $(this).find('.text').text();

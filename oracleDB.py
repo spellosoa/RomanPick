@@ -52,6 +52,36 @@ class OracleDB:
                 'rank6':result[6]
             }
         return data
+    
+    # 검색 기능
+    def search_novel(self, category, input_text):
+        if category == "all":
+            query = """select * 
+            from t_novel 
+            where novel_nm like '%' || :text || '%'
+            or novel_synopsis like '%' || :text || '%'
+            or novel_writer like '%' || :text || '%'"""
+        elif category == "writer":
+            query = "select * from t_novel where novel_writer like '%' || :text || '%'"
+        elif category == "title":
+            query = "select * from t_novel where novel_nm like '%' || :text || '%'"
+        elif category == "keyword":
+            query = "select * from t_novel where novel_synopsis like '%' || :text || '%'"
+        self.connect()
+        cursor = self.connection.cursor()
+        cursor.execute(query, text=input_text)
+        result = cursor.fetchall()
+        self.disconnect()
+        search_list = []
+        for row in result:
+            search_list = {
+                'novel_no': row[0],
+                'novel_nm': row[1],
+                'novel_writer': row[2],
+                'summary': row[3],
+                'image_path': row[4]
+            }
+    books_list.append(book_dict)
         
     def select_novel(self, novel_no):
         query = "select novel_no, novel_nm, novel_writer, novel_synopsis, novel_cover from t_novel where novel_no=:novel_no"
@@ -70,15 +100,6 @@ class OracleDB:
             }
         return data
         
-    def execute_insert(self,novel):
-        query = f"INSERT INTO t_cosine VALUES (:novel_no, :rank1, :rank2, :rank3, :rank4, :rank5, :rank6)"
-        self.connect()
-        cursor = self.connection.cursor()
-        for key,i in novel.items():
-            cursor.execute(query, novel_no=i['novel_no'], rank1=i['rank1'], rank2=i['rank2'],rank3= i['rank3'], rank4=i['rank4'],rank5= i['rank5'], rank6=i['rank6'])
-        self.connection.commit()
-        self.disconnect()
-        
     def random_list(self):
         # 랜덤한 novel_nm 10개 select
         query = """SELECT novel_nm
@@ -95,24 +116,3 @@ class OracleDB:
         self.disconnect()
         text_list = [row[0] for row in result]
         return text_list
-
-    def execute_insert1(self, values):
-            query = f"INSERT INTO book(num, title) VALUES (:num, :title)"
-            self.connect()
-            cursor = self.connection.cursor()
-            cursor.execute(query, values)
-            self.connection.commit()
-            self.disconnect()
-    # def execute_select(self, table, columns=None, condition=None):
-    #     query = f"SELECT {','.join(columns) if columns else '*'} FROM {table}"
-    #     if condition:
-    #         query += f" WHERE {condition}"
-    #     return self.execute_query(query)
-
-    # def execute_delete(self, table, condition):
-    #     query = f"DELETE FROM {table} WHERE {condition}"
-    #     self.connect()
-    #     cursor = self.connection.cursor()
-    #     cursor.execute(query)
-    #     self.connection.commit()
-    #     self.disconnect()
