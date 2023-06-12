@@ -38,32 +38,25 @@ async def crawling_isbn(isbn:str):
 
     resDetail = req.get(urlDetail)
     soupDetail = bs(resDetail.text,'lxml')
+    book_code = soupDetail.select_one('#DP_CALL_NO span').text[0]
     titleText = soupDetail.select_one('#DP_TITLE_FULL .iBold').text
     titleText = re.search(r"([^:\/]+)", titleText)
     title = titleText.group(1) if titleText else ""
     try:
-        textData = soupDetail.select_one('.scrollY.on p').text # 목차 가져오기
+        textData = soupDetail.select_one('.item.item1.on div#tab2').text # 책속에서 가져오기
+        
     except:
         try:
-            textData = soupDetail.select_one('.item.item1.on div#tab2').text # 책속에서 가져오기
+            textData = soupDetail.select_one('.item.item1.on div#tab1').text # 출판사소개 가져오기
         except:
             try:
-                textData = soupDetail.select_one('.item.item1.on div#tab1').text # 출판사소개 가져오기
+                textData = soupDetail.select_one('.scrollY.on p').text # 목차 가져오기
             except:
                 textData = title
     
     try:        
         imgUrl = "https://dl.nanet.go.kr" + soupDetail.select_one('.imgBox .img img')['src']
-        
-        # isbn 이미지 데이터 다운
-        # response = req.get(imgUrl)
-        # if response.status_code == 200:
-        #     with open(f'RomanPick/isbn_img/{isbn}.jpg', 'wb') as f:
-        #         f.write(response.content)
-        #         print(f"{isbn}.jpg 이미지 다운로드 완료")
-        # else:
-        #     print(f"{isbn}.jpg 이미지 다운로드 실패")
     except:
         imgUrl = ""
 
-    return {"isData": True, "title" : title, "text":textData, "img":imgUrl}
+    return {"isData": True, "title" : title, "text":textData, "img":imgUrl, "book_code":book_code}

@@ -30,24 +30,16 @@ async def run_camera():
                 
                 if isbn != previous_barcode_data:
                     previous_barcode_data = isbn
-                    crawl_data = await crawling_isbn(isbn)
-                
+                    barcode_detected = True
+                    
                     
                 cv2.putText(frame, isbn, (x, y - 20), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (0, 0, 255), 2)
-                
-                if crawl_data['isData']:
-                    barcode_detected = crawl_data['isData']
-                    data = {
-                        "isbn":previous_barcode_data,
-                        "title" :crawl_data['title'],
-                        "textData" : crawl_data['text']
-                    }
-                    time.sleep(5)
+                if barcode_detected:
+                    time.sleep(3)
                     break
-                crawl_data['isData'] = False
-            if barcode_detected:
-                break
-
+            
+        if barcode_detected:
+            break
         # 화면 업데이트
         cv2.imshow('Camera', frame)
 
@@ -59,6 +51,14 @@ async def run_camera():
     # 카메라 종료
     cap.release()
     cv2.destroyAllWindows() 
+    crawl_data = await crawling_isbn(isbn)
+    data = {
+        "isData":crawl_data['isData'],
+        "isbn":previous_barcode_data,
+        "title" :crawl_data['title'],
+        "textData" : crawl_data['text'],
+        "book_code": crawl_data['book_code']
+    }
     return data
 
 async def image_barcode(image):
@@ -80,7 +80,8 @@ async def image_barcode(image):
                                 "isbn": isbn,
                                 "title" :crawl_data['title'],
                                 "textData" : crawl_data['text'],
-                                "img":crawl_data['img']
+                                "img":crawl_data['img'],
+                                "book_code":crawl_data['book_code']
                             }
                     return data
                 else :

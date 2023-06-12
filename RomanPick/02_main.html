@@ -467,22 +467,20 @@
     			contentType: false,
 				data:formData,
 				success:function(result){
-					//if(result.result){
-						// 크롤링한 책 코사인 유사도 분석
-					//	$.ajax({
-					//		url : "/",
-					//		type:"post",
-					//		data: result,
-					//		success:function(data){// 유사한 소설 n가지 리스트
-					//			// 화면에 뿌리기
-					//		}
-					//	})
-					//}else{
-					//	alert("바코드를 인식할 수 없습니다.");
-					//	$('#fileName').text("");
-					//	$('#image-show').children('.img').remove();
-				//	}
-						console.log(result)
+					if(result.result){
+						if(result.book_code == "8"){
+							var qs = $.param(result);
+							window.location.href = "/barcode?"+ qs;
+						}else{
+							alert("대상 책이 문학 장르가 아니라 추천이 어렵습니다.");
+							$('#fileName').text("");
+							$('#image-show').children('.img').remove();
+						}
+					}else{
+						alert("바코드를 인식할 수 없습니다.");
+						$('#fileName').text("");
+						$('#image-show').children('.img').remove();
+					}
 				}
 			  })
 		  }else{
@@ -537,13 +535,6 @@
 			}
 		  });
 		  
-		$('#selectOption').change(function(){
-			var option = $(this).val();
-			$('#input_barcode').prop('placeholder', option + ' 식별번호 13자리');
-			$('#input_barcode').on('blur', function(){
-				$(this).prop('placeholder', option + " 식별번호 13자리");
-			})
-		})
 	</script>
 	<!-- drag & drop -->
 	<script>

@@ -215,7 +215,7 @@
                            <div class="col-md-4" style="padding: 30px">
                               <div class="list_title-container">
                                  <a href="#" class="image fit">
-                                    <img id="title_img" src="" alt=""
+                                    <img src="{{ url_for('RomanPick', path=data['novel_cover']) }}" alt=""
                                     style="display: block; margin: 0 auto;">
                                  </a>
                               </div>
@@ -240,42 +240,42 @@
                         <a href="#" id="novel1" class="image fit">
                            <img src="{{ url_for('RomanPick', path='images/pic12.jpg') }}" alt="">
                         </a>
-                        <a href="#" id="title-a">제목</a>
+                        <a href="./06_modal.html" id="title-a">제목</a>
                      </div>
                      
                      <div class="col-4 col-6-medium col-12-small" data-modal="#modal2">
                         <a href="#" id="novel2" class="image fit">
                            <img src="{{ url_for('RomanPick', path='images/pic11.jpg') }}" alt="">
                         </a>
-                        <a href="#" id="title-a">제목</a>
+                        <a href="" id="title-a">제목</a>
                      </div>
                      
                      <div class="col-4 col-6-medium col-12-small" data-modal="#modal2">
                         <a href="#" id="novel3" class="image fit">
                            <img src="{{ url_for('RomanPick', path='images/pic10.jpg') }}" alt="">
                         </a>
-                        <a href="#" id="title-a">제목</a>
+                        <a href="" id="title-a">제목</a>
                      </div>
                      
                      <div class="col-4 col-6-medium col-12-small" data-modal="#modal2">
                         <a href="#" id="novel4" class="image fit">
                            <img src="{{ url_for('RomanPick', path='images/pic09.jpg') }}" alt="">
                         </a>
-                        <a href="#" id="title-a">제목</a>
+                        <a href="" id="title-a">제목</a>
                      </div>
 
                      <div class="col-4 col-6-medium col-12-small" data-modal="#modal2">
                         <a href="#" id="novel5" class="image fit">
                            <img src="{{ url_for('RomanPick', path='images/pic08.jpg') }}" alt="">
                         </a>
-                        <a href="#" id="title-a">제목</a>
+                        <a href="" id="title-a">제목</a>
                      </div>
 
                      <div class="col-4 col-6-medium col-12-small" data-modal="#modal2">
                         <a href="#" id="novel6" class="image fit">
                            <img src="{{ url_for('RomanPick', path='images/pic07.jpg') }}" alt="">
                         </a>
-                        <a href="#" id="title-a">제목</a>
+                        <a href="" id="title-a">제목</a>
                      </div>
                      <div id="modal2" class="modal modal--align-top modal__bg" role="dialog" aria-hidden="true">
                         <div class="modal__dialog">
@@ -466,7 +466,6 @@
          var go = "{{go}}";
          if(go == "title"){
             $('.title_h').css('display', 'block');
-            $('#title_img').attr('src', "{{ url_for('RomanPick', path=data['novel_cover']) }}");
             // 선택된 소설과 유사한 소설 6개 추출 ajax
             $.ajax({
                url:"/cosine/{{data['novel_no']}}",
@@ -697,9 +696,6 @@
                   
                }
             });
-         }else if(go == "barcode"){
-            $('#title_img').attr('src', "{{data['novel_cover']}}")
-            $('.title_h').css('display','block');
          }
       })
    </script>
@@ -743,6 +739,28 @@
          };
       };
    </script>
+
+   <!-- 모달창 -->
+   <!-- <script>
+      // 모달창 열기
+      $(function(){
+         $("#confirm").click(function(){
+             modalClose();
+             //컨펌 이벤트 처리
+         });
+         $("#modal-open").click(function(){        
+            $("#popup").css('display','flex').hide().fadeIn();
+         });
+         $("#close").click(function(){
+             modalClose();
+         });
+         function modalClose(){
+           $("#popup").fadeOut();
+         }
+       });
+   </script> -->
+
+   <!-- 모달창2 -->
    <script>
       
        //
@@ -753,7 +771,7 @@
 
        $('#backBtn').click(function(e){
          e.preventDefault();
-         window.history.go(-1);
+         history.go(-1);
          })
    </script>
    
