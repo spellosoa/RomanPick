@@ -25,7 +25,7 @@
 
 		<!-- Nav -->
 		<nav id="nav">
-			<a href="" class="icon solid fa-home" style="color: #D96A80;"><span>RomanPick</span></a>
+			<a href="#home" class="icon solid fa-home" style="color: #D96A80;"><span>RomanPick</span></a>
 			<a href="#barcode" class="icon solid fa-camera" style="color: #D96A80;"><span>Barcode</span></a>
 			<a href="#emotion" class="icon solid fa-smile" style="color: #D96A80;"><span>Emotion</span></a>
 			<a href="#game" class="icon solid fa-gamepad" style="color: #D96A80;"><span>Game</span></a>
@@ -386,7 +386,8 @@
 			}
 		})
 	}
-	$('#cluster-data #nav a').click(function(){
+	$('#cluster-data #nav a').click(function(e){
+		e.preventDefault();
 		if($(this).hasClass('active')){
 			return;
 		}else{

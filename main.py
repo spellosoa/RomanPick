@@ -9,7 +9,6 @@ from barcode_crawling import *
 from pydantic import BaseModel
 from oracleDB import OracleDB
 from nltk_token import *
-import json
 
 class novel(BaseModel):
     novel_no : int
