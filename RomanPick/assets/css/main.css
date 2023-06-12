@@ -3060,3 +3060,164 @@ img {
 .demo-close:hover {
    background: rgba(0,0,0,0.6);
 }
+
+
+/* 감정분석 드롭다운 */
+#emo_nav {
+   text-align: center;
+   height: 4.25em;
+   cursor: default;
+   display: flex;
+   justify-content: center;
+}
+
+.icon-container {
+   position: relative;
+   margin: 0 10px;
+}
+
+#emo_nav a {
+   position: relative;
+   display: inline-block;
+   color: #ffffff;
+   width: 1em;
+   height: 1em;
+   line-height: 0.9em;
+   font-size: 2.5em;
+   margin: 0 0.25em 0 0.25em;
+   opacity: 0.35;
+   outline: 0;
+   -moz-transition: opacity .25s ease-in-out;
+   -webkit-transition: opacity .25s ease-in-out;
+   -ms-transition: opacity .25s ease-in-out;
+   transition: opacity .25s ease-in-out;
+}
+
+#emo_nav a.icon:before {
+   padding-right: 0;
+}
+
+#emo_nav a:before {
+   font-size: 0.8em;
+}
+
+#emo_nav a:after {
+   content: '';
+   display: block;
+   position: absolute;
+   left: 50%;
+   bottom: -0.75em;
+   margin-left: -0.5em;
+   border-bottom: solid 0em #ffffff;
+   border-left: solid 0.5em transparent;
+   border-right: solid 0.5em transparent;
+   -moz-transition: border-bottom-width .25s ease-in-out;
+   -webkit-transition: border-bottom-width .25s ease-in-out;
+   -ms-transition: border-bottom-width .25s ease-in-out;
+   transition: border-bottom-width .25s ease-in-out;
+}
+
+#emo_nav a:hover,
+#emo_nav a.active {
+   opacity: 1.0;
+}
+
+#emo_nav a span {
+   display: block;
+   position: absolute;
+   background: #999;
+   color: #ffffff;
+   top: -2.75em;
+   font-size: 0.3em;
+   height: 2.25em;
+   line-height: 2.25em;
+   left: 50%;
+   opacity: 0;
+   -moz-transition: opacity .25s ease-in-out;
+   -webkit-transition: opacity .25s ease-in-out;
+   -ms-transition: opacity .25s ease-in-out;
+   transition: opacity .25s ease-in-out;
+   width: 5.5em;
+   margin-left: -2.75em;
+}
+
+#emo_nav a span:after {
+   content: '';
+   display: block;
+   position: absolute;
+   bottom: -0.4em;
+   left: 50%;
+   margin-left: -0.6em;
+   border-top: solid 0.6em #999;
+   border-left: solid 0.6em transparent;
+   border-right: solid 0.6em transparent;
+}
+
+#emo_nav a:hover {
+   opacity: 1.0;
+}
+
+#emo_nav a:hover span {
+   opacity: 1.0;
+}
+
+#emo_nav a.active {
+   opacity: 1.0;
+}
+
+#emo_nav a.active:after {
+   border-bottom-width: 0.5em;
+}
+
+@media screen and (max-width: 980px) {
+
+   #emo_nav a span {
+      display: none;
+   }
+
+}
+
+.dropdown-content {
+   display: none;
+   position: absolute;
+   top: 100%;
+   left: 0;
+   background-color: #f9f9f9;
+   min-width: 160px;
+   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+   z-index: 1;
+}
+
+.dropdown-content a {
+   color: black;
+   padding: 12px 16px;
+   text-decoration: none;
+   display: block;
+}
+
+.icon-container:hover .dropdown-content {
+   display: block;
+}
+
+.icon-container .dropdown-content {
+   display: none;
+   position: absolute;
+   top: 100%;
+   left: 0;
+   background-color: #f9f9f9;
+   min-width: 160px;
+   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+   z-index: 1;
+}
+
+.icon-container .dropdown-content a {
+   color: black;
+   padding: 12px 16px;
+   text-decoration: none;
+   display: block;
+}
+
+.icon-container .dropdown-content a:hover {
+   background-color: #ddd;
+}
+
