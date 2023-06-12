@@ -25,7 +25,7 @@
 
 		<!-- Nav -->
 		<nav id="nav">
-			<a href="" class="icon solid fa-home" style="color: #D96A80;"><span>RomanPick</span></a>
+			<a href="#home" class="icon solid fa-home" style="color: #D96A80;"><span>RomanPick</span></a>
 			<a href="#barcode" class="icon solid fa-camera" style="color: #D96A80;"><span>Barcode</span></a>
 			<a href="#emotion" class="icon solid fa-smile" style="color: #D96A80;"><span>Emotion</span></a>
 			<a href="#game" class="icon solid fa-gamepad" style="color: #D96A80;"><span>Game</span></a>
@@ -82,12 +82,12 @@
 					</div>
 					<div id="cluster-data" style="display:none">
 						<nav id="nav">
-							<a href="#"><i class="fas fa-heart" style="color: #F85B6C;"></i><span>Label1</span></a>
-							<a href="#"><i class="fas fa-heart" style="color: #C664F9;"></i><span>Label2</span></a>
-							<a href="#"><i class="fas fa-heart" style="color: #FBC774;"></i><span>Label3</span></a>
-							<a href="#"><i class="fas fa-heart" style="color: #FAED6D;"></i><span>Label4</span></a>
-							<a href="#"><i class="fas fa-heart" style="color: #3BE0D9;"></i><span>Label5</span></a>
-							<a href="#"><i class="fas fa-heart" style="color: #5CC6F6;"></i><span>Label6</span></a>
+							<a href="#"><i class="fas fa-heart" style="color: #F85B6C;"></i><span>label1</span></a>
+							<a href="#"><i class="fas fa-heart" style="color: #C664F9;"></i><span>label2</span></a>
+							<a href="#"><i class="fas fa-heart" style="color: #FBC774;"></i><span>label3</span></a>
+							<a href="#"><i class="fas fa-heart" style="color: #FAED6D;"></i><span>label4</span></a>
+							<a href="#"><i class="fas fa-heart" style="color: #3BE0D9;"></i><span>label5</span></a>
+							<a href="#"><i class="fas fa-heart" style="color: #5CC6F6;"></i><span>label6</span></a>
 						</nav>
 						<div style="text-align:center;">
 	
@@ -117,9 +117,9 @@
 
 
 				<article id="contact" class="panel" style="text-align: center; margin-bottom: 20px;">
-					<form class="search" style="background:none;" action="" method="post">
+					<form class="search" style="background:none;" action="/search" method="post">
 						<div style="float: left; width: 30%; padding:10px;">
-							<select style="background: none; text-align: center;">
+							<select style="background: none; text-align: center;" name="category">
 								<option id="all" value="all">▼ 전 체</option>
 								<option id="title" value="title"> 제 목</option>
 								<option id="writer" value="writer"> 작 가</option>
@@ -128,7 +128,7 @@
 						</div>
 
 						<div style="float: left; width: 40%; padding:10px;">
-							<input class="enter" type="text" name="search" maxlength="255" placeholder="검색어 입력"
+							<input class="enter" type="text" name="input_text" maxlength="255" placeholder="검색어 입력"
 								onfocus="this.placeholder = ''" onblur="this.placeholder = '검색어 입력'"
 								style="background: none; display:inline-block">
 						</div>
@@ -193,7 +193,7 @@
 					<h2 style="font-size: 25px; color:#D96A80">[ 오늘 당신의 기분은 어떠신가요? ]</h2>
 				</header>
 
-				<header>
+				<header  style="height: 500px;">
 					<div style="text-align:center;">
 				
 						<!-- Nav -->
@@ -201,62 +201,68 @@
 							<div class="icon-container">
 								<a href="#" class="icon solid fas fa-laugh-beam" style="color: #D96A80;">
 									<span>기쁨</span>
+								</a>
 									<div class="dropdown-content">
 										<a href="#">서브 메뉴</a>
 										<a href="#">서브 메뉴2</a>
 										<a href="#">서브 메뉴3</a>
 									</div>
-								</a>
+								
 							</div>
 							<div class="icon-container">
 								<a href="#" class="icon solid fas fa-flushed" style="color: #D96A80;">
 									<span>당황</span>
+								</a>
 									<div class="dropdown-content">
 										<a href="#">서브 메뉴</a>
 										<a href="#">서브 메뉴2</a>
 										<a href="#">서브 메뉴3</a>
 									</div>
-								</a>
+								
 							</div>
 							<div class="icon-container">
 								<a href="#" class="icon solid fas fa-frown-open" style="color: #D96A80;">
 									<span>상처</span>
+								</a>
 									<div class="dropdown-content">
 										<a href="#">서브 메뉴</a>
 										<a href="#">서브 메뉴2</a>
 										<a href="#">서브 메뉴3</a>
 									</div>
-								</a>
+								
 							</div>
 							<div class="icon-container">
 								<a href="#" class="icon solid fas fa-grimace" style="color: #D96A80;">
 									<span>불안</span>
+								</a>
 									<div class="dropdown-content">
 										<a href="#">서브 메뉴</a>
 										<a href="#">서브 메뉴2</a>
 										<a href="#">서브 메뉴3</a>
 									</div>
-								</a>
+								
 							</div>
 							<div class="icon-container">
 								<a href="#" class="icon solid fas fa-sad-cry" style="color: #D96A80;">
 									<span>슬픔</span>
+								</a>
 									<div class="dropdown-content">
 										<a href="#">서브 메뉴</a>
 										<a href="#">서브 메뉴2</a>
 										<a href="#">서브 메뉴3</a>
 									</div>
-								</a>
+								
 							</div>
 							<div class="icon-container">
 								<a href="#" class="icon solid fas fa-angry" style="color: #D96A80;">
 									<span>분노</span>
+								</a>
 									<div class="dropdown-content">
 										<a href="#">서브 메뉴</a>
 										<a href="#">서브 메뉴2</a>
 										<a href="#">서브 메뉴3</a>
 									</div>
-								</a>
+								
 							</div>
 						</nav>
 						  
@@ -386,6 +392,18 @@
 			}
 		})
 	}
+	$('#cluster-data #nav a').click(function(e){
+		e.preventDefault();
+		if($(this).hasClass('active')){
+			return;
+		}else{
+			// 다른 라벨 선택 시 해당 라벨에 대한 canvas 출력
+			$('#cluster-data #nav a').removeClass('active');
+			$(this).addClass('active');
+			var changeLabel = $(this).children('span').text();
+			label_random_data(changeLabel);
+		}
+	})
 		$('.image-item').click(function(e){
 			e.preventDefault();
 			var label = $(this).find('.text').text();
@@ -393,6 +411,11 @@
 			$('#cluster').css('display', 'none');
 			$('#contact').css('display', 'none');
 			$('#cluster-data').toggle();
+			$('#cluster-data #nav a span').each(function() {
+				if ($(this).text() == label) {
+				  $(this).parent('a').addClass('active');
+				}
+			  });
 			$('#refreshButton').click(function(e){
 				label_random_data(label)
 			})

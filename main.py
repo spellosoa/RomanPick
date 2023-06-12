@@ -9,7 +9,6 @@ from barcode_crawling import *
 from pydantic import BaseModel
 from oracleDB import OracleDB
 from nltk_token import *
-import json
 
 class novel(BaseModel):
     novel_no : int
@@ -35,6 +34,12 @@ def read_root(request:Request):
 def read_main(request:Request):
     return templates.TemplateResponse('02_main.html', {"request" : request})
 
+# 검색 기능
+@app.post("/search")
+def search(request: Request, input_text: str = Form(...), category: str = Form(...)):
+    db.search_novel(category, input_text)
+    return {"category": category, "input_text":input_text}
+        
 # ajax 랜덤 데이터 추출, canvas 출력
 @app.get("/main/{item}")
 def pick_cluster(request:Request, item:str):
