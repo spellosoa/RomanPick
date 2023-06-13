@@ -2,7 +2,7 @@ import requests as req
 from bs4 import BeautifulSoup as bs
 import re
 
-async def crawling_isbn(isbn:str):
+def crawling_isbn(isbn:str):
     print(f"크롤링 시작 {isbn}")
     isbn = isbn # 수집한 isbn
     url = 'https://dl.nanet.go.kr/search/searchInnerList.do'
@@ -43,11 +43,10 @@ async def crawling_isbn(isbn:str):
     titleText = re.search(r"([^:\/]+)", titleText)
     title = titleText.group(1) if titleText else ""
     try:
-        textData = soupDetail.select_one('.item.item1.on div#tab2').text # 책속에서 가져오기
-        
+        textData = soupDetail.select_one('.item.item1 div#tab1').text # 출판사소개 가져오기
     except:
         try:
-            textData = soupDetail.select_one('.item.item1.on div#tab1').text # 출판사소개 가져오기
+            textData = soupDetail.select_one('.item.item2 div#tab2').text # 책속에서 가져오기
         except:
             try:
                 textData = soupDetail.select_one('.scrollY.on p').text # 목차 가져오기

@@ -90,26 +90,35 @@ async def camera_start():
 @app.post("/img_barcode")
 async def img_barcode(imageFile: UploadFile):
     image = await imageFile.read()
-    result = await image_barcode(image)
+    result = image_barcode(image)
     return result
 
 # ajax 텍스트로 isbn 입력 
 @app.get("/input_isbn")
-async def input_isbn(input_isbn: str = Form(...)):
-    data = await crawling_isbn(input_isbn)
+async def input_isbn(isbn: str):
+    print(isbn)
+    result = crawling_isbn(isbn)
+    if result['isData']:
+        data = {
+            "result":result['isData'],
+            "title" :result['title'],
+            "textData" : result['text'],
+            "book_code": result['book_code'],
+            "img" : result['img']
+        }
+    else:
+        data = {"result":result['isData']}
     return data
 
 # 바코드 결과 화면
 @app.get("/barcode")
 async def barcode_result(request: Request, img:str, textData:str, title:str):
-    img_link = img.replace('http://localhost:8000/RomanPick/', '')
     data = {
         'novel_nm' : title,
         'novel_synopsis' : textData,
-        'novel_cover':img_link
+        'novel_cover':img
     }
     go = "barcode"
-    print(data)
     return templates.TemplateResponse('04_List_title.html', {"request" : request, "data":data, "go":go})
 
 # 선택된 소설과 유사한 소설 6개 추출 ajax
@@ -132,15 +141,6 @@ async def select_novel_6(request:Request):
 @app.get("/select/novel_no")
 def select_novel(pic_numver:int):
     return db.select_novel(pic_numver)
-
-    
-# 임시 DB 연결
-@app.get("/book")
-def insert_item(num:str, title:str):
-    num = int(num)
-    values = {"num": num, "title": title}
-    db.execute_insert1(values)
-    return  {"message": "Book inserted successfully"}
 
 if __name__ == "__main__":
     import uvicorn

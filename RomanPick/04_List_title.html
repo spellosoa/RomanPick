@@ -697,9 +697,21 @@
                   
                }
             });
+            $('#backBtn').click(function(e){
+               e.preventDefault();
+               window.history.go(-1);
+               })
          }else if(go == "barcode"){
+            
             $('#title_img').attr('src', "{{data['novel_cover']}}")
             $('.title_h').css('display','block');
+
+            $('#backBtn').click(function(e){
+               e.preventDefault();
+               window.location.href="/main#barcode";
+            })
+
+            // ajax로 데이터 전송
          }
       })
    </script>
@@ -751,10 +763,7 @@
         
        })
 
-       $('#backBtn').click(function(e){
-         e.preventDefault();
-         window.history.go(-1);
-         })
+       
    </script>
    
 
