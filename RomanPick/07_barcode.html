@@ -72,9 +72,6 @@
       z-index: 1100;
       cursor: pointer;
   }
-  .modal__close:hover {
-   color: #ffebee;
-  }
 
   .modal__trigger {
       position: relative;
@@ -84,7 +81,7 @@
       line-height: 1;
       cursor: pointer;
       background: #ffebee;
-      box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+      box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
       -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
       user-select: none;
       transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
@@ -168,14 +165,14 @@
       right: 0;
       margin: 1.2rem;
       padding: 0.6rem;
-      background: rgba(0, 0, 0, 0);
+      background: rgba(0, 0, 0, 0.3);
       border-radius: 50%;
       transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
   }
 
   .demo-close svg {
       width: 24px;
-      fill: rgba(0, 0, 0, 0.6);
+      fill: #fff;
       pointer-events: none;
       vertical-align: top;
   }
@@ -218,7 +215,7 @@
                            <div class="col-md-4" style="padding: 30px">
                               <div class="list_title-container">
                                  <a href="#" class="image fit">
-                                    <img id="title_img" src="" alt=""
+                                    <img src="{{ url_for('RomanPick', path=data['novel_cover']) }}" alt=""
                                     style="display: block; margin: 0 auto;">
                                  </a>
                               </div>
@@ -243,55 +240,53 @@
                         <a href="#" id="novel1" class="image fit">
                            <img src="{{ url_for('RomanPick', path='images/pic12.jpg') }}" alt="">
                         </a>
-                        <a href="#" id="title-a">제목</a>
+                        <a href="./06_modal.html" id="title-a">제목</a>
                      </div>
                      
                      <div class="col-4 col-6-medium col-12-small" data-modal="#modal2">
                         <a href="#" id="novel2" class="image fit">
                            <img src="{{ url_for('RomanPick', path='images/pic11.jpg') }}" alt="">
                         </a>
-                        <a href="#" id="title-a">제목</a>
+                        <a href="" id="title-a">제목</a>
                      </div>
                      
                      <div class="col-4 col-6-medium col-12-small" data-modal="#modal2">
                         <a href="#" id="novel3" class="image fit">
                            <img src="{{ url_for('RomanPick', path='images/pic10.jpg') }}" alt="">
                         </a>
-                        <a href="#" id="title-a">제목</a>
+                        <a href="" id="title-a">제목</a>
                      </div>
                      
                      <div class="col-4 col-6-medium col-12-small" data-modal="#modal2">
                         <a href="#" id="novel4" class="image fit">
                            <img src="{{ url_for('RomanPick', path='images/pic09.jpg') }}" alt="">
                         </a>
-                        <a href="#" id="title-a">제목</a>
+                        <a href="" id="title-a">제목</a>
                      </div>
 
                      <div class="col-4 col-6-medium col-12-small" data-modal="#modal2">
                         <a href="#" id="novel5" class="image fit">
                            <img src="{{ url_for('RomanPick', path='images/pic08.jpg') }}" alt="">
                         </a>
-                        <a href="#" id="title-a">제목</a>
+                        <a href="" id="title-a">제목</a>
                      </div>
 
                      <div class="col-4 col-6-medium col-12-small" data-modal="#modal2">
                         <a href="#" id="novel6" class="image fit">
                            <img src="{{ url_for('RomanPick', path='images/pic07.jpg') }}" alt="">
                         </a>
-                        <a href="#" id="title-a">제목</a>
+                        <a href="" id="title-a">제목</a>
                      </div>
                      <div id="modal2" class="modal modal--align-top modal__bg" role="dialog" aria-hidden="true">
                         <div class="modal__dialog">
                             <div class="modal__content">
-                                <h3 style="font-weight:bold; font-size: 30px;">제목</h3>
-                                <hr>
-                                <p><img src="http://unsplash.it/600/300" alt="" /></p>
-                                <h6 style="font-size:15px; text-align:justify">
+                                <h1>제목</h1>
+                                <h3>줄거리줄거리줄거리줄거리줄거리줄거리줄거리줄거리
                                     줄거리줄거리줄거리줄거리줄거리줄거리줄거리줄거리
                                     줄거리줄거리줄거리줄거리줄거리줄거리줄거리줄거리
-                                    줄거리줄거리줄거리줄거리줄거리줄거리줄거리줄거리
-                                </h6>
+                                </h3>
                                 
+                                <p><img src="http://unsplash.it/600/300" alt="" /></p>
                                 
                                 <!-- modal close button -->
                                 <a href="" class="modal__close demo-close">
@@ -471,7 +466,6 @@
          var go = "{{go}}";
          if(go == "title"){
             $('.title_h').css('display', 'block');
-            $('#title_img').attr('src', "{{ url_for('RomanPick', path=data['novel_cover']) }}");
             // 선택된 소설과 유사한 소설 6개 추출 ajax
             $.ajax({
                url:"/cosine/{{data['novel_no']}}",
@@ -524,10 +518,9 @@
                                     }
                                  }
                               }
-                             }
-                             $('.modal__content').children('h3').text('<' + title + '>');
-                             $('.modal__content').children('h6').text(sinopsis);
-                             
+                              $('.modal__content').children('h1').text(title);
+                              $('.modal__content').children('h3').text(sinopsis);
+                              
 
                               // get the value of the data-modal attribute from the button
                               var modalId = self.dataset.modal;
@@ -703,21 +696,6 @@
                   
                }
             });
-            $('#backBtn').click(function(e){
-               e.preventDefault();
-               window.history.go(-1);
-               })
-         }else if(go == "barcode"){
-            
-            $('#title_img').attr('src', "{{data['novel_cover']}}")
-            $('.title_h').css('display','block');
-
-            $('#backBtn').click(function(e){
-               e.preventDefault();
-               window.location.href="/main#barcode";
-            })
-
-            // ajax로 데이터 전송
          }
       })
    </script>
@@ -761,6 +739,28 @@
          };
       };
    </script>
+
+   <!-- 모달창 -->
+   <!-- <script>
+      // 모달창 열기
+      $(function(){
+         $("#confirm").click(function(){
+             modalClose();
+             //컨펌 이벤트 처리
+         });
+         $("#modal-open").click(function(){        
+            $("#popup").css('display','flex').hide().fadeIn();
+         });
+         $("#close").click(function(){
+             modalClose();
+         });
+         function modalClose(){
+           $("#popup").fadeOut();
+         }
+       });
+   </script> -->
+
+   <!-- 모달창2 -->
    <script>
       
        //
@@ -769,7 +769,10 @@
         
        })
 
-       
+       $('#backBtn').click(function(e){
+         e.preventDefault();
+         history.go(-1);
+         })
    </script>
    
 

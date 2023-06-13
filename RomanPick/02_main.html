@@ -159,7 +159,9 @@
 				<p style="text-align: center; font-size: 20px;">
 					당신의 취향과 유사한 웹소설을 추천해드릴게요
 				</p>
-
+				<div id="loading-overlay">
+					<div id="loading-spinner"></div>
+				  </div>
 				<section>
 					<div class="row">
 						<div class="camera">
@@ -467,30 +469,35 @@
 			  newImage.on('load', function () {
 			  newImage.css('visibility', 'visible'); // 이미지 로딩 완료 후 보이도록 설정
 			  });
-
+			  
 			  $.ajax({
 				url:"/img_barcode",
 				type:"post",
 				processData: false,
     			contentType: false,
 				data:formData,
+				beforeSend:function(){
+					$('#loading-overlay').css('display', 'flex');
+				},
 				success:function(result){
-					//if(result.result){
-						// 크롤링한 책 코사인 유사도 분석
-					//	$.ajax({
-					//		url : "/",
-					//		type:"post",
-					//		data: result,
-					//		success:function(data){// 유사한 소설 n가지 리스트
-					//			// 화면에 뿌리기
-					//		}
-					//	})
-					//}else{
-					//	alert("바코드를 인식할 수 없습니다.");
-					//	$('#fileName').text("");
-					//	$('#image-show').children('.img').remove();
-				//	}
-						console.log(result)
+					$('#loading-overlay').css('display', 'none');
+					if(result.result){
+						if(result.book_code == "8"){
+							var qs = $.param(result);
+							window.location.href = "/barcode?"+ qs;
+						}else{
+							alert("문학 책만 추천이 가능합니다.");
+							$('#fileName').text("");
+							$('#image-show').children('.img').remove();
+						}
+					}else{
+						alert("바코드를 인식할 수 없습니다.");
+						$('#fileName').text("");
+						$('#image-show').children('.img').remove();
+					}
+				},
+				error:function(){
+					$('#loading-overlay').css('display', 'none');
 				}
 			  })
 		  }else{
@@ -544,14 +551,26 @@
 				$('#image-show').children('.img').remove();
 			}
 		  });
-		  
-		$('#selectOption').change(function(){
-			var option = $(this).val();
-			$('#input_barcode').prop('placeholder', option + ' 식별번호 13자리');
-			$('#input_barcode').on('blur', function(){
-				$(this).prop('placeholder', option + " 식별번호 13자리");
+		  $('#btnSubmit').click(function(){
+			console.log($('#isbn').val())
+			$.ajax({
+				url:"/input_isbn",
+				data : {'isbn' :$('#isbn').val()},
+				type:'get',
+				success:function(result){
+					if(result.result){
+						if(result.book_code == "8"){
+							var qs = $.param(result);
+							window.location.href = "/barcode?"+ qs;
+						}else{
+							alert("문학 책만 추천이 가능합니다.");
+						}
+					}else{
+						alert("바코드를 인식할 수 없습니다.");
+					}
+				}
 			})
-		})
+		  })
 	</script>
 	<!-- drag & drop -->
 	<script>
@@ -561,7 +580,16 @@
 				url : "/camera_start",
 				type:"get",
 				success:function(result){
-					console.log(result)
+					if(result.result){
+						if(result.book_code == "8"){
+							var qs = $.param(result);
+							window.location.href = "/barcode?"+ qs;
+						}else{
+							alert("문학 책만 추천이 가능합니다.");
+						}
+					}else{
+						alert("바코드를 인식할 수 없습니다.");
+					}
 				}
 			})
 		})

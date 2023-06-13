@@ -82,6 +82,7 @@ class OracleDB:
                 'image_path': row[4]
             }
             search_list.append(novel)
+        return search_list
         
     def select_novel(self, novel_no):
         query = "select novel_no, novel_nm, novel_writer, novel_synopsis, novel_cover from t_novel where novel_no=:novel_no"
