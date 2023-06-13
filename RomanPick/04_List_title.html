@@ -72,6 +72,9 @@
       z-index: 1100;
       cursor: pointer;
   }
+  .modal__close:hover {
+   color: #ffebee;
+  }
 
   .modal__trigger {
       position: relative;
@@ -81,7 +84,7 @@
       line-height: 1;
       cursor: pointer;
       background: #ffebee;
-      box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+      box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
       -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
       user-select: none;
       transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
@@ -165,14 +168,14 @@
       right: 0;
       margin: 1.2rem;
       padding: 0.6rem;
-      background: rgba(0, 0, 0, 0.3);
+      background: rgba(0, 0, 0, 0);
       border-radius: 50%;
       transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
   }
 
   .demo-close svg {
       width: 24px;
-      fill: #fff;
+      fill: rgba(0, 0, 0, 0.6);
       pointer-events: none;
       vertical-align: top;
   }
@@ -280,13 +283,15 @@
                      <div id="modal2" class="modal modal--align-top modal__bg" role="dialog" aria-hidden="true">
                         <div class="modal__dialog">
                             <div class="modal__content">
-                                <h1>제목</h1>
-                                <h3>줄거리줄거리줄거리줄거리줄거리줄거리줄거리줄거리
-                                    줄거리줄거리줄거리줄거리줄거리줄거리줄거리줄거리
-                                    줄거리줄거리줄거리줄거리줄거리줄거리줄거리줄거리
-                                </h3>
-                                
+                                <h3 style="font-weight:bold; font-size: 30px;">제목</h3>
+                                <hr>
                                 <p><img src="http://unsplash.it/600/300" alt="" /></p>
+                                <h6 style="font-size:15px; text-align:justify">
+                                    줄거리줄거리줄거리줄거리줄거리줄거리줄거리줄거리
+                                    줄거리줄거리줄거리줄거리줄거리줄거리줄거리줄거리
+                                    줄거리줄거리줄거리줄거리줄거리줄거리줄거리줄거리
+                                </h6>
+                                
                                 
                                 <!-- modal close button -->
                                 <a href="" class="modal__close demo-close">
@@ -466,8 +471,8 @@
                                  }
                               }
                              }
-                             $('.modal__content').children('h1').text(title);
-                             $('.modal__content').children('h3').text(sinopsis);
+                             $('.modal__content').children('h3').text('<' + title + '>');
+                             $('.modal__content').children('h6').text(sinopsis);
                              
 
                              // get the value of the data-modal attribute from the button

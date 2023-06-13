@@ -112,7 +112,7 @@
 							</div>
 						</div>
 					</div>
-					<div id="backBtn" style="float: right; width: auto; padding:auto; text-align: center; ">
+					<div id="backBtn" style=" width: auto; padding:1.5em 0em 0em 0em; text-align: center; display: none;">
 						<a class="btn" href="/main" style="text-align: center;">
 						   <i class="fas fa-backspace" style="color: #D96A80; font-size: xx-large;"></i>
 						</a>
@@ -417,6 +417,7 @@
 			label_random_data(label)
 			$('#cluster').css('display', 'none');
 			$('#contact').css('display', 'none');
+			$('#backBtn').toggle();
 			$('#cluster-data').toggle();
 			$('#cluster-data #nav a span').each(function() {
 				if ($(this).text() == label) {
