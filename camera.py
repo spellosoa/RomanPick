@@ -43,39 +43,6 @@ async def run_camera():
 #             break
             
     
-<<<<<<< HEAD
-#     # 카메라 종료
-#     cap.release()
-#     cv2.destroyAllWindows() 
-#     return data
-
-# async def image_barcode(image):
-#     image = Image.open(io.BytesIO(image))
-#     barcodes = pyzbar.decode(image)
-    
-#     if len(barcodes) > 0:
-#         print("a")
-#         for barcode in barcodes:
-#             barcode_data = barcode.data.decode('utf-8')
-#             barcode_type = barcode.type
-            
-#             if barcode_type in ['EAN13', 'UPCA']:
-#                 isbn = barcode_data
-#                 crawl_data = await crawling_isbn(isbn)
-#                 if crawl_data['isData']:
-#                     data = {
-#                                 "result" : True,
-#                                 "isbn": isbn,
-#                                 "title" :crawl_data['title'],
-#                                 "textData" : crawl_data['text'],
-#                                 "img":crawl_data['img']
-#                             }
-#                     return data
-#                 else :
-#                     return {"result":False}
-#     else:
-#         return {"result" : False}
-=======
     # 카메라 종료
     cap.release()
     cv2.destroyAllWindows() 
@@ -122,5 +89,4 @@ def image_barcode(image):
                return {"result":False}
     else:
         return {"result" : False}
->>>>>>> b9c6c2512032d4c18cb8002aaec363605672f9a7
 
