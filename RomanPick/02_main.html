@@ -13,11 +13,11 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<link rel="stylesheet" href="{{ url_for('RomanPick', path='/assets/css/main.css') }}" />
 	<noscript>
-		<link rel="stylesheet" href="{{ url_for('RomanPick', path='assets/css/noscript.css') }}" />
+	   <link rel="stylesheet" href="{{ url_for('RomanPick', path='assets/css/noscript.css') }}" />
 	</noscript>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-</head>
+ 
+ </head>
 
 <body class="is-preload">
 
@@ -29,7 +29,6 @@
 			<a href="#home" class="icon solid fa-home" style="color: #D96A80;"><span>RomanPick</span></a>
 			<a href="#barcode" class="icon solid fa-camera" style="color: #D96A80;"><span>Barcode</span></a>
 			<a href="#emotion" class="icon solid fa-smile" style="color: #D96A80;"><span>Emotion</span></a>
-			<a href="#game" class="icon solid fa-gamepad" style="color: #D96A80;"><span>Game</span></a>
 		</nav>
 
 		<!-- Main -->
@@ -202,88 +201,16 @@
 					<h2 style="font-size: 25px; color:#D96A80">[ 오늘 당신의 기분은 어떠신가요? ]</h2>
 				</header>
 
-				<header  style="height: 500px;">
+				<header>
 					<div style="text-align:center;">
-				
-						<!-- Nav -->
-						<nav id="emo_nav">
-							<div class="icon-container">
-								<a href="#" class="icon solid fas fa-laugh-beam" style="color: #D96A80;">
-									<span>기쁨</span>
-								</a>
-									<div class="dropdown-content">
-										<a href="#">서브 메뉴</a>
-										<a href="#">서브 메뉴2</a>
-										<a href="#">서브 메뉴3</a>
-									</div>
-								
-							</div>
-							<div class="icon-container">
-								<a href="#" class="icon solid fas fa-flushed" style="color: #D96A80;">
-									<span>당황</span>
-								</a>
-									<div class="dropdown-content">
-										<a href="#">서브 메뉴</a>
-										<a href="#">서브 메뉴2</a>
-										<a href="#">서브 메뉴3</a>
-									</div>
-								
-							</div>
-							<div class="icon-container">
-								<a href="#" class="icon solid fas fa-frown-open" style="color: #D96A80;">
-									<span>상처</span>
-								</a>
-									<div class="dropdown-content">
-										<a href="#">서브 메뉴</a>
-										<a href="#">서브 메뉴2</a>
-										<a href="#">서브 메뉴3</a>
-									</div>
-								
-							</div>
-							<div class="icon-container">
-								<a href="#" class="icon solid fas fa-grimace" style="color: #D96A80;">
-									<span>불안</span>
-								</a>
-									<div class="dropdown-content">
-										<a href="#">서브 메뉴</a>
-										<a href="#">서브 메뉴2</a>
-										<a href="#">서브 메뉴3</a>
-									</div>
-								
-							</div>
-							<div class="icon-container">
-								<a href="#" class="icon solid fas fa-sad-cry" style="color: #D96A80;">
-									<span>슬픔</span>
-								</a>
-									<div class="dropdown-content">
-										<a href="#">서브 메뉴</a>
-										<a href="#">서브 메뉴2</a>
-										<a href="#">서브 메뉴3</a>
-									</div>
-								
-							</div>
-							<div class="icon-container">
-								<a href="#" class="icon solid fas fa-angry" style="color: #D96A80;">
-									<span>분노</span>
-								</a>
-									<div class="dropdown-content">
-										<a href="#">서브 메뉴</a>
-										<a href="#">서브 메뉴2</a>
-										<a href="#">서브 메뉴3</a>
-									</div>
-								
-							</div>
+						<nav id="nav">
+							<a href="" data-emotion="Joy" class="icon solid fas fa-laugh-beam" style="color: #D96A80;"><span>기쁨</span></a>
+							<a href="#" data-emotion="Surprise" class="icon solid fas fa-flushed" style="color: #D96A80;"><span>당황</span></a>
+							<a href="#" data-emotion="Hurt" class="icon solid fas fa-frown-open" style="color: #D96A80;"><span>상처</span></a>
+							<a href="#" data-emotion="Anxiety" class="icon solid fas fa-grimace" style="color: #D96A80;"><span>불안</span></a>
+							<a href="#" data-emotion="Sadness" class="icon solid fas fa-sad-cry" style="color: #D96A80;"><span>슬픔</span></a>
+							<a href="#" data-emotion="Anger" class="icon solid fas fa-angry" style="color: #D96A80;"><span>분노</span></a>
 						</nav>
-						  
-
-						<!-- <nav id="nav">
-							<a href="" class="icon solid fas fa-laugh-beam" style="color: #D96A80;"><span>기쁨</span></a>
-							<a href="#" class="icon solid fas fa-flushed" style="color: #D96A80;"><span>당황</span></a>
-							<a href="#" class="icon solid fas fa-frown-open" style="color: #D96A80;"><span>상처</span></a>
-							<a href="#" class="icon solid fas fa-grimace" style="color: #D96A80;"><span>불안</span></a>
-							<a href="#" class="icon solid fas fa-sad-cry" style="color: #D96A80;"><span>슬픔</span></a>
-							<a href="#" class="icon solid fas fa-angry" style="color: #D96A80;"><span>분노</span></a>
-						</nav> -->
 
 						<!-- <div class="label_back">
 							<img src="{{ url_for('RomanPick', path='images/lable1.png') }}" alt="">
@@ -594,5 +521,6 @@
 			})
 		})
 	</script>
+
 </body>
 </html>

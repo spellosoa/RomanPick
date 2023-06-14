@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* 스타일 지정 (선택사항) */
+
+      #novel-list {
+        max-width: 100%;
+      }
+  
+      .novel {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+  
+      .novel img {
+        width: 100px;
+        height: auto;
+        margin-right: 10px;
+        border-radius: 5px;
+      }
+  
+      .novel-info {
+        flex: 1;
+      }
+  
+      .novel h2 {
+        font-size: 18px;
+        margin-bottom: 5px;
+      }
+  
+      .novel p {
+        font-size: 14px;
+      }
+    </style>
+</head>
+<body>
+    <div>
+        <div id="novel-list"></div>
+    </div>
+
+    <script>
+        // 웹소설 데이터 배열
+        var novels = [
+            {
+                image: '표지 이미지 URL',
+                title: '웹소설 제목',
+                summary: '웹소설 줄거리'
+            },
+            {
+                image: '표지 이미지 URL',
+                title: '웹소설 제목',
+                summary: '웹소설 줄거리'
+            },
+            {
+                image: '표지 이미지 URL',
+                title: '웹소설 제목',
+                summary: '웹소설 줄거리'
+            },
+            {
+                image: '표지 이미지 URL',
+                title: '웹소설 제목',
+                summary: '웹소설 줄거리'
+            },
+            {
+                image: '표지 이미지 URL',
+                title: '웹소설 제목',
+                summary: '웹소설 줄거리'
+            },
+            {
+                image: '표지 이미지 URL',
+                title: '웹소설 제목',
+                summary: '웹소설 줄거리'
+            },
+            {
+                image: '표지 이미지 URL',
+                title: '웹소설 제목',
+                summary: '웹소설 줄거리'
+            },
+            {
+                image: '표지 이미지 URL',
+                title: '웹소설 제목',
+                summary: '웹소설 줄거리'
+            },
+            {
+                image: '표지 이미지 URL',
+                title: '웹소설 제목',
+                summary: '웹소설 줄거리'
+            },
+            {
+                image: '표지 이미지 URL',
+                title: '웹소설 제목',
+                summary: '웹소설 줄거리'
+            },
+            // 나머지 웹소설 데이터
+            // ...
+        ];
+
+        // 초기 로딩 시, 웹소설 목록을 표시
+        window.addEventListener('load', function () {
+            displayNovels();
+        });
+
+        // 웹소설 목록을 화면에 표시하는 함수
+        function displayNovels() {
+            var novelList = document.getElementById('novel-list');
+
+            novels.forEach(function (novel) {
+                var novelElement = document.createElement('div');
+                novelElement.className = 'novel';
+
+                // 표지 이미지 추가
+                var imageElement = document.createElement('img');
+                imageElement.src = novel.image;
+                novelElement.appendChild(imageElement);
+
+                // 제목과 줄거리를 감싸는 div 요소 생성
+                var infoElement = document.createElement('div');
+                infoElement.className = 'novel-info';
+
+                // 제목 추가
+                var titleElement = document.createElement('h2');
+                titleElement.textContent = novel.title;
+                infoElement.appendChild(titleElement);
+
+                // 줄거리 추가
+                var summaryElement = document.createElement('p');
+                summaryElement.textContent = novel.summary;
+                infoElement.appendChild(summaryElement);
+
+                // div 요소에 추가
+                novelElement.appendChild(infoElement);
+
+                // 웹소설 목록에 추가
+                novelList.appendChild(novelElement);
+            });
+        }
+
+    </script>
+    
+</body>
+</html>
