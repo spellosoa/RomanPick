@@ -1689,6 +1689,23 @@ header>p {
 .image img {
    display: block;
    width: 100%;
+   height: 440px;
+}
+
+@media screen and (max-width: 1680px) {
+
+   .image img {
+      height: 350px;
+   }
+
+}
+
+@media screen and (max-width: 970px) {
+
+   .image img {
+      height: auto;
+   }
+
 }
 
 .image.fit {
@@ -2257,7 +2274,6 @@ body.is-preload #wrapper {
 
    #main>.panel.intro header {
       padding: 4em;
-      text-align: center;
    }
 
 }
@@ -3051,6 +3067,7 @@ img {
    background: rgba(0,0,0,0.3);
    border-radius: 50%;
    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+   height: 45px;
 }
 .demo-close svg {
    width: 24px;
