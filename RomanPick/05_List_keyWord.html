@@ -24,7 +24,7 @@
 
       <!-- Nav -->
       <nav id="nav">
-         <a href="#" class="icon solid fa-home" style="color: #D96A80;"><span>RomanPick</span></a>
+         <a href="#home" class="icon solid fa-home" style="color: #D96A80;"><span>RomanPick</span></a>
          <a href="#work" class="icon solid fa-barcode" style="color: #D96A80;"><span>Barcode</span></a>
          <a href="#contact" class="icon solid fa-smile" style="color: #D96A80;"><span>Emotion</span></a>
          <a href="#game" class="icon solid fa-gamepad" style="color: #D96A80;"><span>Game</span></a>
@@ -45,72 +45,61 @@
                   <div class="list-grid">
                   
                      <div class="col-4 col-6-medium col-12-small">
-                        <a href="#" class="image fit"><img src="{{ url_for('RomanPick', path='images/pic12.jpg') }}" alt=""></a>
+                        <a href="#" class="image fit">
+                           <img src="{{ url_for('RomanPick', path='images/pic12.jpg') }}" alt="">
+                        </a>
                         <a href="" id="title-a">제목</a>
                      </div>
                      <div class="col-4 col-6-medium col-12-small">
-                        <a href="#" class="image fit"><img src="{{ url_for('RomanPick', path='images/pic11.jpg') }}" alt=""></a>
+                        <a href="#" class="image fit">
+                           <img src="{{ url_for('RomanPick', path='images/pic11.jpg') }}" alt="">
+                        </a>
                         <a href="" id="title-a">제목</a>
                      </div>
                      <div class="col-4 col-6-medium col-12-small">
-                        <a href="#" class="image fit"><img src="{{ url_for('RomanPick', path='images/pic10.jpg') }}" alt=""></a>
+                        <a href="#" class="image fit">
+                           <img src="{{ url_for('RomanPick', path='images/pic10.jpg') }}" alt="">
+                        </a>
                         <a href="" id="title-a">제목</a>
                      </div>
                      <div class="col-4 col-6-medium col-12-small">
-                        <a href="#" class="image fit"><img src="{{ url_for('RomanPick', path='images/pic09.jpg') }}" alt=""></a>
+                        <a href="#" class="image fit">
+                           <img src="{{ url_for('RomanPick', path='images/pic09.jpg') }}" alt="">
+                        </a>
                         <a href="" id="title-a">제목</a>
                      </div>
                      <div class="col-4 col-6-medium col-12-small">
-                        <a href="#" class="image fit"><img src="{{ url_for('RomanPick', path='images/pic08.jpg') }}" alt=""></a>
+                        <a href="#" class="image fit">
+                           <img src="{{ url_for('RomanPick', path='images/pic08.jpg') }}" alt="">
+                        </a>
                         <a href="" id="title-a">제목</a>
                      </div>
                      <div class="col-4 col-6-medium col-12-small">
-                        <a href="#" class="image fit"><img src="{{ url_for('RomanPick', path='images/pic07.jpg') }}" alt=""></a>
+                        <a href="#" class="image fit">
+                           <img src="{{ url_for('RomanPick', path='images/pic07.jpg') }}" alt="">
+                        </a>
                         <a href="" id="title-a">제목</a>
                      </div>
                      
                      <!-- 모달창 -->
-                     <div class="demo-btns">
-                     
-                        <div class="info">
-                           <div class="buttons">
-                              <p>
-                     
-                                 <a href="" data-modal="#modal2" class="modal__trigger">Modal 2</a>
-                     
-                              </p>
-                           </div>
-                     
-                        </div>
-                     
-                     
-                        <!-- Modal -->
-                        <div id="modal2" class="modal modal--align-top modal__bg" role="dialog" aria-hidden="true">
-                           <div class="modal__dialog">
-                              <div class="modal__content">
-                                 <h1>Big Modal</h1>
-                                 <h3>This modal is pretty tall.</h3>
-                                 <p>Selfies normcore four dollar toast four loko listicle artisan. Hoodie Marfa authentic, wayfarers church-key
-                                    tofu Banksy pop-up Kickstarter Brooklyn heirloom swag synth. Echo Park cray synth mixtape. Tofu gastropub
-                                    squid readymade, trust fund Wes Anderson DIY PBR 8-bit try-hard +1 Shoreditch lo-fi tote bag.</p>
-                                 <p><img src="http://unsplash.it/600/300" alt="" /></p>
-                                 <p>Mumblecore cred selfies fingerstache. Tousled skateboard plaid lo-fi shabby chic salvia, swag Odd Future
-                                    Etsy art party Austin cronut. Crucifix whatever Pinterest food truck, pickled viral cray 90's DIY chambray
-                                    keffiyeh biodiesel Vice blog. Cred meh yr tofu.</p>
-                                 <p>Mumblecore cred selfies fingerstache. Tousled skateboard plaid lo-fi shabby chic salvia, swag Odd Future
-                                    Etsy art party Austin cronut. Crucifix whatever Pinterest food truck, pickled viral cray 90's DIY chambray
-                                    keffiyeh biodiesel Vice blog. Cred meh yr tofu.</p>
-                                 <!-- modal close button -->
-                                 <a href="" class="modal__close demo-close">
-                                    <svg class="" viewBox="0 0 24 24">
-                                       <path
-                                          d="M19 6.41l-1.41-1.41-5.59 5.59-5.59-5.59-1.41 1.41 5.59 5.59-5.59 5.59 1.41 1.41 5.59-5.59 5.59 5.59 1.41-1.41-5.59-5.59z" />
-                                       <path d="M0 0h24v24h-24z" fill="none" />
-                                    </svg>
-                                 </a>
-                              </div>
+                     <div id="modal2" class="modal modal--align-top modal__bg" role="dialog" aria-hidden="true">
+                        <div class="modal__dialog">
+                           <div class="modal__content">
+                              <h1>Big Modal</h1>
+                              <h3>This modal is pretty tall.</h3>
+
+                              <p><img src="http://unsplash.it/600/300" alt="" /></p>
+
+                              <a href="" class="modal__close demo-close">
+                                 <svg class="" viewBox="0 0 24 24">
+                                    <path
+                                       d="M19 6.41l-1.41-1.41-5.59 5.59-5.59-5.59-1.41 1.41 5.59 5.59-5.59 5.59 1.41 1.41 5.59-5.59 5.59 5.59 1.41-1.41-5.59-5.59z" />
+                                    <path d="M0 0h24v24h-24z" fill="none" />
+                                 </svg>
+                              </a>
                            </div>
                         </div>
+                     </div>
                      </div>
                   </div>
                </div>
@@ -119,7 +108,7 @@
             <article id="contact" class="panel" style="text-align: center; margin-bottom: 20px;">
                <form style="background:none;">
                   <div style="float: right; width: auto; padding:auto; text-align: center;">
-                     <a class="btn" href="/main" style="text-align: center;">
+                     <a class="btn" href="#" style="text-align: center;">
                         <i class="fas fa-backspace" style="color: #D96A80; font-size: xx-large;"></i>
                      </a>
                   </div>

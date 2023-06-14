@@ -3,22 +3,16 @@ from fastapi import FastAPI, Request, UploadFile, Form
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
+from urllib.parse import urlencode
 import urllib.parse
 from camera import *
 from barcode_crawling import *
 from pydantic import BaseModel
 from oracleDB import OracleDB
 from nltk_token import *
-
-class novel(BaseModel):
-    novel_no : int
-    novel_nm : str
-    novel_writer : str
-    novel_synopsis : str
-    novel_cover : str
+import json
     
 db = OracleDB()
-
 
 app = FastAPI()
 templates = Jinja2Templates(directory="RomanPick")
@@ -42,14 +36,14 @@ def read_main(request:Request):
 # 검색 기능
 @app.post("/search")
 def search(request: Request, input_text: str = Form(...), category: str = Form(...)):
-    db.search_novel(category, input_text)
-    return {"category": category, "input_text":input_text}
+    novel_list = db.search_novel(category, input_text)
+    return novel_list
         
 # ajax 랜덤 데이터 추출, canvas 출력
 @app.get("/main/{item}")
 def pick_cluster(request:Request, item:str):
     decoded_item = urllib.parse.unquote(item)
-    textList = OracleDB().random_list()
+    textList = db.random_list()
     # 이 라벨로 DB와 연결 후 랜덤 5개 제목, 랜덤 5개 키워드 추출 후 리턴
     # 비동기로 5번 키워드 추출 - 랜덤 소설의 키워드 랜덤 하나씩 총 5개
     return {"textList" :textList}
@@ -66,7 +60,8 @@ def item_title(request:Request, item:str, word:str):
         # $(document).ready()를 통해 키워드로 ajax
         # 키워드가 포함된 소설번호의 리스트 추출
         # 리스트 중 랜덤 6개 선택 후 정보 추출
-        return templates.TemplateResponse('05_List_keyWord.html', {"request" : request})
+        go = "keyword"
+        return templates.TemplateResponse('05_List_keyWord.html', {"request" : request, "go": go})
     else:
         sinopsis = good_text(result[3])
         data = {
@@ -74,10 +69,11 @@ def item_title(request:Request, item:str, word:str):
             "novel_nm":result[1],
             "novel_writer":result[2],
             "novel_synopsis":sinopsis,
-            "novel_cover":result[4]
+            "novel_cover": result[4]
         }
+        go = "title"
         # DB에서 라벨에 맞는 제목이 word와 같은게 있으면 title로, 없으면 keyword로
-        return templates.TemplateResponse('04_List_title.html', {"request" : request, "data":data})
+        return templates.TemplateResponse('04_List_title.html', {"request" : request, "data":data, "go":go})
 
 # 임시 title 화면
 @app.get("/main/{item}/{word}/title")
@@ -99,14 +95,36 @@ async def camera_start():
 @app.post("/img_barcode")
 async def img_barcode(imageFile: UploadFile):
     image = await imageFile.read()
-    result = await image_barcode(image)
+    result = image_barcode(image)
     return result
 
 # ajax 텍스트로 isbn 입력 
 @app.get("/input_isbn")
-async def input_isbn(input_isbn: str = Form(...)):
-    data = await crawling_isbn(input_isbn)
+async def input_isbn(isbn: str):
+    print(isbn)
+    result = crawling_isbn(isbn)
+    if result['isData']:
+        data = {
+            "result":result['isData'],
+            "title" :result['title'],
+            "textData" : result['text'],
+            "book_code": result['book_code'],
+            "img" : result['img']
+        }
+    else:
+        data = {"result":result['isData']}
     return data
+
+# 바코드 결과 화면
+@app.get("/barcode")
+async def barcode_result(request: Request, img:str, textData:str, title:str):
+    data = {
+        'novel_nm' : title,
+        'novel_synopsis' : textData,
+        'novel_cover':img
+    }
+    go = "barcode"
+    return templates.TemplateResponse('04_List_title.html', {"request" : request, "data":data, "go":go})
 
 # 선택된 소설과 유사한 소설 6개 추출 ajax
 @app.get("/cosine/{novel_no}")
@@ -128,15 +146,6 @@ async def select_novel_6(request:Request):
 @app.get("/select/novel_no")
 def select_novel(pic_numver:int):
     return db.select_novel(pic_numver)
-
-    
-# 임시 DB 연결
-@app.get("/book")
-def insert_item(num:str, title:str):
-    num = int(num)
-    values = {"num": num, "title": title}
-    db.execute_insert1(values)
-    return  {"message": "Book inserted successfully"}
 
 if __name__ == "__main__":
     import uvicorn
