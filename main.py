@@ -34,6 +34,11 @@ def read_root(request:Request):
 def read_main(request:Request):
     return templates.TemplateResponse('02_main.html', {"request" : request})
 
+# 메인 클러스터 선택 화면
+@app.get("/searchlist")
+def read_main(request:Request):
+    return templates.TemplateResponse('search_list.html', {"request" : request})
+
 # 검색 기능
 @app.post("/search")
 def search(request: Request, input_text: str = Form(...), category: str = Form(...)):
