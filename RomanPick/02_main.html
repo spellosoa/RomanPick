@@ -125,7 +125,7 @@
 					<form class="search" style="background:none;" action="/search" method="post">
 						<div style="float: left; width: 30%; padding:10px;">
 							<select style="background: none; text-align: center;" name="category">
-								<option id="all" value="all">▼ 전 체</option>
+								<option id="all" value="" selected disabled hidden >▼ 전 체</option>
 								<option id="title" value="title"> 제 목</option>
 								<option id="writer" value="writer"> 작 가</option>
 								<option id="keyword" value="keyword"> 키워드</option>
@@ -294,6 +294,15 @@
 			this.button = document.querySelector('.img-button');
 			this.form = document.querySelector('.search');
 		}
+		$('.img-btn').click(function(e){
+			if($('select[name="category"]').val() == ''){
+				e.preventDefault();
+				alert('카테고리를 골라주세요');
+			}else if($('.enter').val() ==''){
+				e.preventDefault();
+				alert('검색어를 입력해주세요')
+			}
+		})
 	</script>
 
 	<!-- 하트 이미지 클릭하면 동적테스트 페이지로 이동 -->
