@@ -211,7 +211,7 @@
                <h2 style="font-size: 35px; color:#D96A80; text-align: center; font-weight: bold;">
                   [ 검색 List ]
                </h2>
-               <p style="text-align: center; font-weight: bold; margin-top: 10px;">검색</p>
+               <p style="text-align: center; font-weight: bold; margin-top: 10px;">{{input_text}}</p>
                
                <hr>
             </header>
@@ -336,121 +336,71 @@
 
    <!-- Scripts -->
    <script>
-      $(document).ready(
-        
-      )
-   </script>
-   <script>
-
-      function Searching() {
-         this.keyword = document.querySelector('input[name = "search"]');
-         this.engine = document.querySelector('.SelectSearch');
-         this.button = document.querySelector('.img-button');
-         this.form = document.querySelector('.search');
+      function get_data_ajax(cur_cnt){
+         var input_text = '{{input_text}}';
+         var category = '{{category}}';
+         var novel_list = $('#novel-list');
+         var data = {
+            "input_text": input_text,
+            "category" : category,
+            "cnt" : cur_cnt
+         }
+         $.ajax({
+            url:'/search/print',
+            type:'post',
+            contentType: "application/json",
+            data:JSON.stringify(data),
+            success:function(response){
+               for(var i of response){
+                  var append_html = `<div class="novel" data-novel='${i.novel_no}'>
+                                       <img src="{{ url_for('RomanPick', path='${i.novel_cover}') }}">
+                                       <div class="novel-info">
+                                          <h3><a href="#">< ${i.novel_nm} ></a></h3>
+                                       </div>
+                                    </div>`
+                  novel_list.append(append_html);
+                  
+              }
+            }
+         })
       }
-   </script>
+      $(document).ready(function(){
+         var cnt = 0;
+         get_data_ajax(cnt);
+         $(window).on('scroll', function() {
+            handleScrollRequest();
+         });
+      
+         $(window).on('resize', function() {
+            handleScrollRequest();
+         });
 
-   
+         function handleScrollRequest() {
+            var scrollHeight = $(document).height();
+            var scrollPosition = $(window).height() + $(window).scrollTop();
+
+            if ((scrollHeight - scrollPosition) / scrollHeight === 0) {
+               cnt += 10;
+               get_data_ajax(cnt);
+            }
+         }
+      })
+   </script>
 
    <!-- 검색창 리스트 -->
-   <script>
+   <!-- <script>
       // 웹소설 데이터 배열
       var novels = [
          {
                image: '표지 이미지 URL',
-               title: '웹소설 제목',
-               summary: '웹소설 줄거리'
+               title: '웹소설 제목aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+               summary: '웹소설 줄거리aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
          },
          {
                image: '표지 이미지 URL',
                title: '웹소설 제목',
                summary: '웹소설 줄거리'
-         },
-         {
-               image: '표지 이미지 URL',
-               title: '웹소설 제목',
-               summary: '웹소설 줄거리'
-         },
-         {
-               image: '표지 이미지 URL',
-               title: '웹소설 제목',
-               summary: '웹소설 줄거리'
-         },
-         {
-               image: '표지 이미지 URL',
-               title: '웹소설 제목',
-               summary: '웹소설 줄거리'
-         },
-         {
-               image: '표지 이미지 URL',
-               title: '웹소설 제목',
-               summary: '웹소설 줄거리'
-         },
-         {
-               image: '표지 이미지 URL',
-               title: '웹소설 제목',
-               summary: '웹소설 줄거리'
-         },
-         {
-               image: '표지 이미지 URL',
-               title: '웹소설 제목',
-               summary: '웹소설 줄거리'
-         },
-         {
-               image: '표지 이미지 URL',
-               title: '웹소설 제목',
-               summary: '웹소설 줄거리'
-         },
-         {
-               image: '표지 이미지 URL',
-               title: '웹소설 제목',
-               summary: '웹소설 줄거리'
-         },
-         {
-               image: '표지 이미지 URL',
-               title: '웹소설 제목',
-               summary: '웹소설 줄거리'
-         },
-         {
-               image: '표지 이미지 URL',
-               title: '웹소설 제목',
-               summary: '웹소설 줄거리'
-         },
-         {
-               image: '표지 이미지 URL',
-               title: '웹소설 제목',
-               summary: '웹소설 줄거리'
-         },
-         {
-               image: '표지 이미지 URL',
-               title: '웹소설 제목',
-               summary: '웹소설 줄거리'
-         },
-         {
-               image: '표지 이미지 URL',
-               title: '웹소설 제목',
-               summary: '웹소설 줄거리'
-         },
-         {
-               image: '표지 이미지 URL',
-               title: '웹소설 제목',
-               summary: '웹소설 줄거리'
-         },
-         {
-               image: '표지 이미지 URL',
-               title: '웹소설 제목',
-               summary: '웹소설 줄거리'
-         },
-         {
-               image: '표지 이미지 URL',
-               title: '웹소설 제목',
-               summary: '웹소설 줄거리'
-         },
-         {
-               image: '표지 이미지 URL',
-               title: '웹소설 제목',
-               summary: '웹소설 줄거리'
-         },
+         }
          // 나머지 웹소설 데이터
          // ...
       ];
@@ -523,7 +473,7 @@
       function createNovelElement(novel) {
          var novelElement = document.createElement('div');
          novelElement.className = 'novel';
-
+         
          // 표지 이미지 추가
          var imageElement = document.createElement('img');
          imageElement.src = novel.image;
@@ -563,7 +513,7 @@
          var loadingElement = document.getElementById('loading');
          loadingElement.style.display = 'none';
       }
-   </script>
+   </script> -->
     
    <script src="{{ url_for('RomanPick', path='assets/js/browser.min.js') }}"></script>
 	<script src="{{ url_for('RomanPick', path='assets/js/breakpoints.min.js') }}"></script>

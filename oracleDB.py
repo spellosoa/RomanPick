@@ -54,22 +54,20 @@ class OracleDB:
         return data
     
     # 검색 기능
-    def search_novel(self, category, input_text):
-        if category == "all":
-            query = """select * 
-            from t_novel 
-            where novel_nm like '%' || :text || '%'
-            or novel_synopsis like '%' || :text || '%'
-            or novel_writer like '%' || :text || '%'"""
-        elif category == "writer":
-            query = "select * from t_novel where novel_writer like '%' || :text || '%'"
-        elif category == "title":
-            query = "select * from t_novel where novel_nm like '%' || :text || '%'"
-        elif category == "keyword":
-            query = "select * from t_novel where novel_synopsis like '%' || :text || '%'"
+    def search_novel(self, **value):
+        if value['category'] == "title":
+            query = """SELECT *
+                        FROM (
+                            SELECT t.*, ROW_NUMBER() OVER (ORDER BY novel_no) AS row_num
+                            FROM t_novel t
+                            WHERE novel_nm LIKE '%' || :input_text || '%'
+                        )
+                        WHERE row_num BETWEEN (:cnt + 1) AND (:cnt + 10)"""
+        elif value['category'] == "keyword":
+            query = "SELECT * FROM (SELECT t.*, ROW_NUMBER() OVER (ORDER BY novel_no) AS row_num FROM t_novel t WHERE novel_synopsis LIKE '%' || :input_text || '%') WHERE row_num BETWEEN (:cnt + 1) AND (:cnt + 10)"
         self.connect()
         cursor = self.connection.cursor()
-        cursor.execute(query, text=input_text)
+        cursor.execute(query, input_text=value['input_text'], cnt=value['cnt'])
         result = cursor.fetchall()
         self.disconnect()
         search_list = []
@@ -78,8 +76,8 @@ class OracleDB:
                 'novel_no': row[0],
                 'novel_nm': row[1],
                 'novel_writer': row[2],
-                'summary': row[3],
-                'image_path': row[4]
+                'novel_synopsis': row[3],
+                'novel_cover': row[4]
             }
             search_list.append(novel)
         return search_list

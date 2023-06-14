@@ -125,10 +125,9 @@
 					<form class="search" style="background:none;" action="/search" method="post">
 						<div style="float: left; width: 30%; padding:10px;">
 							<select style="background: none; text-align: center;" name="category">
-								<option id="all" value="" selected disabled hidden >▼ 전 체</option>
+								<option id="all" value="all" selected hidden >▼ 선 택</option>
 								<option id="title" value="title"> 제 목</option>
-								<option id="writer" value="writer"> 작 가</option>
-								<option id="keyword" value="keyword"> 키워드</option>
+								<option id="keyword" value="keyword"> 내 용</option>
 							</select>
 						</div>
 
@@ -295,7 +294,7 @@
 			this.form = document.querySelector('.search');
 		}
 		$('.img-btn').click(function(e){
-			if($('select[name="category"]').val() == ''){
+			if($('select[name="category"]').val() == 'all'){
 				e.preventDefault();
 				alert('카테고리를 골라주세요');
 			}else if($('.enter').val() ==''){
