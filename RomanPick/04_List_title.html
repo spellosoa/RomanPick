@@ -227,7 +227,8 @@
                                  <a class="title">< {{data['novel_nm']}} ></a>
                                  <hr>
                                  <a class="content">{{data['novel_synopsis']}}
-                                 </a>
+                                 </a><br>
+                                 <a href="#" id="show-more" style="font-size: 0.9rem; color: black; text-decoration-line: none; display: none;">&nbsp; &nbsp; &nbsp; &nbsp;< 더 보기 ></a>
                               </div>
                            </div>
                         </div>
@@ -766,7 +767,29 @@
          e.preventDefault();
         
        })
-
+       var content = $('.content');
+       var showMoreBtn = $('#show-more');
+       var fullText = content.text();
+     
+       var maxCharacters = 100; // 최대 글자 수
+     
+       if (content.text().length > maxCharacters) {
+         var trimmedText = fullText.slice(0, maxCharacters) + '...';
+         content.text(trimmedText);
+         showMoreBtn.show();
+       }
+       
+       // 더보기 토글
+       showMoreBtn.click(function(e) {
+         e.preventDefault();
+         if (showMoreBtn.text().trim() === '< 더 보기 >') {
+            content.text(fullText);
+            showMoreBtn.html('&nbsp;&nbsp;&nbsp;&nbsp;< 접기 >')
+         }else{
+            content.text(trimmedText);
+            showMoreBtn.html('&nbsp;&nbsp;&nbsp;&nbsp;< 더 보기 >')
+         }
+       });
        
    </script>
    

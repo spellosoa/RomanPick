@@ -1,9 +1,9 @@
-# import cv2
-# from pyzbar import pyzbar
-# import time
-# import io
-# from PIL import Image
-# from barcode_crawling import *
+import cv2
+from pyzbar import pyzbar
+import time
+import io
+from PIL import Image
+from barcode_crawling import *
 
 async def run_camera():
     # 카메라 켜기
@@ -38,9 +38,9 @@ async def run_camera():
         # 화면 업데이트
         cv2.imshow('Camera', frame)
 
-#         # 키 입력 대기
-#         if cv2.waitKey(1) & 0xFF == ord('q'):
-#             break
+         # 키 입력 대기
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
             
     
     # 카메라 종료
@@ -71,22 +71,22 @@ def image_barcode(image):
             barcode_data = barcode.data.decode('utf-8')
             barcode_type = barcode.type
             
-        #if barcode_type in ['EAN13', 'UPCA']:
-            isbn = barcode_data
-            print(isbn)
-            crawl_data = crawling_isbn(isbn)
-            if crawl_data['isData']:
-                data = {
-                    "result" : True,
-                    "isbn": isbn,
-                    "title" :crawl_data['title'],
-                    "textData" : crawl_data['text'],
-                    "img":crawl_data['img'],
-                    "book_code":crawl_data['book_code']
-                        }
-                return data
-            else :
-               return {"result":False}
+    #if barcode_type in ['EAN13', 'UPCA']:
+        isbn = barcode_data
+        print(isbn)
+        crawl_data = crawling_isbn(isbn)
+        if crawl_data['isData']:
+            data = {
+                "result" : True,
+                "isbn": isbn,
+                "title" :crawl_data['title'],
+                "textData" : crawl_data['text'],
+                "img":crawl_data['img'],
+                "book_code":crawl_data['book_code']
+                    }
+            return data
+        else :
+            return {"result":False}
     else:
         return {"result" : False}
 
