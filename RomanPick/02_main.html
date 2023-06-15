@@ -146,115 +146,11 @@
 				</article>
 			</article>
 			
-
-
-
 			<!-- barcode -->
-			<article id="barcode" class="panel">
-				<header>
-					<h2 style="font-size: 25px; color:#D96A80">[ 당신이 재밌게 읽은 책의 바코드를 알려주세요! ]</h2>
-				</header>
-				<p style="text-align: center; font-size: 20px;">
-					당신의 취향과 유사한 웹소설을 추천해드릴게요
-				</p>
-				<div id="loading-overlay">
-					<div id="loading-spinner"></div>
-				  </div>
-				<section>
-					<div class="row">
-						<div class="camera">
-							<!-- <img class="image fit" src="images/camera.png" alt=""> -->
-
-							<div id="fileName" style="text-align: center;"></div> <!-- 파일 이름을 보여줄 div -->
-							<div id="image-show" style="text-align: center;"></div> <!-- 이미지를 보여줄 div -->
-
-							
-								<div class="button" style="background: none;">
-									<label for="chooseFile" style="color:#D96A80;">
-										👉 DROP & CLICK HERE! 👈
-									</label>
-								</div>
-								<input type="file" id="chooseFile" name="chooseFile" accept="image/*"
-									onchange="loadFile(this)">
-								<form method="get" enctype="multipart/form-data" style="text-align: center;" action="/input_isbn">
-								<div class="num">
-									<input id="isbn" name="isbn" type="text" placeholder="ISBN 식별번호 13자리"
-										onfocus="this.placeholder = ''" onblur="this.placeholder = 'ISBN 식별번호 13자리'">
-								</div>
-
-								<div id="drop"> 
-									<i class="fas fa-camera" style="font-size: 100px;"></i>
-								</div>
-
-								<input type="button" id="btnSubmit" value="OK" />
-
-							</form>
-						</div>
-					</div>
-				</section>
-			</article>
+			<article id="barcode" class="panel"></article>
 
 			<!-- emotion -->
-			<article id="emotion" class="panel">
-				<header>
-					<h2 style="font-size: 25px; color:#D96A80">[ 오늘 당신의 기분은 어떠신가요? ]</h2>
-				</header>
-
-				<header>
-					<div style="text-align:center;">
-						<nav id="nav">
-							<a href="" data-emotion="Joy" class="icon solid fas fa-laugh-beam" style="color: #D96A80;"><span>기쁨</span></a>
-							<a href="#" data-emotion="Surprise" class="icon solid fas fa-flushed" style="color: #D96A80;"><span>당황</span></a>
-							<a href="#" data-emotion="Hurt" class="icon solid fas fa-frown-open" style="color: #D96A80;"><span>상처</span></a>
-							<a href="#" data-emotion="Anxiety" class="icon solid fas fa-grimace" style="color: #D96A80;"><span>불안</span></a>
-							<a href="#" data-emotion="Sadness" class="icon solid fas fa-sad-cry" style="color: #D96A80;"><span>슬픔</span></a>
-							<a href="#" data-emotion="Anger" class="icon solid fas fa-angry" style="color: #D96A80;"><span>분노</span></a>
-						</nav>
-
-						<!-- <div class="label_back">
-							<img src="{{ url_for('RomanPick', path='images/lable1.png') }}" alt="">
-							<div class="image-container" id="emotion-container">
-								<div class="emotion-item">
-									<img class="thumbnail" src="{{ url_for('RomanPick', path='images/l_red.png') }}" alt="">
-									<div class="overlay">
-										<span class="text">Red Image</span>
-									</div>
-								</div>
-								<div class="emotion-item">
-									<img class="thumbnail" src="{{ url_for('RomanPick', path='images/l_purple.png') }}" alt="">
-									<div class="overlay">
-										<span class="text">Purple Image</span>
-									</div>
-								</div>
-								<div class="emotion-item">
-									<img class="thumbnail" src="{{ url_for('RomanPick', path='images/l_orange.png') }}" alt="">
-									<div class="overlay">
-										<span class="text">Orange Image</span>
-									</div>
-								</div>
-								<div class="emotion-item">
-									<img class="thumbnail" src="{{ url_for('RomanPick', path='images/l_yellow.png') }}" alt="">
-									<div class="overlay">
-										<span class="text">Yellow Image</span>
-									</div>
-								</div>
-								<div class="emotion-item">
-									<img class="thumbnail" src="{{ url_for('RomanPick', path='images/l_green.png') }}" alt="">
-									<div class="overlay">
-										<span class="text">Green Image</span>
-									</div>
-								</div>
-								<div class="emotion-item">
-									<img class="thumbnail" src="{{ url_for('RomanPick', path='images/l_blue.png') }}" alt="">
-									<div class="overlay">
-										<span class="text">Blue Image</span>
-									</div>
-								</div>
-							</div>
-						</div> -->
-					</div>
-				</header>
-			</article>
+			<article id="emotion" class="panel"></article>
 
 			<!-- Me -->
 			<article id="game" class="panel intro">
@@ -284,15 +180,28 @@
 	<script src="{{ url_for('RomanPick', path='assets/js/breakpoints.min.js') }}"></script>
 	<script src="{{ url_for('RomanPick', path='assets/js/util.js') }}"></script>
 	<script src="{{ url_for('RomanPick', path='assets/js/main.js') }}"></script>
+	<script src="{{ url_for('RomanPick', path='assets/js/barcode.js') }}"></script>
 	<script>
-		
+		$(document).ready(function(){
+			$.ajax({
+				url: '/RomanPick/02-2_emotion.html',
+				type: 'GET',
+				dataType: 'html',
+				success: function(response) {
+				  $('#emotion').html(response);
+				}
+			  });
+			  $.ajax({
+				url: '/RomanPick/02-1_barcode.html',
+				type: 'GET',
+				dataType: 'html',
+				success: function(response) {
+				  $('#barcode').html(response);
+				}
+			  });
+		})
 
-		function Searching() {
-			this.keyword = document.querySelector('input[name = "search"]');
-			this.engine = document.querySelector('.SelectSearch');
-			this.button = document.querySelector('.img-button');
-			this.form = document.querySelector('.search');
-		}
+	
 		$('.img-btn').click(function(e){
 			if($('select[name="category"]').val() == 'all'){
 				e.preventDefault();
@@ -366,168 +275,6 @@
 			})
 		});
 		
-	</script>
-
-	<!-- 바코드 사진업로드 -->
-	<script>
-		
-
-
-		function loadFile(input) {
-			var file = input.files[0];   //선택된 파일 가져오기
-			var allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
-			var fileExtension = file.name.split('.').pop().toLowerCase();
-
-		  if (allowedExtensions.includes(fileExtension)) {
-			  var formData = new FormData();
-			  formData.append('imageFile', file);
-
-			  // 미리 만들어 놓은 div에 text(파일 이름) 추가
-			  $('#fileName').text(file.name);
-		  
-			  // 새로운 이미지 생성
-			  var newImage = $('<img>').addClass('img');
-		  
-			  // 이미지 source 가져오기
-			  newImage.attr('src', URL.createObjectURL(file));
-		  
-			  newImage.css({
-			  width: '70%',
-			  height: '70%',
-			  objectFit: 'contain',
-			  visibility: 'hidden' // 초기에는 숨겨진 상태로 설정
-			  });
-		  
-			  // 이미지를 image-show div에 추가
-			  $('#image-show').empty().append(newImage);
-		  
-			  newImage.on('load', function () {
-			  newImage.css('visibility', 'visible'); // 이미지 로딩 완료 후 보이도록 설정
-			  });
-			  
-			  $.ajax({
-				url:"/img_barcode",
-				type:"post",
-				processData: false,
-    			contentType: false,
-				data:formData,
-				beforeSend:function(){
-					$('#loading-overlay').css('display', 'flex');
-				},
-				success:function(result){
-					$('#loading-overlay').css('display', 'none');
-					if(result.result){
-						if(result.book_code == "8"){
-							var qs = $.param(result);
-							window.location.href = "/barcode?"+ qs;
-						}else{
-							alert("문학 책만 추천이 가능합니다.");
-							$('#fileName').text("");
-							$('#image-show').children('.img').remove();
-						}
-					}else{
-						alert("바코드를 인식할 수 없습니다.");
-						$('#fileName').text("");
-						$('#image-show').children('.img').remove();
-					}
-				},
-				error:function(){
-					$('#loading-overlay').css('display', 'none');
-				}
-			  })
-		  }else{
-			  alert('이미지 파일만 업로드 가능합니다.');
-		  }
-
-
-		};
-		$(document).ready(function () {
-			var dropArea = $('#barcode');
-			var dropEvent = $('.button')
-			$('body').on({
-				'drop': function(e){
-					e.preventDefault();
-					dropEvent.removeClass('dragging');
-					dropEvent.children('label').text('👉 DROP & CLICK HERE! 👈')
-				},
-				'dragover':function(e){
-					e.preventDefault();
-				}
-			})
-			dropArea.on({
-				'dragover': function (e) {
-			  		e.preventDefault();
-					dropEvent.children('label').text('👉 DROP & CLICK HERE! 👈')
-			  		dropEvent.addClass('dragging')
-				},
-				'dragleave': function(e){
-					e.preventDefault();
-					dropEvent.children('label').text('👉 취소 👈');
-					setTimeout(function() {
-						dropEvent.removeClass('dragging');
-						dropEvent.children('label').text('👉 DROP & CLICK HERE! 👈')
-					}, 3000);
-					
-				},
-				'drop': function (e) {
-					e.preventDefault();
-					dropEvent.removeClass('dragging')
-					
-					// 이미지 소스를 이용해 바코드 판별
-					loadFile(e.originalEvent.dataTransfer)
-				}
-			});
-			dropArea.on();
-		  });
-		  
-		  $('#image-show').on({
-			'click': function(){
-				$('#fileName').text("");
-				$('#image-show').children('.img').remove();
-			}
-		  });
-		  $('#btnSubmit').click(function(){
-			console.log($('#isbn').val())
-			$.ajax({
-				url:"/input_isbn",
-				data : {'isbn' :$('#isbn').val()},
-				type:'get',
-				success:function(result){
-					if(result.result){
-						if(result.book_code == "8"){
-							var qs = $.param(result);
-							window.location.href = "/barcode?"+ qs;
-						}else{
-							alert("문학 책만 추천이 가능합니다.");
-						}
-					}else{
-						alert("바코드를 인식할 수 없습니다.");
-					}
-				}
-			})
-		  })
-	</script>
-	<!-- drag & drop -->
-	<script>
-		// 카메라 실행 이벤트
-		$('#drop').click(function(){
-			$.ajax({
-				url : "/camera_start",
-				type:"get",
-				success:function(result){
-					if(result.result){
-						if(result.book_code == "8"){
-							var qs = $.param(result);
-							window.location.href = "/barcode?"+ qs;
-						}else{
-							alert("문학 책만 추천이 가능합니다.");
-						}
-					}else{
-						alert("바코드를 인식할 수 없습니다.");
-					}
-				}
-			})
-		})
 	</script>
 
 </body>
