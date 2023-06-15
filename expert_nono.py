@@ -1,5 +1,7 @@
 import csv
 from konlpy.tag import Komoran
+import random
+
 
 def extract_nouns(sentence):
     """
@@ -15,4 +17,12 @@ def extract_nouns(sentence):
     komoran = Komoran()
     #nouns = kkma.nouns(sentence)
     nouns = komoran.nouns(sentence)
-    return [noun for noun in nouns if len(noun) > 1]
+    numbers = random.sample(range(len(nouns)), 5)
+
+    text_list=[]
+
+    for i in numbers:
+        text_list.append(nouns[i])
+    
+    return text_list
+

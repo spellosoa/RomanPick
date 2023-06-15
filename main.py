@@ -11,7 +11,8 @@ from pydantic import BaseModel
 from oracleDB import OracleDB
 from nltk_token import *
 import json
-    
+from expert_nono import *
+
 db = OracleDB()
 
 app = FastAPI()
@@ -150,6 +151,18 @@ async def select_novel_6(request:Request):
     for val in data.values():
         novel_list.append(db.select_novel(val))
     return novel_list
+
+@app.post("/expert_noun")
+async def noun_expert(request:Request):
+    data = await request.json()
+    text_list = extract_nouns(data.get('synposis'))
+    novel_list = db.isbn_select_novel(text_list)
+    print(novel_list)
+
+
+    # for val in data.values():
+    #     novel_list.append(db.select_novel(val))
+    # return novel_list
 
 @app.get("/select/novel_no")
 def select_novel(pic_numver:int):

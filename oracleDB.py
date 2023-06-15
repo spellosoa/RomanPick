@@ -115,3 +115,33 @@ class OracleDB:
         self.disconnect()
         text_list = [row[0] for row in result]
         return text_list
+
+    def isbn_select_novel(self, text_list):
+        query = """
+        SELECT novel_no, novel_nm, novel_writer, novel_synopsis, novel_cover
+        FROM t_novel
+        WHERE novel_synopsis LIKE '%' || :keyword1 || '%'
+        and novel_synopsis LIKE '%' || :keyword2 || '%' 
+        and novel_synopsis LIKE '%' || :keyword3 || '%' 
+        AND novel_synopsis LIKE '%' || :keyword4 || '%'
+        AND novel_synopsis LIKE '%' || :keyword5 || '%'
+        ;
+        """
+
+        self.connect()
+        cursor = self.connection.cursor()
+        cursor.execute(query, keyword1=text_list[0],keyword2=text_list[1],keyword3=text_list[2],keyword4=text_list[3],keyword5=text_list[4] )
+        result = cursor.fetchall()
+        self.disconnect()
+        if result is not None:
+            novel_list = []
+            for row in result:
+                novel = {
+                    'novel_no': row[0],
+                    'novel_nm': row[1],
+                    'novel_writer': row[2],
+                    'novel_synopsis': row[3],
+                    'novel_cover': row[4]
+                }
+                novel_list.append(novel)
+        return novel_list
