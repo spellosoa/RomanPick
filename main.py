@@ -38,7 +38,7 @@ async def search_list(request:Request):
 # 검색 기능
 @app.post("/search")
 def search(request: Request, input_text: str = Form(...), category: str = Form(...)):
-    return templates.TemplateResponse('search_list.html', {"request" : request, "input_text": input_text, "category":category})
+    return templates.TemplateResponse('06_search_list.html', {"request" : request, "input_text": input_text, "category":category})
 
 @app.get("/search/detail/{novel_no}")
 def detail(request:Request, novel_no:str):

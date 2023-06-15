@@ -3120,6 +3120,14 @@ img {
    height: auto;
 }
 
+/* 반응형 스타일을 위한 미디어 쿼리 */
+
+@media (max-width: 1675px) {
+   .novel-info {
+      width: 100%; /* 화면 크기가 768px 이하일 때 너비를 100%로 설정 */
+   }
+}
+
 .novel h2 {
    font-size: 18px;
    margin-bottom: 5px;
