@@ -17,17 +17,17 @@ function loadFile(input) {
       newImage.attr('src', URL.createObjectURL(file));
   
       newImage.css({
-      width: '70%',
-      height: '70%',
-      objectFit: 'contain',
-      visibility: 'hidden' // 초기에는 숨겨진 상태로 설정
+        width: '70%',
+        height: '70%',
+        objectFit: 'contain',
+        visibility: 'hidden' // 초기에는 숨겨진 상태로 설정
       });
   
       // 이미지를 image-show div에 추가
       $('#image-show').empty().append(newImage);
   
       newImage.on('load', function () {
-      newImage.css('visibility', 'visible'); // 이미지 로딩 완료 후 보이도록 설정
+        newImage.css('visibility', 'visible'); // 이미지 로딩 완료 후 보이도록 설정
       });
       
       $.ajax({
@@ -63,9 +63,8 @@ function loadFile(input) {
   }else{
       alert('이미지 파일만 업로드 가능합니다.');
   }
-
-
 };
+
 $(document).ready(function () {
     var dropArea = $('#barcode');
     var dropEvent = $('.button')
@@ -105,14 +104,23 @@ $(document).ready(function () {
     dropArea.on();
   });
   
-  $('#image-show').on({
-    'click': function(){
+  $(document).on('click', '#image-show', function(){
         $('#fileName').text("");
         $('#image-show').children('.img').remove();
-    }
   });
-  $('#btnSubmit').click(function(){
+  $(document).on('input','#isbn', function() {
+    $(this).val($(this).val().replace(/\D/g, ''));
+    
+  });
+
+  $(document).on('click', '#btnSubmit', function(e){
     console.log($('#isbn').val())
+    var input_text = $('#isbn').val();
+    if (input_text == '' || input_text.length != 13){
+        e.preventDefault();
+        alert('바코드 번호를 입력하세요.');
+        return
+    }
     $.ajax({
         url:"/input_isbn",
         data : {'isbn' :$('#isbn').val()},
