@@ -62,9 +62,9 @@ class OracleDB:
                             FROM t_novel t
                             WHERE novel_nm LIKE '%' || :input_text || '%'
                         )
-                        WHERE row_num BETWEEN (:cnt + 1) AND (:cnt + 10)"""
+                        WHERE row_num BETWEEN (:cnt + 1) AND (:cnt + 9)"""
         elif value['category'] == "keyword":
-            query = "SELECT * FROM (SELECT t.*, ROW_NUMBER() OVER (ORDER BY novel_no) AS row_num FROM t_novel t WHERE novel_synopsis LIKE '%' || :input_text || '%') WHERE row_num BETWEEN (:cnt + 1) AND (:cnt + 10)"
+            query = "SELECT * FROM (SELECT t.*, ROW_NUMBER() OVER (ORDER BY novel_no) AS row_num FROM t_novel t WHERE novel_synopsis LIKE '%' || :input_text || '%') WHERE row_num BETWEEN (:cnt + 1) AND (:cnt + 9)"
         self.connect()
         cursor = self.connection.cursor()
         cursor.execute(query, input_text=value['input_text'], cnt=value['cnt'])
