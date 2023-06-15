@@ -24,16 +24,20 @@
                 <input type="file" id="chooseFile" name="chooseFile" accept="image/*"
                     onchange="loadFile(this)">
                 <form method="get" enctype="multipart/form-data" style="text-align: center;" action="/input_isbn">
-                <div class="num">
-                    <input id="isbn" name="isbn" type="text" placeholder="ISBN 식별번호 13자리"
+                <div>
+                    <div class="num" style="text-align: left;">
+                        <input id="isbn" name="isbn" type="text" placeholder="ISBN 식별번호 13자리"
                         onfocus="this.placeholder = ''" onblur="this.placeholder = 'ISBN 식별번호 13자리'">
+                    </div>
+                    <br>
+                    <input type="button" id="btnSubmit" value="OK"style="text-align:right"/>
                 </div>
-
+                    
                 <div id="drop"> 
                     <i class="fas fa-camera" style="font-size: 100px;"></i>
                 </div>
 
-                <input type="button" id="btnSubmit" value="OK" />
+                
 
             </form>
         </div>
