@@ -661,6 +661,19 @@
             $('#title_img').attr('src', "{{data['novel_cover']}}")
             $('.title_h').css('display','block');
 
+            var isbn_synopsis = "{{data['novel_synopsis']}}";
+            var data = {"synposis" : isbn_synopsis};
+            $.ajax({
+               url:'/expert_noun',
+               type:'post',
+               contentType: "application/json",
+               data:JSON.stringify(data),
+               success:function(result){
+                  
+               }
+
+            })
+
             $('#backBtn').click(function(e){
                e.preventDefault();
                window.location.href="/main#barcode";
