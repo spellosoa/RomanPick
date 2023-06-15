@@ -38,6 +38,14 @@ async def search_list(request:Request):
 @app.post("/search")
 def search(request: Request, input_text: str = Form(...), category: str = Form(...)):
     return templates.TemplateResponse('search_list.html', {"request" : request, "input_text": input_text, "category":category})
+
+@app.get("/search/detail/{novel_no}")
+def detail(request:Request, novel_no:str):
+    novel_no = urllib.parse.unquote(novel_no)
+    data = db.select_novel(novel_no)
+    
+    go = "title"
+    return templates.TemplateResponse('04_List_title.html', {"request" : request, "data":data, "go":go})
         
 # ajax 랜덤 데이터 추출, canvas 출력
 @app.get("/main/{item}")
