@@ -661,15 +661,19 @@
             $('#title_img').attr('src', "{{data['novel_cover']}}")
             $('.title_h').css('display','block');
 
-            var isbn_synopsis = "{{data['novel_synopsis']}}";
+            var isbn_synopsis = `{{data['novel_synopsis']}}`;
             var data = {"synposis" : isbn_synopsis};
             $.ajax({
                url:'/expert_noun',
                type:'post',
                contentType: "application/json",
                data:JSON.stringify(data),
-               success:function(result){
-                  
+               success:function(data){
+                  for(var i=0; i<6; i++){
+                     var novel = $(`#novel${i+1}`)
+                  novel.children('img').attr('src', `{{ url_for('RomanPick', path='${data[i].novel_cover}') }}`);
+                  novel.next().text(data[i].novel_nm);
+                  }
                }
 
             })

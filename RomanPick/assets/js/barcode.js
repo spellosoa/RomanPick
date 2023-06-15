@@ -67,41 +67,32 @@ function loadFile(input) {
 
 $(document).ready(function () {
     var dropArea = $('#barcode');
-    var dropEvent = $('.button')
-    $('body').on({
-        'drop': function(e){
+    var dropEvent = $('.button');
+    $(document).on('drop', 'body', function(e){
             e.preventDefault();
-            dropEvent.removeClass('dragging');
-            dropEvent.children('label').text('👉 DROP & CLICK HERE! 👈')
-        },
-        'dragover':function(e){
+            $('.button').removeClass('dragging');
+            $('.button').children('label').text('👉 DROP & CLICK HERE! 👈');
+        }).on('dragover','body',function(e){
             e.preventDefault();
         }
-    })
-    dropArea.on({
-        'dragover': function (e) {
-              e.preventDefault();
-            dropEvent.children('label').text('👉 DROP & CLICK HERE! 👈')
-              dropEvent.addClass('dragging')
-        },
-        'dragleave': function(e){
+    )
+    $(document).on('dragleave','#barcode', function(e){
+        $('.button').children('label').text('👉 취소 👈');
+        setTimeout(function() {
+            $('.button').removeClass('dragging');
+            $('.button').children('label').text('👉 DROP & CLICK HERE! 👈');
+        }, 3000);
+        }).on('dragover', '#barcode', function(e){            
+            $('.button').children('label').text('👉 DROP & CLICK HERE! 👈');
+            $('.button').addClass('dragging')
+        }).on('drop','#barcode', function (e) {
             e.preventDefault();
-            dropEvent.children('label').text('👉 취소 👈');
-            setTimeout(function() {
-                dropEvent.removeClass('dragging');
-                dropEvent.children('label').text('👉 DROP & CLICK HERE! 👈')
-            }, 3000);
-            
-        },
-        'drop': function (e) {
-            e.preventDefault();
-            dropEvent.removeClass('dragging')
+            $('.button').removeClass('dragging')
             
             // 이미지 소스를 이용해 바코드 판별
             loadFile(e.originalEvent.dataTransfer)
         }
-    });
-    dropArea.on();
+    );
   });
   
   $(document).on('click', '#image-show', function(){

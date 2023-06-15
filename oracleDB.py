@@ -121,16 +121,20 @@ class OracleDB:
         SELECT novel_no, novel_nm, novel_writer, novel_synopsis, novel_cover
         FROM t_novel
         WHERE novel_synopsis LIKE '%' || :keyword1 || '%'
-        and novel_synopsis LIKE '%' || :keyword2 || '%' 
-        and novel_synopsis LIKE '%' || :keyword3 || '%' 
-        AND novel_synopsis LIKE '%' || :keyword4 || '%'
-        AND novel_synopsis LIKE '%' || :keyword5 || '%'
-        ;
+        or novel_synopsis LIKE '%' || :keyword2 || '%' 
+        or novel_synopsis LIKE '%' || :keyword3 || '%' 
+        or novel_synopsis LIKE '%' || :keyword4 || '%'
+        or novel_synopsis LIKE '%' || :keyword5 || '%'
         """
 
         self.connect()
         cursor = self.connection.cursor()
-        cursor.execute(query, keyword1=text_list[0],keyword2=text_list[1],keyword3=text_list[2],keyword4=text_list[3],keyword5=text_list[4] )
+        
+        keyword_dict = {}
+        for i in range(5):
+            keyword_dict[f'keyword{i+1}'] = text_list[i]
+    
+        cursor.execute(query, **keyword_dict)
         result = cursor.fetchall()
         self.disconnect()
         if result is not None:
