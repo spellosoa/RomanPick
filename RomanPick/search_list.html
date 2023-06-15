@@ -190,7 +190,7 @@
 
       <!-- Nav -->
       <nav id="nav">
-         <a href="#home" class="icon solid fa-home" style="color: #D96A80;"><span>RomanPick</span></a>
+         <a href="/main" class="icon solid fa-home" style="color: #D96A80;"><span>RomanPick</span></a>
          <a href="#barcode" class="icon solid fa-camera" style="color: #D96A80;"><span>Barcode</span></a>
          <a href="#emotion" class="icon solid fa-smile" style="color: #D96A80;"><span>Emotion</span></a>
       </nav>
@@ -220,7 +220,7 @@
 
                <div class="container">
                   <div>
-                     <div id="novel-list"></div>
+                     <div id="novel-list" style="border: none;"></div>
                      <div id="loading"><i class="fas fa-spinner"></i></div>
                   </div>
                </div>
@@ -334,7 +334,7 @@
 
    </div>
 
-   <!-- Scripts -->
+   <!-- 검색창 리스트 -->
    <script>
       function get_data_ajax(cur_cnt){
          var input_text = '{{input_text}}';
@@ -358,7 +358,7 @@
                                           <h3><a href="#">< ${i.novel_nm} ></a></h3>
                                        </div>
                                     </div>`
-                  novel_list.append(append_html);
+                  novel_list.append(append_html).addClass('novel');
                   
               }
             }
@@ -380,140 +380,12 @@
             var scrollPosition = $(window).height() + $(window).scrollTop();
 
             if ((scrollHeight - scrollPosition) / scrollHeight === 0) {
-               cnt += 10;
+               cnt += 9;
                get_data_ajax(cnt);
             }
          }
       })
    </script>
-
-   <!-- 검색창 리스트 -->
-   <!-- <script>
-      // 웹소설 데이터 배열
-      var novels = [
-         {
-               image: '표지 이미지 URL',
-               title: '웹소설 제목aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-               summary: '웹소설 줄거리aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
-         },
-         {
-               image: '표지 이미지 URL',
-               title: '웹소설 제목',
-               summary: '웹소설 줄거리'
-         }
-         // 나머지 웹소설 데이터
-         // ...
-      ];
-
-      // 초기 로딩 시, 웹소설 목록을 표시
-      window.addEventListener('load', function () {
-         displayNovels();
-      });
-
-      // 웹소설 목록을 화면에 표시하는 함수
-      function displayNovels() {
-         var novelList = document.getElementById('novel-list');
-         var startIndex = 0; // 시작 인덱스
-         var endIndex = 10; // 종료 인덱스 (10개씩 로딩)
-
-         // 시작부터 종료 인덱스까지 데이터 표시
-         for (var i = startIndex; i < endIndex; i++) {
-            if (i >= novels.length) {
-               break; // 데이터를 모두 표시했으면 반복 종료
-            }
-
-            var novel = novels[i];
-            var novelElement = createNovelElement(novel);
-            novelList.appendChild(novelElement);
-         }
-
-         // 스크롤 이벤트 감지
-         window.addEventListener('scroll', function () {
-            if (isBottomReached() && endIndex < novels.length) {
-               // 페이지 하단에 도달하고 추가 데이터가 남아있으면
-               startIndex = endIndex; // 시작 인덱스 업데이트
-               endIndex += 10; // 종료 인덱스 업데이트
-
-               displayAdditionalNovels(startIndex, endIndex);
-            }
-         });
-      }
-
-      // 추가 데이터를 화면에 표시하는 함수
-      function displayAdditionalNovels(startIndex, endIndex) {
-         var novelList = document.getElementById('novel-list');
-
-         // 추가로 로딩할 데이터가 남아 있는지 확인
-         if (endIndex <= novels.length) {
-            // 남은 데이터가 있을 경우, 추가 데이터를 표시
-            for (var i = startIndex; i < endIndex; i++) {
-               var novel = novels[i];
-               var novelElement = createNovelElement(novel);
-               novelList.appendChild(novelElement);
-            }
-         }
-
-         // 2초 후에 로딩 표시 숨기고 추가 데이터 표시
-         setTimeout(function () {
-            hideLoading(); // 로딩 표시 숨기기
-            displayAdditionalNovels(startIndex, endIndex);
-         }, 2000);
-      }
-
-      // 스크롤이 페이지 하단에 도달했는지 확인하는 함수
-      function isBottomReached() {
-         var scrollY = window.scrollY; // 현재 스크롤 위치
-         var visibleHeight = window.innerHeight; // 보이는 화면의 높이
-         var totalHeight = document.documentElement.scrollHeight; // 문서 전체 높이
-
-         return scrollY + visibleHeight >= totalHeight;
-      }
-
-      // 웹소설 요소를 생성하는 함수
-      function createNovelElement(novel) {
-         var novelElement = document.createElement('div');
-         novelElement.className = 'novel';
-         
-         // 표지 이미지 추가
-         var imageElement = document.createElement('img');
-         imageElement.src = novel.image;
-         novelElement.appendChild(imageElement);
-
-         // 제목과 줄거리를 감싸는 div 요소 생성
-         var infoElement = document.createElement('div');
-         infoElement.className = 'novel-info';
-
-         // 제목 추가
-         var titleElement = document.createElement('h3');
-         var linkElement = document.createElement('a');
-         linkElement.href = '#'; // 모달 열기를 위한 임시 링크
-         linkElement.textContent = novel.title;
-         titleElement.appendChild(linkElement);
-         infoElement.appendChild(titleElement);
-
-         // 줄거리 추가
-         var summaryElement = document.createElement('h2');
-         summaryElement.textContent = novel.summary;
-         infoElement.appendChild(summaryElement);
-
-         // div 요소에 추가
-         novelElement.appendChild(infoElement);
-
-         return novelElement;
-      }
-
-      // 로딩 표시를 보이게 하는 함수
-      function showLoading() {
-         var loadingElement = document.getElementById('loading');
-         loadingElement.style.display = 'block';
-      }
-
-      // 로딩 표시를 숨기는 함수
-      function hideLoading() {
-         var loadingElement = document.getElementById('loading');
-         loadingElement.style.display = 'none';
-      }
-   </script> -->
     
    <script src="{{ url_for('RomanPick', path='assets/js/browser.min.js') }}"></script>
 	<script src="{{ url_for('RomanPick', path='assets/js/breakpoints.min.js') }}"></script>

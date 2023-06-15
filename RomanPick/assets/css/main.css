@@ -3086,28 +3086,36 @@ img {
 /* 검색창 리스트 */
 #novel-list {
    max-width: 100%;
+   height: auto;
+   display: grid;
+   grid-template-columns: repeat(3, 1fr); /* 3개의 열을 동일한 비율로 설정 */
+   grid-gap: 20px;
+   align-items: flex-start;
 }
 
 .novel {
-   display: flex;
+   display: grid;
    align-items: center;
    margin-bottom: 20px;
-   padding: 10px;
+   padding: 20px;
    border: 1px solid #ccc;
    border-radius: 5px;
    cursor: pointer;
+   gap: 10px; /* img와 info 사이의 간격 설정 */
 }
 
 .novel img {
-   width: 140px;
-   height: 200px;
+   align-items: center;
+   width: 100%;
+   height: auto;
    margin-right: 10px;
    border-radius: 5px;
+   object-fit: cover; /* 이미지 비율 유지를 위해 추가 */
 }
 
 .novel-info {
    flex: 1;
-   width: 200px;
+   width: 300px;
    height: auto;
 }
 
@@ -3123,6 +3131,10 @@ img {
 
 .novel p {
    font-size: 14px;
+}
+
+.novel-info h3 a {
+   font-size: 18px; /* 제목 글씨 크기 설정 */
 }
 
 @keyframes spin {
