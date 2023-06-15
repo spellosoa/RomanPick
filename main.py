@@ -1,5 +1,5 @@
 from typing import Optional
-from fastapi import FastAPI, Request, UploadFile, Form
+from fastapi import FastAPI, Request, UploadFile, Form, Request
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
@@ -28,16 +28,16 @@ def read_root(request:Request):
 def read_main(request:Request):
     return templates.TemplateResponse('02_main.html', {"request" : request})
 
-# 메인 클러스터 선택 화면
-@app.get("/searchlist")
-def read_main(request:Request):
-    return templates.TemplateResponse('search_list.html', {"request" : request})
+@app.post("/search/print")
+async def search_list(request:Request):
+    data = await request.json()
+    novel_list = db.search_novel(**data)
+    return novel_list
 
 # 검색 기능
 @app.post("/search")
 def search(request: Request, input_text: str = Form(...), category: str = Form(...)):
-    novel_list = db.search_novel(category, input_text)
-    return novel_list
+    return templates.TemplateResponse('search_list.html', {"request" : request, "input_text": input_text, "category":category})
         
 # ajax 랜덤 데이터 추출, canvas 출력
 @app.get("/main/{item}")
