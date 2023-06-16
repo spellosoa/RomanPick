@@ -44,7 +44,7 @@ function loadFile(input) {
             if(result.result){
                 if(result.book_code == "8"){
                     var qs = $.param(result);
-                    window.location.href = "/barcode?"+ qs;
+                    window.location.href = "/barcode?"+ qs+"#home";
                 }else{
                     alert("문학 책만 추천이 가능합니다.");
                     $('#fileName').text("");
@@ -105,7 +105,7 @@ $(document).ready(function () {
   });
 
   $(document).on('click', '#btnSubmit', function(e){
-    console.log($('#isbn').val())
+    e.preventDefault
     var input_text = $('#isbn').val();
     if (input_text == '' || input_text.length != 13){
         e.preventDefault();
@@ -120,7 +120,7 @@ $(document).ready(function () {
             if(result.result){
                 if(result.book_code == "8"){
                     var qs = $.param(result);
-                    window.location.href = "/barcode?"+ qs;
+                    window.location.href = "/barcode?"+ qs+"#home";
                 }else{
                     alert("문학 책만 추천이 가능합니다.");
                 }
@@ -130,6 +130,35 @@ $(document).ready(function () {
         }
     })
   })
+  $(document).on('keydown', '#isbn', function(e) {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      var input_text = $('#isbn').val();
+      if (input_text == '' || input_text.length != 13){
+          e.preventDefault();
+          alert('바코드 번호를 입력하세요.');
+          return
+      }
+      $.ajax({
+          url:"/input_isbn",
+          data : {'isbn' :$('#isbn').val()},
+          type:'get',
+          success:function(result){
+              if(result.result){
+                  if(result.book_code == "8"){
+                      var qs = $.param(result);
+                      window.location.href = "/barcode?"+ qs+"#home";
+                  }else{
+                      alert("문학 책만 추천이 가능합니다.");
+                  }
+              }else{
+                  alert("바코드를 인식할 수 없습니다.");
+              }
+          }
+      })
+    }
+  });
+
 
   $(document).on('click', '#drop', function(){
     $.ajax({
@@ -143,7 +172,7 @@ $(document).ready(function () {
             if(result.result){
                 if(result.book_code == "8"){
                     var qs = $.param(result);
-                    window.location.href = "/barcode?"+ qs;
+                    window.location.href = "/barcode?"+ qs+"#home";
                 }else{
                     alert("문학 책만 추천이 가능합니다.");
                 }

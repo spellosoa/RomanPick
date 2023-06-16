@@ -3161,7 +3161,7 @@ img {
 
 #loading {
    animation: spin 1s infinite linear;
-   display: block;
+   display: none;
 }
 
 .icon-container .dropdown-content {

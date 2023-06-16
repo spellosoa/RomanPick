@@ -97,14 +97,6 @@ def label_keyword(label:str, keyword:str):
 @app.post('/novel_cover_select')
 async def novel_cover(request:Request):
     data = await request.json()
-    
-    print()
-    print()
-    print("aaaaaaaaaaaaaaaaaaaaaaaaaa")
-    print(data.get('img'))
-    print()
-    print()
-    
     synopsis = db.novel_cover_select(data.get('img'))
     return synopsis
 
