@@ -165,17 +165,24 @@ async def noun_expert(request:Request):
     novel_list = db.isbn_select_novel(text_list)
     return novel_list
 
-@app.post("/select/emotion")
-async def select_emotion(request: Request):
+@app.get("/select/emotion/{emotion}")
+async def select_emotion(request: Request, emotion:str):
+    emotion = urllib.parse.unquote(emotion)
+    go = "emotion"
+    data = {
+            "novel_no":"",
+            "novel_nm":"",
+            "novel_writer":"",
+            "novel_synopsis":"",
+            "novel_cover": ""
+            }
+    return templates.TemplateResponse('04_List_title.html', {"request" : request, "data":data, "go": go, "emotion" :emotion})
+
+@app.post('/emotion/novel')
+async def emotion_novel(request:Request):
     data = await request.json()
-    emotions = {}
-    emotion_types = ["HAPPY", "ANGRY", "UNREST", "HURT", "SAD", "EMD"]
-
-    for emotion_type in emotion_types:
-        result = db.execute_emotion_query(emotion_type)
-        emotions[emotion_type] = result
-
-    return emotions
+    novel_list = db.execute_emotion_query(data.get('emotion'))
+    return novel_list
 
 @app.get("/select/novel_no")
 def select_novel(pic_numver:int):

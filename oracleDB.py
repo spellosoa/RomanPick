@@ -208,29 +208,29 @@ class OracleDB:
                 novel_list.append(novel)
         return novel_list
     
-def t_emotion_list(self, text_list):
-    def execute_emotion_query(emotion_type):
+    def execute_emotion_query(self, emotion_type):
         query = f"""
-            SELECT NOVEL_NO, {emotion_type}
+            SELECT n.*
             FROM (
-            SELECT NOVEL_NO, {emotion_type}
-            FROM T_EMOTION
-            ORDER BY {emotion_type} DESC
-            )
+                SELECT NOVEL_NO
+                FROM T_EMOTION
+                ORDER BY {emotion_type} DESC
+            ) e, t_novel n
             WHERE ROWNUM <= 6
+            and e.novel_no = n.novel_no
         """
-        
+        self.connect()
         cursor = self.connection.cursor()
         cursor.execute(query)
         result = cursor.fetchall()
-
-        return result
-
-    emotions = {}
-    emotion_types = ["HAPPY", "ANGRY", "UNREST", "HURT", "SAD", "EMD"]
-
-    for emotion_type in emotion_types:
-        result = execute_emotion_query(emotion_type)
-        emotions[emotion_type] = result
-
-    return emotions
+        emotion_novel_list = []
+        for row in result:
+            novel = {
+                'novel_no': row[0],
+                'novel_nm': row[1],
+                'novel_writer': row[2],
+                'novel_synopsis': row[3],
+                'novel_cover': row[4]
+            }
+            emotion_novel_list.append(novel)
+        return emotion_novel_list
