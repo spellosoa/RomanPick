@@ -165,6 +165,18 @@ async def noun_expert(request:Request):
     novel_list = db.isbn_select_novel(text_list)
     return novel_list
 
+@app.post("/select/emotion")
+async def select_emotion(request: Request):
+    data = await request.json()
+    emotions = {}
+    emotion_types = ["HAPPY", "ANGRY", "UNREST", "HURT", "SAD", "EMD"]
+
+    for emotion_type in emotion_types:
+        result = db.execute_emotion_query(emotion_type)
+        emotions[emotion_type] = result
+
+    return emotions
+
 @app.get("/select/novel_no")
 def select_novel(pic_numver:int):
     return db.select_novel(pic_numver)
@@ -172,3 +184,4 @@ def select_novel(pic_numver:int):
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="localhost", port=8000)
+
