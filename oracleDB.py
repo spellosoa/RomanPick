@@ -1,4 +1,5 @@
 import cx_Oracle
+import random
 
 class OracleDB:
     def __init__(self):
@@ -99,23 +100,80 @@ class OracleDB:
             }
         return data
         
-    def random_list(self):
-        # 랜덤한 novel_nm 10개 select
+    def random_title_list(self,label):
+        # 랜덤한 novel_nm 5개 select
         query = """SELECT novel_nm
-                FROM (
-                SELECT novel_nm
-                FROM t_novel
-                ORDER BY DBMS_RANDOM.RANDOM
-                )
-                WHERE ROWNUM <= 10"""
+                    FROM (
+                        SELECT n.novel_nm
+                        FROM t_novel n, t_vector v
+                        WHERE v.label = :label
+                            AND n.novel_no = v.novel_no
+                        ORDER BY dbms_random.value
+                    )
+                    WHERE ROWNUM <= 5"""
         self.connect()
         cursor = self.connection.cursor()
-        cursor.execute(query)
+        cursor.execute(query, label=label)
         result = cursor.fetchall()
         self.disconnect()
-        text_list = [row[0] for row in result]
-        return text_list
+        title_list = [row[0] for row in result]
+        return title_list
+    
+    def random_keyword_list(self,label):
+        # 랜덤한 keyword 5개 select
+        query = "SELECT keyword FROM t_word WHERE label=:label"
+        self.connect()
+        cursor = self.connection.cursor()
+        cursor.execute(query, label=label)
+        result = cursor.fetchone()
+        self.disconnect()
+        keyword_list = result[0].split(', ') if result else []
+        random_keywords = random.sample(keyword_list, 5)
+        return random_keywords
 
+    def label_keyword(self, label, keyword):
+        query = """
+                SELECT *
+                FROM (
+                    SELECT n.*
+                    FROM t_novel n, t_vector t
+                    WHERE n.novel_no = t.novel_no
+                        AND t.label = :label
+                        AND n.novel_synopsis LIKE '%' || :keyword || '%'
+                    ORDER BY COUNT(*) OVER (PARTITION BY :keyword) DESC
+                )
+                WHERE ROWNUM <= 6
+                """
+        self.connect()
+        cursor = self.connection.cursor()
+        values = {
+            'label':label,
+            'keyword':keyword
+        }
+        cursor.execute(query, **values)
+        result = cursor.fetchall()
+        self.disconnect()
+        novel_list = []
+        for row in result:
+            novel = {
+                'novel_no': row[0],
+                'novel_nm': row[1],
+                'novel_writer': row[2],
+                'novel_synopsis': row[3],
+                'novel_cover': row[4]
+            }
+            novel_list.append(novel)
+        return novel_list
+        
+    def novel_cover_select(self, novel_cover):
+        query = "select novel_synopsis from t_novel where novel_cover=:novel_cover"
+        self.connect()
+        cursor = self.connection.cursor()
+        cursor.execute(query, novel_cover = novel_cover)
+        result = cursor.fetchone()
+        self.disconnect()
+        return result
+        
     def isbn_select_novel(self, text_list):
         query = """
         SELECT novel_no, novel_nm, novel_writer, novel_synopsis, novel_cover
