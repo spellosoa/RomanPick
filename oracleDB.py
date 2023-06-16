@@ -212,12 +212,16 @@ class OracleDB:
         query = f"""
             SELECT n.*
             FROM (
-                SELECT NOVEL_NO
-                FROM T_EMOTION
-                ORDER BY {emotion_type} DESC
-            ) e, t_novel n
+                SELECT e.*
+                FROM (
+                    SELECT *
+                    FROM t_emotion
+                    WHERE happy + emb + angry + unrest + hurt + sad >= 500
+                ) e
+                ORDER BY e.{emotion_type} / (e.happy + e.emb + e.angry + e.unrest + e.hurt + e.sad) DESC
+            ) e
+            JOIN t_novel n ON e.novel_no = n.novel_no
             WHERE ROWNUM <= 6
-            and e.novel_no = n.novel_no
         """
         self.connect()
         cursor = self.connection.cursor()

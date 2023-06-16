@@ -289,10 +289,7 @@
                   
                }
             });
-            $('#backBtn').click(function(e){
-               e.preventDefault();
-               window.history.go(-1);
-               })
+            
          }else if(go == "barcode"){
             
             $('#title_img').attr('src', "{{data['novel_cover']}}")
@@ -374,7 +371,10 @@
       })
    </script>
    <script>
-      
+      $('#backBtn').click(function(e){
+         e.preventDefault();
+         window.history.go(-1);
+         })
        // 줄거리 더보기
        $('.image.fit').click(function(e){
          e.preventDefault();
