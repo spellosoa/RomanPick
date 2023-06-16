@@ -37,10 +37,10 @@ function loadFile(input) {
         contentType: false,
         data:formData,
         beforeSend:function(){
-            $('#loading-overlay').css('display', 'flex');
+            $('#loading-overlay_default').css('display', 'flex');
         },
         success:function(result){
-            $('#loading-overlay').css('display', 'none');
+            $('#loading-overlay_default').css('display', 'none');
             if(result.result){
                 if(result.book_code == "8"){
                     var qs = $.param(result);
@@ -57,7 +57,7 @@ function loadFile(input) {
             }
         },
         error:function(){
-            $('#loading-overlay').css('display', 'none');
+            $('#loading-overlay_default').css('display', 'none');
         }
       })
   }else{
@@ -136,10 +136,10 @@ $(document).ready(function () {
         url : "/camera_start",
         type:"get",
         beforeSend:function(){
-            $('#loading-overlay').css('display', 'flex');
+            $('#loading-overlay_default').css('display', 'flex');
         },
         success:function(result){
-            $('#loading-overlay').css('display', 'none');
+            $('#loading-overlay_default').css('display', 'none');
             if(result.result){
                 if(result.book_code == "8"){
                     var qs = $.param(result);
@@ -152,7 +152,7 @@ $(document).ready(function () {
             }
         },
         error:function(){
-            $('#loading-overlay').css('display', 'none');
+            $('#loading-overlay_default').css('display', 'none');
         }
     })
 })
