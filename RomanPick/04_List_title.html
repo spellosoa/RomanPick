@@ -351,7 +351,22 @@
             $('.title_h').css('display', 'none');
             $('.keyword_h').css('display', 'block');
             $('.title_key').text('[ emotion ]');
-            $('#keywod_title').text(`{{emotion}}`);
+            var emotion = `{{emotion}}`;
+            var ko_emo = "";
+            if(emotion == 'HAPPY'){
+               ko_emo = "기쁨";
+            }else if(emotion == 'EMB'){
+               ko_emo = "당황";
+            }else if(emotion == 'HURT'){
+               ko_emo = "상처";
+            }else if(emotion == 'UNREST'){
+               ko_emo = "불안";
+            }else if(emotion == 'SAD'){
+               ko_emo = "슬픔";
+            }else if(emotion == 'ANGRY'){
+               ko_emo = "분노";
+            }
+            $('#keywod_title').text(ko_emo);
             var data = {"emotion":"{{emotion}}"};
             $.ajax({
                url:'/emotion/novel',
