@@ -116,7 +116,11 @@ $(document).ready(function () {
         url:"/input_isbn",
         data : {'isbn' :$('#isbn').val()},
         type:'get',
+        beforeSend:function(){
+            $('#loading-overlay_default').css('display', 'flex');
+        },
         success:function(result){
+            $('#loading-overlay_default').css('display', 'none');
             if(result.result){
                 if(result.book_code == "8"){
                     var qs = $.param(result);
@@ -143,7 +147,11 @@ $(document).ready(function () {
           url:"/input_isbn",
           data : {'isbn' :$('#isbn').val()},
           type:'get',
+          beforeSend:function(){
+            $('#loading-overlay_default').css('display', 'flex');
+        },
           success:function(result){
+            $('#loading-overlay_default').css('display', 'none');
               if(result.result){
                   if(result.book_code == "8"){
                       var qs = $.param(result);
