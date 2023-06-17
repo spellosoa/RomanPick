@@ -64,7 +64,11 @@ def pick_cluster(request:Request, item:str):
 def item_title(request:Request, item:str, word:str):
     label = urllib.parse.unquote(item)
     word = urllib.parse.unquote(word)
-    result = db.novel_nm_select(word)
+    select = {
+        "label":label,
+        "novel_nm":word
+    }
+    result = db.novel_nm_select(**select)
     
     if result is None:
         go = "keyword"
