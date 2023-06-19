@@ -101,6 +101,7 @@ $(document).ready(function () {
   });
   $(document).on('input','#isbn', function() {
     $(this).val($(this).val().replace(/\D/g, ''));
+    this.value = this.value.substring(0, 13);
     
   });
 
@@ -190,6 +191,7 @@ $(document).ready(function () {
         },
         error:function(){
             $('#loading-overlay_default').css('display', 'none');
+            alert('카메라를 찾을 수 없습니다.');
         }
     })
 })
