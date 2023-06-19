@@ -11,7 +11,7 @@ function create_canvas(textList, label){
     // 캔버스 그리기
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     class TextElement {
-        constructor(text, x, y, width, height) { // 생성자
+        constructor(text, x, y, width, height) {
             this.text = text;
             this.x = x;
             this.y = y+parseInt(ctx.font); // y와 height는 반대
@@ -109,9 +109,6 @@ function animate_select_text(){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawTextElements();
     requestAnimationFrame(animate_select_text);
-}
-function clearCanvas() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
   canvas.addEventListener('mousemove', function(event) {
 	canvas.style.cursor = 'default'

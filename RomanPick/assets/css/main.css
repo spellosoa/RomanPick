@@ -1753,7 +1753,7 @@ button,
    cursor: pointer;
    outline: 0;
    padding: 0.7em 1.5em 0.7em 1.5em;
-   border-radius: 20%;
+   border-radius: 20px;
 }
 
 input[type="button"]:hover,

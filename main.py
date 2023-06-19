@@ -174,11 +174,11 @@ async def select_emotion(request: Request, emotion:str):
     emotion = urllib.parse.unquote(emotion)
     go = "emotion"
     data = {
-            "novel_no":"",
-            "novel_nm":"",
-            "novel_writer":"",
-            "novel_synopsis":"",
-            "novel_cover": ""
+        "novel_no":"",
+        "novel_nm":"",
+        "novel_writer":"",
+        "novel_synopsis":"",
+        "novel_cover": ""
             }
     return templates.TemplateResponse('04_List_title.html', {"request" : request, "data":data, "go": go, "emotion" :emotion})
 
