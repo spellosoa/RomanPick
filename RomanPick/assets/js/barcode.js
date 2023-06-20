@@ -101,6 +101,7 @@ $(document).ready(function () {
   });
   $(document).on('input','#isbn', function() {
     $(this).val($(this).val().replace(/\D/g, ''));
+    this.value = this.value.substring(0, 13);
     
   });
 
@@ -116,7 +117,11 @@ $(document).ready(function () {
         url:"/input_isbn",
         data : {'isbn' :$('#isbn').val()},
         type:'get',
+        beforeSend:function(){
+            $('#loading-overlay_default').css('display', 'flex');
+        },
         success:function(result){
+            $('#loading-overlay_default').css('display', 'none');
             if(result.result){
                 if(result.book_code == "8"){
                     var qs = $.param(result);
@@ -143,7 +148,11 @@ $(document).ready(function () {
           url:"/input_isbn",
           data : {'isbn' :$('#isbn').val()},
           type:'get',
+          beforeSend:function(){
+            $('#loading-overlay_default').css('display', 'flex');
+        },
           success:function(result){
+            $('#loading-overlay_default').css('display', 'none');
               if(result.result){
                   if(result.book_code == "8"){
                       var qs = $.param(result);
@@ -182,6 +191,7 @@ $(document).ready(function () {
         },
         error:function(){
             $('#loading-overlay_default').css('display', 'none');
+            alert('카메라를 찾을 수 없습니다.');
         }
     })
 })

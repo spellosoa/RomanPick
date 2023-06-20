@@ -25,11 +25,17 @@ class OracleDB:
         return result
 
     # 소설 제목으로 정보 가져오기
-    def novel_nm_select(self, novel_nm):
-        query = "select novel_no, novel_nm, novel_writer, novel_synopsis, novel_cover from t_novel where novel_nm=:novel_nm"
+    def novel_nm_select(self, **values):
+        query = """select n.*
+                    from t_novel n,
+                        t_vector v 
+                    where n.novel_nm=:novel_nm
+                    and n.novel_no = v.novel_no
+                    and v.label = :label
+                    """
         self.connect()
         cursor = self.connection.cursor()
-        cursor.execute(query, novel_nm=novel_nm)
+        cursor.execute(query, **values)
         result = cursor.fetchone()
         self.disconnect()
         return result
@@ -210,18 +216,22 @@ class OracleDB:
     
     def execute_emotion_query(self, emotion_type):
         query = f"""
-            SELECT n.*
+           SELECT n.*
             FROM (
                 SELECT e.*
                 FROM (
                     SELECT *
-                    FROM t_emotion
-                    WHERE happy + emb + angry + unrest + hurt + sad >= 500
+                    FROM (
+                        SELECT *
+                        FROM t_emotion
+                        WHERE happy + emb + angry + unrest + hurt + sad >= 500
+                        ORDER BY dbms_random.value
+                    )
+                    WHERE ROWNUM <= 6
                 ) e
                 ORDER BY e.{emotion_type} / (e.happy + e.emb + e.angry + e.unrest + e.hurt + e.sad) DESC
             ) e
             JOIN t_novel n ON e.novel_no = n.novel_no
-            WHERE ROWNUM <= 6
         """
         self.connect()
         cursor = self.connection.cursor()

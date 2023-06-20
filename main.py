@@ -64,7 +64,11 @@ def pick_cluster(request:Request, item:str):
 def item_title(request:Request, item:str, word:str):
     label = urllib.parse.unquote(item)
     word = urllib.parse.unquote(word)
-    result = db.novel_nm_select(word)
+    select = {
+        "label":label,
+        "novel_nm":word
+    }
+    result = db.novel_nm_select(**select)
     
     if result is None:
         go = "keyword"
@@ -170,11 +174,11 @@ async def select_emotion(request: Request, emotion:str):
     emotion = urllib.parse.unquote(emotion)
     go = "emotion"
     data = {
-            "novel_no":"",
-            "novel_nm":"",
-            "novel_writer":"",
-            "novel_synopsis":"",
-            "novel_cover": ""
+        "novel_no":"",
+        "novel_nm":"",
+        "novel_writer":"",
+        "novel_synopsis":"",
+        "novel_cover": ""
             }
     return templates.TemplateResponse('04_List_title.html', {"request" : request, "data":data, "go": go, "emotion" :emotion})
 
